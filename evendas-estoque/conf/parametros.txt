@@ -1,0 +1,6 @@
+Servidor
+-Djava.security.policy==C:\Users\wilbert\Documents\workspace\evendas-estoque\conf\java.policy
+-Djava.rmi.server.codebase=file:/C:\Users\wilbert\Documents\workspace\evendas-estoque\src/
+
+Cliente
+-Djava.security.policy==C:\Users\wilbert\Documents\workspace\evendas-estoque\conf\java.policy
