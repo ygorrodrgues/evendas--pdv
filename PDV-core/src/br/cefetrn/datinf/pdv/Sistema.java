@@ -24,6 +24,7 @@ public class Sistema implements ISistema {
 		if(pdv == null){
 			pdv = new Sistema();
 		}
+                
 		return pdv;
 	}
 	
@@ -32,7 +33,7 @@ public class Sistema implements ISistema {
 		return null;
 	}
 
-	//Métodos DE VENDA	
+	//Mï¿½todos DE VENDA	
 	public Item entrarItem(long id, int qtd) {
 		Item item = controladorVenda.inserirItem(id, qtd);
 		return item;		
