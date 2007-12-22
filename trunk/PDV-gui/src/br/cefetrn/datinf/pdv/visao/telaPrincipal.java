@@ -133,8 +133,8 @@ public class telaPrincipal extends javax.swing.JFrame{
         }    
         
         if(codigo == 116){
-            gerarCupom = new GerarCupom();
-            gerarCupom.setVisible(true);
+            gerarCupom = new GerarCupom(this);
+            gerarCupom.setVisibleDialog(true);
         }
         
     }//GEN-LAST:event_jTextFieldQuantidadeKeyPressed
