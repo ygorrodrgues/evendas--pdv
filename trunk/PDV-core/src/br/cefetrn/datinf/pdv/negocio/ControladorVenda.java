@@ -5,10 +5,7 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.Calendar;
-
 import br.cefetrn.datinf.estoque.remoto.IEstoque;
-import br.cefetrn.datinf.pdv.dominio.Funcionario;
 import br.cefetrn.datinf.pdv.dominio.Item;
 import br.cefetrn.datinf.pdv.dominio.Produto;
 import br.cefetrn.datinf.pdv.dominio.Venda;
