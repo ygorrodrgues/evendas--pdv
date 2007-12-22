@@ -7,30 +7,35 @@ package br.cefetrn.datinf.pdv.visao;
 
 import java.awt.Dimension;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 
 /**
  *
  * @author kelyson
  */
 public class GerarCupom extends JDialog{
-    public GerarCupom(){
+    private JFrame parent;
+   
+    public GerarCupom(JFrame owner){
+        super(owner);
+        this.parent = owner;
         initComponents();
     }
     
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GerarCupom().setVisible(true);
-            }
-        });
+    public void setVisibleDialog( boolean b ){
+		setVisible(b);
+		parent.setEnabled(!b);
+    }
+    
+    private int close(){
+        setVisibleDialog(false);
+        return javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
     }
 
     private void initComponents() {
         this.setSize(640,480);
-        this.setAlwaysOnTop(true);
-        this.setAlwaysOnTop(true);        
+        this.setAlwaysOnTop(true);     
         this.setMaximumSize(new Dimension(640,480));
-        this.setMinimumSize(new Dimension(640,480));
         
         this.setLayout(null);
         
@@ -44,7 +49,7 @@ public class GerarCupom extends JDialog{
         jButtonGerarCupomtroca = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(close());
         
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel1.setText("Gerar Boleto de troca");
@@ -77,7 +82,7 @@ public class GerarCupom extends JDialog{
 
         jLabel3.setText("Produtos da venda");
 
-        jButtonGerarCupomtroca.setText("Efetuar troca");
+        jButtonGerarCupomtroca.setText("Gerar cupom de troca");
 
         jButtonCancelar.setText("Cancelar");
 
