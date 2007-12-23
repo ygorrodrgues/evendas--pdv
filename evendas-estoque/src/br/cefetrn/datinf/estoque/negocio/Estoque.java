@@ -12,6 +12,11 @@ import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
 import br.cefetrn.datinf.estoque.persistencia.ItemDeVendaDao;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
 import br.cefetrn.datinf.estoque.remoto.IEstoque;
+/**
+ * 
+ * @author Gleison
+ *
+ */
 
 public class Estoque implements IEstoque{
 
