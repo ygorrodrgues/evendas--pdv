@@ -9,14 +9,10 @@ import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.estoque.excecoes.CupomDeTrocaNaoExistenteException;
 import br.cefetrn.datinf.estoque.excecoes.VendaNaoExistenteException;
 import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
-import br.cefetrn.datinf.estoque.persistencia.ItemDeVendaDao;
+import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
 import br.cefetrn.datinf.estoque.remoto.IEstoque;
-/**
- * 
- * @author Gleison
- *
- */
+
 
 public class Estoque implements IEstoque{
 
@@ -43,7 +39,7 @@ public class Estoque implements IEstoque{
 	public int registrarCupomDeTroca(CupomDeTroca cupom) throws SQLException {
 		FabricaDao fabrica = FabricaDao.getInstance();
 		int codCupom = fabrica.getCupomDeTrocaDao().inserir(cupom);
-		ItemDeVendaDao itemDAO = fabrica.getItemDeVendaDao();
+		ItemVendaDao itemDAO = fabrica.getItemDeVendaDao();
 		for (ItemVenda item : cupom.getItens()) {
 			itemDAO.remover(item);
 		}

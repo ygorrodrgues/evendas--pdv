@@ -2,7 +2,7 @@ package br.cefetrn.datinf.estoque.persistencia.sgbd;
 
 import br.cefetrn.datinf.estoque.persistencia.CupomDeTrocaDao;
 import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
-import br.cefetrn.datinf.estoque.persistencia.ItemDeVendaDao;
+import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
 import br.cefetrn.datinf.estoque.persistencia.PagamentoDao;
 import br.cefetrn.datinf.estoque.persistencia.ProdutoDao;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
@@ -10,7 +10,7 @@ import br.cefetrn.datinf.estoque.persistencia.VendaDao;
 public class FabricaDaoSgbd extends FabricaDao {
 	
 	private VendaDao vendaDao;
-	private ItemDeVendaDao itemDeVendaDao;
+	private ItemVendaDao itemDeVendaDao;
 	private ProdutoDao produtoDao;
 	private CupomDeTrocaDao cupomDeTrocaDao;
 	private PagamentoDao pagamentoDao;
@@ -18,8 +18,8 @@ public class FabricaDaoSgbd extends FabricaDao {
 	public FabricaDaoSgbd() {	}
 
 	@Override
-	public ItemDeVendaDao getItemDeVendaDao() {
-		if(itemDeVendaDao == null) itemDeVendaDao = new ItemDeVendaDaoSgbd();
+	public ItemVendaDao getItemDeVendaDao() {
+		if(itemDeVendaDao == null) itemDeVendaDao = new ItemVendaDaoSgbd();
 		return itemDeVendaDao;
 	}
 

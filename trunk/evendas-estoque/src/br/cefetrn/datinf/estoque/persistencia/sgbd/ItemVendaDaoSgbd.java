@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
-import br.cefetrn.datinf.estoque.persistencia.ItemDeVendaDao;
+import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
 
-public class ItemDeVendaDaoSgbd implements ItemDeVendaDao {
+public class ItemVendaDaoSgbd implements ItemVendaDao {
 
 	public void atualizar(ItemVenda item) {
 		// TODO Auto-generated method stub
