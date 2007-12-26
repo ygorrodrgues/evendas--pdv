@@ -3,7 +3,7 @@ package br.cefetrn.datinf.estoque.dominio;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class ItemDeVenda extends Produto implements Serializable{
+public class ItemVenda extends Produto implements Serializable{
 	private int id;
 	private int qtde;
 	private Estado estado;
@@ -14,9 +14,11 @@ public class ItemDeVenda extends Produto implements Serializable{
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
+	@Override
 	public int getId() {
 		return id;
 	}
+	@Override
 	public void setId(int id) {
 		this.id = id;
 	}

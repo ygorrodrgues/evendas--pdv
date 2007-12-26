@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.Collection;
 
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
-import br.cefetrn.datinf.estoque.dominio.ItemDeVenda;
+import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.estoque.excecoes.CupomDeTrocaNaoExistenteException;
 import br.cefetrn.datinf.estoque.excecoes.VendaNaoExistenteException;
@@ -20,7 +20,7 @@ import br.cefetrn.datinf.estoque.remoto.IEstoque;
 
 public class Estoque implements IEstoque{
 
-	public void realizarTroca(int numCupomTroca, Collection<ItemDeVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException {
+	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException {
 		FabricaDao fabrica = FabricaDao.getInstance();
 		boolean cupomOK = fabrica.getCupomDeTrocaDao().existe(numCupomTroca);
 		if(!cupomOK){
@@ -43,14 +43,19 @@ public class Estoque implements IEstoque{
 		FabricaDao fabrica = FabricaDao.getInstance();
 		int codCupom = fabrica.getCupomDeTrocaDao().inserir(cupom);
 		ItemDeVendaDao itemDAO = fabrica.getItemDeVendaDao();
-		for (ItemDeVenda item : cupom.getItens()) {
+		for (ItemVenda item : cupom.getItens()) {
 			itemDAO.remover(item);
 		}
 		return codCupom;		
 	}
 	public boolean registrarVenda(Venda umaVenda){
 		FabricaDao fabrica = FabricaDao.getInstance();
-		fabrica.getVendaDao().registrarVenda(umaVenda);
+		try {
+			fabrica.getVendaDao().registrarVenda(umaVenda.getData(), umaVenda.getPdv().getNumero());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;
 	}
 }

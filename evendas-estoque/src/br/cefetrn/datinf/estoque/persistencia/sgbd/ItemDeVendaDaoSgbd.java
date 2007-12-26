@@ -6,42 +6,42 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import br.cefetrn.datinf.estoque.dominio.ItemDeVenda;
+import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.persistencia.ItemDeVendaDao;
 
 public class ItemDeVendaDaoSgbd implements ItemDeVendaDao {
 
-	public void atualizar(ItemDeVenda item) {
+	public void atualizar(ItemVenda item) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public void inserir(ItemDeVenda item) {
+	public void inserir(ItemVenda item) {
 		// TODO Auto-generated method stub
 
 	}
 
-	public ItemDeVenda obterPorCodigo(int codigo) {
+	public ItemVenda obterPorCodigo(int codigo) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void remover(ItemDeVenda item) throws SQLException {
+	public void remover(ItemVenda item) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = conexao.obterCallableStatement("{call spRemoverItemDeVenda(?)}");
 		callableStatement.setInt(1, item.getId());
 		callableStatement.execute();
 	}
 
-	public Collection<ItemDeVenda> obterItensPorVenda(int codigo) throws SQLException {
+	public Collection<ItemVenda> obterItensPorVenda(int codigo) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = conexao.obterCallableStatement("{call spObterItensDeVendaPorVenda(?)}");
 		callableStatement.setInt(1, codigo);
 		ResultSet resultado = callableStatement.executeQuery();
-		Collection<ItemDeVenda> itens = itens = new ArrayList<ItemDeVenda>();
-		ItemDeVenda item;
+		Collection<ItemVenda> itens = itens = new ArrayList<ItemVenda>();
+		ItemVenda item;
 		while(resultado.next ()){
-			item = new ItemDeVenda();
+			item = new ItemVenda();
 			item.setId(resultado.getInt("codigo"));
 			item.setNome(resultado.getString("descricao"));
 			item.setQtde(resultado.getInt("quantidade"));
@@ -51,7 +51,7 @@ public class ItemDeVendaDaoSgbd implements ItemDeVendaDao {
 		return itens;
 	}
 	
-	public boolean registrarItemDeVenda(ItemDeVenda umItem) {
+	public boolean registrarItemDeVenda(ItemVenda umItem) {
 		// TODO Auto-generated method stub
 		return false;
 	}

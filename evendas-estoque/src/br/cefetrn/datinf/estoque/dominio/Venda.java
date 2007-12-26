@@ -11,8 +11,9 @@ public class Venda implements Serializable {
 	
 	private int id;
 	private Date data;
-	private Collection<ItemDeVenda> itens;
+	private Collection<ItemVenda> itens;
 	private Collection<Pagamento> pagamentos;
+	private Pdv pdv;
 	private double valor;
 	
 	public double getValor() {
@@ -24,7 +25,7 @@ public class Venda implements Serializable {
 	}
 
 	public Venda(){
-		this.itens = new ArrayList<ItemDeVenda>();
+		this.itens = new ArrayList<ItemVenda>();
 		this.pagamentos = new ArrayList<Pagamento>();
 	}
 	
@@ -36,11 +37,11 @@ public class Venda implements Serializable {
 		//TODO
 	}
 	
-	public void adicionarItem(ItemDeVenda umItem){
+	public void adicionarItem(ItemVenda umItem){
 		this.itens.add(umItem);
 	}
 	
-	public void removerItem(ItemDeVenda umItem){
+	public void removerItem(ItemVenda umItem){
 		this.itens.remove(umItem);
 	}
 	
@@ -56,10 +57,10 @@ public class Venda implements Serializable {
 	public void setData(Date data) {
 		this.data = data;
 	}
-	public Collection<ItemDeVenda> getItens() {
+	public Collection<ItemVenda> getItens() {
 		return itens;
 	}
-	public void setItens(Collection<ItemDeVenda> itens) {
+	public void setItens(Collection<ItemVenda> itens) {
 		this.itens = itens;
 	}
 
@@ -69,6 +70,14 @@ public class Venda implements Serializable {
 
 	public void setPagamentos(Collection<Pagamento> pagamentos) {
 		this.pagamentos = pagamentos;
+	}
+
+	public Pdv getPdv() {
+		return pdv;
+	}
+
+	public void setPdv(Pdv pdv) {
+		this.pdv = pdv;
 	}
 	
 	
