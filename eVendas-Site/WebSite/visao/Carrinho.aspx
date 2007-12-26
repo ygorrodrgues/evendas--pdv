@@ -19,11 +19,18 @@
                         <ItemStyle HorizontalAlign="Left" />
                         <HeaderStyle HorizontalAlign="Left" />
                     </asp:TemplateField>
+                    <asp:TemplateField HeaderText="Remover Item">
+                        <ItemTemplate>
+                            <asp:ImageButton ID="removerQuantidade" runat="server" ImageUrl="~/images/remover.png" OnCommand="removerQuantidade_Command"  CommandName="produto" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "IdProduto")%>'/>
+                        </ItemTemplate>
+                        <ItemStyle HorizontalAlign="Center" />
+                        <HeaderStyle HorizontalAlign="Center" />
+                    </asp:TemplateField>
                     <asp:BoundField DataField="Preco" HeaderText="Valor Unit&#225;rio" >
                         <ItemStyle HorizontalAlign="Right" />
                         <HeaderStyle HorizontalAlign="Right" />
                     </asp:BoundField>
-                    <asp:BoundField HeaderText="Valor Total">
+                    <asp:BoundField HeaderText="Valor Total" DataField="ValorTotal">
                         <ItemStyle HorizontalAlign="Right" />
                         <HeaderStyle HorizontalAlign="Right" />
                     </asp:BoundField>
