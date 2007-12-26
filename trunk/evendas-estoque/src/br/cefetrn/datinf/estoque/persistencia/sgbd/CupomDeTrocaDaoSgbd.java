@@ -12,8 +12,9 @@ public class CupomDeTrocaDaoSgbd implements CupomDeTrocaDao {
 
 	public boolean existe(int numCupom) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{call spSelectTroca(?)}");
-		callableStatement.setInt(1, numCupom);
+		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call spSelectTroca(?)}");
+		callableStatement.registerOutParameter(1, Types.INTEGER);
+		callableStatement.setInt(2, numCupom);
 		callableStatement.execute();
 		int num = callableStatement.getInt(1);
 		return num == 0 ? false : true;
@@ -21,11 +22,11 @@ public class CupomDeTrocaDaoSgbd implements CupomDeTrocaDao {
 
 	public int inserir(CupomDeTroca cupom) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call spInserirCupom(?,?,?)}");
+		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call spInserirCupom(?,?)}");
 		callableStatement.registerOutParameter(1, Types.INTEGER);
 		callableStatement.setInt(2, cupom.getVenda().getId());
-		callableStatement.setDate(3, (Date) cupom.getData());
-		callableStatement.setDouble(4, cupom.getValor());
+		//callableStatement.setDate(3, (Date) cupom.getData());
+		callableStatement.setDouble(3, cupom.getValor());
 		callableStatement.execute();
 		int codigo = callableStatement.getInt(1);
 		return codigo;

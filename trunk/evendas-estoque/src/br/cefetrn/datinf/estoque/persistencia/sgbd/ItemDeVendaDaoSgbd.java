@@ -42,10 +42,10 @@ public class ItemDeVendaDaoSgbd implements ItemDeVendaDao {
 		ItemVenda item;
 		while(resultado.next ()){
 			item = new ItemVenda();
-			item.setId(resultado.getInt("codigo"));
-			item.setNome(resultado.getString("descricao"));
-			item.setQtde(resultado.getInt("quantidade"));
-			item.setPreco(resultado.getDouble("valor"));			
+			item.setId(resultado.getInt("id"));
+			item.setNome(resultado.getString("nome"));
+			item.setQtde(resultado.getInt("qtd"));
+			item.setPreco(resultado.getDouble("preco"));			
 			itens.add(item);
 		} 
 		return itens;

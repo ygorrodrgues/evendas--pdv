@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Funcionario implements Serializable {
+	
 	private String matricula;
 	private String nome;
 	private Funcao funcao;
+	
 	public String getMatricula() {
 		return matricula;
 	}

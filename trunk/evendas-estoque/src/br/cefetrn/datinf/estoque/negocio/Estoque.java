@@ -27,12 +27,13 @@ public class Estoque implements IEstoque{
 			throw new CupomDeTrocaNaoExistenteException();
 		}
 		VendaDao vendaDAO = fabrica.getVendaDao();
-		vendaDAO.realizarTroca(numCupomTroca, itens);	
+		vendaDAO.realizarTroca(numCupomTroca, itens);
 	}
 
 	public Venda recuperarVenda(int numVenda) throws VendaNaoExistenteException, SQLException {
 		FabricaDao fabrica = FabricaDao.getInstance();
 		Venda venda = fabrica.getVendaDao().obterPorCodigo(numVenda);
+		//TODO:Não recupera venda sem item associado(não permitir o cadastro de venda sem item)
 		if(venda == null){
 			throw new VendaNaoExistenteException();
 		}
@@ -48,6 +49,7 @@ public class Estoque implements IEstoque{
 		}
 		return codCupom;		
 	}
+	
 	public boolean registrarVenda(Venda umaVenda){
 		FabricaDao fabrica = FabricaDao.getInstance();
 		try {

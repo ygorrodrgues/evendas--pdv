@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class ItemVenda extends Produto implements Serializable{
+	
 	private int id;
 	private int qtde;
 	private Estado estado;

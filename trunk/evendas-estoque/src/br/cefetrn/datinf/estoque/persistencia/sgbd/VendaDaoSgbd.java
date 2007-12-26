@@ -1,12 +1,9 @@
-opackage br.cefetrn.datinf.estoque.persistencia.sgbd;
+package br.cefetrn.datinf.estoque.persistencia.sgbd;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 
@@ -36,10 +33,12 @@ public class VendaDaoSgbd implements VendaDao {
 		callableStatement.setInt(1, codigo);
 		ResultSet resultado = callableStatement.executeQuery();
 		Venda venda = null;
-		if(resultado.next ()){
+		if(resultado.next()){
 			venda = new Venda();
+			venda.setId(codigo);
             venda.setData(resultado.getDate("data"));
-            venda.setValor(resultado.getDouble("valor"));
+           // venda.setValor(resultado.getDouble("valor"));
+            //TODO: Não está certo a recuperação do valor da compra
             venda.setItens(new ItemDeVendaDaoSgbd().obterItensPorVenda(codigo));
 		} 
 		return venda;
@@ -71,7 +70,7 @@ public class VendaDaoSgbd implements VendaDao {
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call RegistrarVenda(?)}");
 			
-			callableStatement.registerOutParameter(1, Types.BIGINT);
+			callableStatement.registerOutParameter(1, Types.INTEGER);
 			callableStatement.setInt(2, idPDV);
 			callableStatement.execute();
 			idVenda = callableStatement.getLong(1);
@@ -110,8 +109,6 @@ public class VendaDaoSgbd implements VendaDao {
 			end;
 			' language 'pl/pgsql';
 			
-			
-			
 			connection.setAutoCommit(false);
 			CallableStatement proc =
 			    connection.prepareCall("{ ? = call snuffed_it_when(?) }");
@@ -120,8 +117,6 @@ public class VendaDaoSgbd implements VendaDao {
 			cs.execute();
 			int age = proc.getInt(2);
 			 */
-			
-		
 	}
 
 }
