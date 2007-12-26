@@ -65,6 +65,20 @@ public class VendaDaoSgbd implements VendaDao {
 		return codigo;
 	 * 
 	 * */
+	/*set ANSI_NULLS ON
+set QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[RegistrarVenda]
+@idPDV int
+AS
+	DECLARE @retorno bigint
+	DECLARE @dataV datetime
+	SET @dataV = (select convert(varchar(20), getdate()))
+	INSERT INTO Vendas(data, idPDV) VALUES(@dataV, @idPDV)
+	SET @retorno = (SELECT MAX(id) FROM Vendas)
+	RETURN(@retorno)
+
+ */
 	public long registrarVenda(Date dataHoraVenda, int idPDV) throws SQLException {
 		long idVenda = 0;
 		Conexao conexao = Conexao.obterInstancia();
