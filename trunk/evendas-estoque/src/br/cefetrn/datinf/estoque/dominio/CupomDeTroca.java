@@ -10,7 +10,7 @@ public class CupomDeTroca implements Serializable{
 	private Date data;
 	private Venda venda;
 	private double valor;
-	private Collection<ItemDeVenda> itens;
+	private Collection<ItemVenda> itens;
 	
 	public double getValor() {
 		return valor;
@@ -36,10 +36,10 @@ public class CupomDeTroca implements Serializable{
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
-	public Collection<ItemDeVenda> getItens() {
+	public Collection<ItemVenda> getItens() {
 		return itens;
 	}
-	public void setItens(Collection<ItemDeVenda> itens) {
+	public void setItens(Collection<ItemVenda> itens) {
 		this.itens = itens;
 	}
 	

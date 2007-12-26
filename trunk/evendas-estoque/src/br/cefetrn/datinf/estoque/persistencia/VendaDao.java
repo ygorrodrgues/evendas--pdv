@@ -1,9 +1,11 @@
 package br.cefetrn.datinf.estoque.persistencia;
 
 import java.sql.SQLException;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
-import br.cefetrn.datinf.estoque.dominio.ItemDeVenda;
+import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Venda;
 
 
@@ -13,7 +15,7 @@ public interface VendaDao {
 	void atualizar(Venda item);
 	void remover(Venda item);
 	Venda obterPorCodigo(int codigo) throws SQLException;
-	void realizarTroca(int numCupomTroca, Collection<ItemDeVenda> itens) throws SQLException;
-	boolean registrarVenda(Venda umaVenda);
+	void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws SQLException;
+	long registrarVenda(Date dataHoraVenda, int idPDV) throws SQLException;
 	
 }

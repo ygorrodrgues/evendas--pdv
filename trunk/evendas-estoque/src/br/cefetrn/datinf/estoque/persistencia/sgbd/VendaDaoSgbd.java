@@ -1,14 +1,23 @@
-package br.cefetrn.datinf.estoque.persistencia.sgbd;
+opackage br.cefetrn.datinf.estoque.persistencia.sgbd;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 
-import br.cefetrn.datinf.estoque.dominio.ItemDeVenda;
+import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
-
+/**
+ * 
+ * @author Gleison
+ *
+ */
 public class VendaDaoSgbd implements VendaDao {
 
 	public void atualizar(Venda item) {
@@ -41,15 +50,38 @@ public class VendaDaoSgbd implements VendaDao {
 
 	}
 	
-	public boolean registrarVenda(Venda umaVenda) {
-		// TODO Auto-generated method stub
-		System.out.println("Registrou uma venda em VendaDAOSGBD - Id da venda: "+umaVenda.getId());
-		return false;
+	/**
+	 * @throws SQLException 
+	 * 
+	 */
+	/*
+	 * Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call spInserirCupom(?,?,?)}");
+		callableStatement.registerOutParameter(1, Types.INTEGER);
+		callableStatement.setInt(2, cupom.getVenda().getId());
+		callableStatement.setDate(3, (Date) cupom.getData());
+		callableStatement.setDouble(4, cupom.getValor());
+		callableStatement.execute();
+		int codigo = callableStatement.getInt(1);
+		return codigo;
+	 * 
+	 * */
+	public long registrarVenda(Date dataHoraVenda, int idPDV) throws SQLException {
+		long idVenda = 0;
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call RegistrarVenda(?)}");
+			
+			callableStatement.registerOutParameter(1, Types.BIGINT);
+			callableStatement.setInt(2, idPDV);
+			callableStatement.execute();
+			idVenda = callableStatement.getLong(1);
+		
+		return idVenda;
 	}
 
-	public void realizarTroca(int numCupomTroca, Collection<ItemDeVenda> itens) throws SQLException {
+	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws SQLException {
 			Conexao conexao = Conexao.obterInstancia();
-			for(ItemDeVenda item: itens){
+			for(ItemVenda item: itens){
 				CallableStatement callableStatement = conexao.obterCallableStatement("{call spRealizarTroca(?,?)}");
 				callableStatement.setInt(1, numCupomTroca);
 				callableStatement.setInt(2, item.getIdProduto());
