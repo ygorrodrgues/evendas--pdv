@@ -30,6 +30,7 @@ a:hover
 	color: White;
 	background-color: #5D7B9D;	
 	border: solid 1px Silver;
+	font-variant: small-caps;
 }
 
 .gridView
