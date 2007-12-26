@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
+import br.cefetrn.datinf.estoque.remoto.Pdv;
+
 @SuppressWarnings("serial")
 public class Venda implements Serializable {
 

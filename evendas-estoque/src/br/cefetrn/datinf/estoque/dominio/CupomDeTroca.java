@@ -1,17 +1,24 @@
 package br.cefetrn.datinf.estoque.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 
 public class CupomDeTroca implements Serializable{
 	
+	private static final long serialVersionUID = 7447493748410370873L;
 	private int numero;
 	private Date data;
 	private Venda venda;
 	private double valor;
 	private Collection<ItemVenda> itens;
 	
+	
+	
+	public CupomDeTroca() {
+		itens = new ArrayList<ItemVenda>();
+	}
 	public double getValor() {
 		return valor;
 	}
