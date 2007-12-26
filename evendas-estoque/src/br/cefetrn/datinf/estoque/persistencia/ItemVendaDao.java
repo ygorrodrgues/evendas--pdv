@@ -5,7 +5,7 @@ import java.util.Collection;
 
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 
-public interface ItemDeVendaDao {
+public interface ItemVendaDao {
 	
 	void inserir(ItemVenda item);
 	void atualizar(ItemVenda item);

@@ -25,7 +25,7 @@ public abstract class FabricaDao {
 	
 	public abstract ProdutoDao getProdutoDao();
 	
-	public abstract ItemDeVendaDao getItemDeVendaDao();
+	public abstract ItemVendaDao getItemDeVendaDao();
 	
 	public abstract VendaDao getVendaDao();
 	

@@ -39,7 +39,7 @@ public class VendaDaoSgbd implements VendaDao {
             venda.setData(resultado.getDate("data"));
            // venda.setValor(resultado.getDouble("valor"));
             //TODO: Não está certo a recuperação do valor da compra
-            venda.setItens(new ItemDeVendaDaoSgbd().obterItensPorVenda(codigo));
+            venda.setItens(new ItemVendaDaoSgbd().obterItensPorVenda(codigo));
 		} 
 		return venda;
 	}
@@ -81,9 +81,10 @@ public class VendaDaoSgbd implements VendaDao {
 	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws SQLException {
 			Conexao conexao = Conexao.obterInstancia();
 			for(ItemVenda item: itens){
-				CallableStatement callableStatement = conexao.obterCallableStatement("{call spRealizarTroca(?,?)}");
+				CallableStatement callableStatement = conexao.obterCallableStatement("{call spRealizarTroca(?,?,?)}");
 				callableStatement.setInt(1, numCupomTroca);
 				callableStatement.setInt(2, item.getIdProduto());
+				callableStatement.setInt(3, item.getQtde());
 				callableStatement.execute();
 			}
 			/*CallableStatement callableStatement = conexao.obterCallableStatement("{ ? = call SCMBA_PROD.FUNC_UNIFICA_PACIENTE(?,?,?,?)}");
