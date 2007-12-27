@@ -1,6 +1,5 @@
 package br.cefetrn.datinf.estoque.persistencia;
 
-
 public abstract class FabricaDao {
 	
 	private static FabricaDao fabrica = null;
