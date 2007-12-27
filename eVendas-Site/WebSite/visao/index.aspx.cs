@@ -65,8 +65,7 @@ public partial class visao_index : System.Web.UI.Page
         itemVendaNovo.Produto = produtoNovo;
 
         Session.Add("carrinho", Carrinho);
-
-        Carrinho.ListaItemVenda.Add(itemVendaNovo);
+        Session.Add("itemVenda", itemVendaNovo);
 
         Response.Redirect("Carrinho.aspx");
     }

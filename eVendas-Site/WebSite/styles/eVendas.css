@@ -73,6 +73,13 @@ a:hover
 	font-size: 7pt;
 }
 
+.labelMensagem
+{
+	color: Red;
+	font-size: 10pt;
+	font-weight: bold;
+}
+
 .button
 {
 	background-color: Silver;
@@ -454,14 +461,17 @@ img
 	height: 8px;
 }
 
-#corpo #principal #divCarrinho
-{
-}
-
-#corpo #principal #divCarrinho #divFormCarrinho
+#divCarrinho #ctl00_ContentPlaceHolder1_divFormCarrinho
 {
 	width: 800px;
 	_width: 760px;
 	padding: 20px 20px 20px 20px;
 	_padding: 20px 20px 20px 20px;
+}
+
+#ctl00_ContentPlaceHolder1_labelMensagem
+{
+	text-align: center;
+	padding-top: 20px;
+	padding-bottom: 40px;
 }
