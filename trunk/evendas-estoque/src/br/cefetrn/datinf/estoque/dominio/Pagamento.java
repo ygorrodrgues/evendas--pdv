@@ -3,17 +3,16 @@ package br.cefetrn.datinf.estoque.dominio;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class Pagamento implements Serializable{
-	private int id;
+public abstract class Pagamento implements Serializable{
+	private long id;
 	private Venda venda;
-	private double valor;
 	private TipoPagamento tipo;
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -23,14 +22,6 @@ public class Pagamento implements Serializable{
 	
 	public void setVenda(Venda venda) {
 		this.venda = venda;
-	}
-	
-	public double getValor() {
-		return valor;
-	}
-	
-	public void setValor(double valor) {
-		this.valor = valor;
 	}
 	
 	public TipoPagamento getTipo() {

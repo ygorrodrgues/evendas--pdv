@@ -49,36 +49,7 @@ public class VendaDaoSgbd implements VendaDao {
 
 	}
 	
-	/**
-	 * @throws SQLException 
-	 * 
-	 */
-	/*
-	 * Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call spInserirCupom(?,?,?)}");
-		callableStatement.registerOutParameter(1, Types.INTEGER);
-		callableStatement.setInt(2, cupom.getVenda().getId());
-		callableStatement.setDate(3, (Date) cupom.getData());
-		callableStatement.setDouble(4, cupom.getValor());
-		callableStatement.execute();
-		int codigo = callableStatement.getInt(1);
-		return codigo;
-	 * 
-	 * */
-	/*set ANSI_NULLS ON
-set QUOTED_IDENTIFIER ON
-GO
-ALTER PROCEDURE [dbo].[RegistrarVenda]
-@idPDV int
-AS
-	DECLARE @retorno bigint
-	DECLARE @dataV datetime
-	SET @dataV = (select convert(varchar(20), getdate()))
-	INSERT INTO Vendas(data, idPDV) VALUES(@dataV, @idPDV)
-	SET @retorno = (SELECT MAX(id) FROM Vendas)
-	RETURN(@retorno)
-
- */
+	
 	public long registrarVenda(Date dataHoraVenda, int idPDV) throws SQLException {
 		long idVenda = 0;
 		Conexao conexao = Conexao.obterInstancia();
