@@ -2,7 +2,9 @@ package br.cefetrn.datinf.estoque.negocio;
 
 import java.util.Date;
 
-import br.cefetrn.datinf.estoque.dominio.Pdv;
+import br.cefetrn.datinf.estoque.dominio.Pagamento;
+import br.cefetrn.datinf.estoque.dominio.PDV;
+import br.cefetrn.datinf.estoque.dominio.TipoPagamento;
 import br.cefetrn.datinf.estoque.dominio.Venda;
 
 public class Teste {
@@ -14,11 +16,15 @@ public class Teste {
 		Estoque estoque = new Estoque();
 		Venda novaVenda = new Venda();
 		novaVenda.setData(new Date());
-		Pdv pdv = new Pdv();
-		pdv.setNumero(1);
+		PDV pdv = new PDV();
+		pdv.setID(1);
 		novaVenda.setPdv(pdv);
+		//Pagamento pag =  new Pagamento();
+		//pag.setTipo(TipoPagamento.CARTAO);
 		
-		estoque.registrarVenda(novaVenda);
+		long idVenda = estoque.registrarVenda(novaVenda);
+		System.out.println("Venda registrada. ID: "+idVenda);
+		
 	}
 
 }

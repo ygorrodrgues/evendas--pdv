@@ -8,7 +8,7 @@ import java.util.Date;
 public class CupomDeTroca implements Serializable{
 	
 	private static final long serialVersionUID = 7447493748410370873L;
-	private int numero;
+	private int id;
 	private Date data;
 	private Venda venda;
 	private double valor;
@@ -25,11 +25,11 @@ public class CupomDeTroca implements Serializable{
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-	public int getNumero() {
-		return numero;
+	public int getID() {
+		return id;
 	}
-	public void setNumero(int numero) {
-		this.numero = numero;
+	public void setID(int numero) {
+		this.id = numero;
 	}
 	public Date getData() {
 		return data;

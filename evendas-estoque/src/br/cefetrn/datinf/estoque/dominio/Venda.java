@@ -13,7 +13,7 @@ public class Venda implements Serializable {
 	private Date data;
 	private Collection<ItemVenda> itens;
 	private Collection<Pagamento> pagamentos;
-	private Pdv pdv;
+	private PDV pdv;
 	private double valor;
 	
 	public double getValor() {
@@ -72,11 +72,11 @@ public class Venda implements Serializable {
 		this.pagamentos = pagamentos;
 	}
 
-	public Pdv getPdv() {
+	public PDV getPdv() {
 		return pdv;
 	}
 
-	public void setPdv(Pdv pdv) {
+	public void setPdv(PDV pdv) {
 		this.pdv = pdv;
 	}
 	

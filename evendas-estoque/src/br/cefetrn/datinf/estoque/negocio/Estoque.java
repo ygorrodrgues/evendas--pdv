@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
+import br.cefetrn.datinf.estoque.dominio.Pagamento;
 import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.estoque.excecoes.CupomDeTrocaNaoExistenteException;
 import br.cefetrn.datinf.estoque.excecoes.VendaNaoExistenteException;
@@ -46,14 +47,26 @@ public class Estoque implements IEstoque{
 		return codCupom;		
 	}
 	
-	public boolean registrarVenda(Venda umaVenda){
+	public long registrarVenda(Venda umaVenda){
 		FabricaDao fabrica = FabricaDao.getInstance();
+		long idVenda = 0;
 		try {
-			fabrica.getVendaDao().registrarVenda(umaVenda.getData(), umaVenda.getPdv().getNumero());
+			idVenda = fabrica.getVendaDao().registrarVenda(umaVenda.getData(), umaVenda.getPdv().getID());
+			
+			this.registrarItens(umaVenda.getItens(), idVenda);
+			this.registrarPagamentos(umaVenda.getPagamentos(), idVenda);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		return false;
+		}		
+		return idVenda;
+	}
+	
+	public void registrarItens(Collection<ItemVenda> itens, long idVenda){
+		
+	}
+	public void registrarPagamentos(Collection<Pagamento> pagamentos, long idVenda){
+		
 	}
 }
