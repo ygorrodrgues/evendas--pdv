@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Dominio\Dominio.
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\WebSite\", "WebSite\", "{F6A3AD6B-FBBE-4534-8999-058A9C8633A3}"
 	ProjectSection(WebsiteProperties) = preProject
-		ProjectReferences = "{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}|Negocio.dll;"
+		ProjectReferences = ""
 		Debug.AspNetCompiler.VirtualPath = "/WebSite"
 		Debug.AspNetCompiler.PhysicalPath = "WebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\WebSite\"
@@ -23,8 +23,6 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\...\WebSite\", "WebSite\
 		VWDPort = "1149"
 		DefaultWebSiteLanguage = "Visual C#"
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,16 +54,6 @@ Global
 		{F6A3AD6B-FBBE-4534-8999-058A9C8633A3}.Release|Any CPU.ActiveCfg = Debug|.NET
 		{F6A3AD6B-FBBE-4534-8999-058A9C8633A3}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
 		{F6A3AD6B-FBBE-4534-8999-058A9C8633A3}.Release|Mixed Platforms.Build.0 = Debug|.NET
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Release|.NET.ActiveCfg = Release|Any CPU
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Release|Any CPU.Build.0 = Release|Any CPU
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{78C30A14-96D1-4DA6-98A6-1DC84BBB3E28}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
