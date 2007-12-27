@@ -3,8 +3,11 @@ package br.cefetrn.datinf.estoque.negocio;
 import java.sql.SQLException;
 import java.util.Collection;
 
+import br.cefetrn.datinf.estoque.dominio.Categoria;
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
+import br.cefetrn.datinf.estoque.dominio.Produto;
+import br.cefetrn.datinf.estoque.dominio.SubCategoria;
 import br.cefetrn.datinf.estoque.dominio.Pagamento;
 import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.estoque.excecoes.CupomDeTrocaNaoExistenteException;
@@ -68,5 +71,29 @@ public class Estoque implements IEstoque{
 	}
 	public void registrarPagamentos(Collection<Pagamento> pagamentos, long idVenda){
 		
+	}
+	
+	public Collection<Produto> buscarProdutosCategoria(Categoria categoria){
+		FabricaDao fabrica = FabricaDao.getInstance();
+		Collection<Produto> produtos = null;
+		try {
+			produtos = fabrica.getProdutoDao().recuperarProdutos(categoria);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return produtos;
+	}
+	public Collection<Produto> buscarProdutosSubCategoria(SubCategoria subCategoria){
+		FabricaDao fabrica = FabricaDao.getInstance();
+		Collection<Produto> produtos = null;
+		produtos = fabrica.getProdutoDao().recuperarProdutos(subCategoria);
+		return null;
+	}
+	public Produto buscarProduto(int id){
+		FabricaDao fabrica = FabricaDao.getInstance();
+		Produto produto = null;
+		produto = fabrica.getProdutoDao().recuperarProduto(id);
+		return produto;
 	}
 }

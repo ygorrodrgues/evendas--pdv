@@ -8,6 +8,7 @@ public class Produto implements Serializable {
 	private String nome;
 	private int qtde;
 	private double preco;
+	private SubCategoria subCategoria;  
 	
 	public double getPreco() {
 		return preco;
@@ -32,5 +33,11 @@ public class Produto implements Serializable {
 	}
 	public void setQtde(int qtde) {
 		this.qtde = qtde;
+	}
+	public SubCategoria getSubCategoria() {
+		return subCategoria;
+	}
+	public void setSubCategoria(SubCategoria subCategoria) {
+		this.subCategoria = subCategoria;
 	}
 }
