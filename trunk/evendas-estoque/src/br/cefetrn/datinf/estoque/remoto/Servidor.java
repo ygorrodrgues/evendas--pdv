@@ -5,7 +5,7 @@ import java.rmi.Naming;
 import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException;
 
-import br.cefetrn.datinf.estoque.negocio.Estoque;
+import br.cefetrn.datinf.estoque.EstoqueRemoto;
 
 
 public class Servidor {
@@ -22,7 +22,7 @@ public class Servidor {
 			if(System.getSecurityManager() == null){
 				System.setSecurityManager(new RMISecurityManager());
 			}
-			Naming.rebind("estoque", new Estoque());
+			Naming.rebind("estoque", new EstoqueRemoto());
 			System.out.println("Servidor do estoque pronto");
 			
 		} catch (RemoteException e) {

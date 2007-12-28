@@ -15,10 +15,8 @@ import br.cefetrn.datinf.estoque.excecoes.VendaNaoExistenteException;
 import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
 import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
-import br.cefetrn.datinf.estoque.remoto.IEstoque;
 
-
-public class Estoque implements IEstoque{
+public class Estoque{
 
 	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException {
 		FabricaDao fabrica = FabricaDao.getInstance();
