@@ -11,8 +11,8 @@ public interface ProdutoDao {
 
 	Collection<Produto> recuperarProdutos(Categoria categoria) throws SQLException;
 
-	Collection<Produto> recuperarProdutos(SubCategoria subCategoria);
+	Collection<Produto> recuperarProdutos(SubCategoria subCategoria) throws SQLException;
 
-	Produto recuperarProduto(int id);
+	Produto recuperarProduto(int id) throws SQLException;
 
 }
