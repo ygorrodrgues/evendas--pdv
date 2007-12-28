@@ -85,13 +85,23 @@ public class Estoque{
 	public Collection<Produto> buscarProdutosSubCategoria(SubCategoria subCategoria){
 		FabricaDao fabrica = FabricaDao.getInstance();
 		Collection<Produto> produtos = null;
-		produtos = fabrica.getProdutoDao().recuperarProdutos(subCategoria);
+		try {
+			produtos = fabrica.getProdutoDao().recuperarProdutos(subCategoria);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return null;
 	}
 	public Produto buscarProduto(int id){
 		FabricaDao fabrica = FabricaDao.getInstance();
 		Produto produto = null;
-		produto = fabrica.getProdutoDao().recuperarProduto(id);
+		try {
+			produto = fabrica.getProdutoDao().recuperarProduto(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return produto;
 	}
 }
