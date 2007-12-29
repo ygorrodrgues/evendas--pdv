@@ -50,7 +50,6 @@ go
 /*==============================================================*/
 create table ITEM_PRODUTO (
 ID_ITEM_PRODUTO      bigint               not null identity,
-ID_ESTADO_ITEM_VENDA smallint             not null,
 ID_PRODUTO           bigint               not null,
 ID_LOJA              int                  not null,
 QTD_ITEM_PRODUTO     int                  not null,
@@ -115,7 +114,7 @@ constraint FK_FUNCIONA_RELATIONS_LOJA foreign key (ID_LOJA)
 )
 go
 
-//*==============================================================*/
+/*==============================================================*/
 /* Table: CARTAO                                                */
 /*==============================================================*/
 create table CARTAO (
