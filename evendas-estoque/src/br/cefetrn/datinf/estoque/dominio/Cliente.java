@@ -4,8 +4,8 @@ public class Cliente {
 	private long id;
 	private String CPF;
 	private String nome;
-	private String endereco;
-	private String telefone;
+	private Endereco endereco;
+	private Telefone telefone;
 	
 	public long getId() {
 		return id;
@@ -25,16 +25,29 @@ public class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getEndereco() {
+	/**
+	 * @return the endereco
+	 */
+	public Endereco getEndereco() {
 		return endereco;
 	}
-	public void setEndereco(String endereco) {
+	/**
+	 * @param endereco the endereco to set
+	 */
+	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	public String getTelefone() {
+	/**
+	 * @return the telefone
+	 */
+	public Telefone getTelefone() {
 		return telefone;
 	}
-	public void setTelefone(String telefone) {
+	/**
+	 * @param telefone the telefone to set
+	 */
+	public void setTelefone(Telefone telefone) {
 		this.telefone = telefone;
 	}
+	
 }

@@ -27,8 +27,8 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		Produto produto = null;
 		while(resultado.next()){
 			produto = new Produto();
-			produto.setId(resultado.getInt("id"));
-			produto.setNome(resultado.getString("nome"));
+			produto.setId(resultado.getInt("ID_PRODUTO"));
+			produto.setDescricao(resultado.getString("DESCRICAO"));
 			produto.setQtde(resultado.getInt("qtd"));
 			produto.setPreco(resultado.getDouble("preco"));
 			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("idsubcategoria")));
@@ -48,7 +48,7 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		while(resultado.next()){
 			produto = new Produto();
 			produto.setId(resultado.getInt("id"));
-			produto.setNome(resultado.getString("nome"));
+			produto.setDescricao(resultado.getString("nome"));
 			produto.setQtde(resultado.getInt("qtd"));
 			produto.setPreco(resultado.getDouble("preco"));
 			produto.setSubCategoria(subCategoria);
@@ -67,7 +67,7 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		if(resultado.next()){
 			produto = new Produto();
 			produto.setId(resultado.getInt("id"));
-			produto.setNome(resultado.getString("nome"));
+			produto.setDescricao(resultado.getString("nome"));
 			produto.setQtde(resultado.getInt("qtd"));
 			produto.setPreco(resultado.getDouble("preco"));
 			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("idsubcategoria")));

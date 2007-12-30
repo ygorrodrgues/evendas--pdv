@@ -7,10 +7,23 @@ public class ItemVenda implements Serializable{
 	
 	private int id;
 	private int qtde;
-	private Estado estado;
-	private String nome;
+	private EstadoItemVenda estado;
+	private ItemProduto itemProduto;
 	private double preco;
+	private String nome;
 	
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
+	}
+	/**
+	 * @param nome the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 	/**
 	 * @return the preco
 	 */
@@ -24,21 +37,21 @@ public class ItemVenda implements Serializable{
 		this.preco = preco;
 	}
 	/**
-	 * @return the nome
+	 * @return the itemProduto
 	 */
-	public String getNome() {
-		return nome;
+	public ItemProduto getItemProduto() {
+		return itemProduto;
 	}
 	/**
-	 * @param nome the nome to set
+	 * @param itemProduto the itemProduto to set
 	 */
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setItemProduto(ItemProduto itemProduto) {
+		this.itemProduto = itemProduto;
 	}
-	public Estado getEstado() {
+	public EstadoItemVenda getEstado() {
 		return estado;
 	}
-	public void setEstado(Estado estado) {
+	public void setEstado(EstadoItemVenda estado) {
 		this.estado = estado;
 	}
 

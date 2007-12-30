@@ -38,7 +38,7 @@ public class Main {
 		categoria.setId(1);
 		Collection<Produto> p = e.buscarProdutosCategoria(categoria);
 		for (Produto produto : p) {
-			System.out.println(produto.getNome());
+			System.out.println(produto.getDescricao());
 		}
 		
 		System.out.println("Teoricamente deu certo");

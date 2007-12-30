@@ -14,6 +14,8 @@ public class Venda implements Serializable {
 	private Collection<ItemVenda> itens;
 	private Collection<Pagamento> pagamentos;
 	private PDV pdv;
+	private Funcionario funcionario;
+	private Cliente cliente;
 	private double valor;
 	
 	public double getValor() {
