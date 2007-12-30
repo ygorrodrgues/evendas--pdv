@@ -212,9 +212,12 @@ ID_TROCA             int                  not null identity,
 ID_VENDA             bigint               not null,
 DATA_TROCA           datetime             not null,
 VALOR_TROCA          decimal(10,2)        not null,
+ID_PAGAMENTO		bigint					null,
 constraint PK_TROCA primary key  (ID_TROCA),
 constraint FK_TROCA_RELATIONS_VENDA foreign key (ID_VENDA)
-      references VENDA (ID_VENDA)
+      references VENDA (ID_VENDA),
+constraint FK_TROCA_RELATIONS_PAG foreign key (ID_PAGAMENTO)
+      references PAGAMENTO (ID_PAGAMENTO)
 )
 go
 
