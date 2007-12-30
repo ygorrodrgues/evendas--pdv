@@ -27,7 +27,7 @@ go
 create table PRODUTO (
 ID_PRODUTO           bigint               not null identity,
 ID_SUBCATEGORIA      bigint               not null,
-DESCRICAO_SUBCATEGORIA varchar(50)          not null,
+DESCRICAO varchar(50)          not null,
 CUSTO                decimal(10,2)        not null,
 constraint PK_PRODUTO primary key  (ID_PRODUTO),
 constraint FK_PRODUTO_RELATIONS_SUBCATEG foreign key (ID_SUBCATEGORIA)
@@ -120,6 +120,7 @@ go
 create table CARTAO (
 ID_CARTAO            int                  not null identity,
 ID_CLIENTE           bigint               not null,
+LIMITE				decimal(10,2)			not null;
 constraint PK_CARTAO primary key  (ID_CARTAO),
 constraint FK_CARTAO_RELATIONS_CLIENTE foreign key (ID_CLIENTE)
       references CLIENTE (ID_CLIENTE)
