@@ -1,5 +1,5 @@
 package br.cefetrn.datinf.estoque.dominio;
 
-public enum Estado {
+public enum EstadoItemVenda {
 	DEVOLVIDO, ENTREGUE, TROCADO;
 }

@@ -23,5 +23,18 @@ public class PDV implements Serializable{
 
     public void setID(int numero) {
         this.id = numero;
-    }    
+    }
+	/**
+	 * @return the loja
+	 */
+	public Loja getLoja() {
+		return loja;
+	}
+
+	/**
+	 * @param loja the loja to set
+	 */
+	public void setLoja(Loja loja) {
+		this.loja = loja;
+	}    
 }

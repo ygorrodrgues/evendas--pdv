@@ -8,6 +8,7 @@ public class Cartao implements Serializable{
 	private int digito;
 	private Date vencimento;
 	private Cliente cliente;
+	private double limite;
 	
 	public long getId() {
 		return id;
