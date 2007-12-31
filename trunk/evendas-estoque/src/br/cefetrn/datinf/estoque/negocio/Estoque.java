@@ -2,6 +2,7 @@ package br.cefetrn.datinf.estoque.negocio;
 
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.Date;
 
 import br.cefetrn.datinf.estoque.dominio.Categoria;
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
@@ -52,8 +53,7 @@ public class Estoque{
 		FabricaDao fabrica = FabricaDao.getInstance();
 		long idVenda = 0;
 		try {
-			idVenda = fabrica.getVendaDao().registrarVenda(umaVenda.getData(), umaVenda.getPdv().getID());
-			
+			idVenda = fabrica.getVendaDao().registrarVenda(umaVenda.getFuncionario().getId(), umaVenda.getPdv().getID(), umaVenda.getCliente().getId(), new Date());			
 			this.registrarItens(umaVenda.getItens(), idVenda);
 			this.registrarPagamentos(umaVenda.getPagamentos(), idVenda);
 			

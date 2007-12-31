@@ -11,7 +11,20 @@ public class ItemVenda implements Serializable{
 	private ItemProduto itemProduto;
 	private double preco;
 	private String nome;
+	private Venda venda;
 	
+	/**
+	 * @return the venda
+	 */
+	public Venda getVenda() {
+		return venda;
+	}
+	/**
+	 * @param venda the venda to set
+	 */
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
 	/**
 	 * @return the nome
 	 */

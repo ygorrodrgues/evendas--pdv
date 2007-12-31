@@ -81,6 +81,34 @@ public class Venda implements Serializable {
 	public void setPdv(PDV pdv) {
 		this.pdv = pdv;
 	}
+
+	/**
+	 * @return the funcionario
+	 */
+	public Funcionario getFuncionario() {
+		return funcionario;
+	}
+
+	/**
+	 * @param funcionario the funcionario to set
+	 */
+	public void setFuncionario(Funcionario funcionario) {
+		this.funcionario = funcionario;
+	}
+
+	/**
+	 * @return the cliente
+	 */
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	/**
+	 * @param cliente the cliente to set
+	 */
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 	
 	
 }
