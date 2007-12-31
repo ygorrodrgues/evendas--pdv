@@ -8,7 +8,6 @@ public class Funcionario implements Serializable {
 	private int id;
 	private String matricula;
 	private String nome;
-	private Funcao funcao;
 	private Loja loja;
 	/**
 	 * @return the loja
@@ -33,12 +32,6 @@ public class Funcionario implements Serializable {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	public Funcao getFuncao() {
-		return funcao;
-	}
-	public void setFuncao(Funcao funcao) {
-		this.funcao = funcao;
 	}
 	/**
 	 * @return the id
