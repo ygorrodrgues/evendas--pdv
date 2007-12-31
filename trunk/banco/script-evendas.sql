@@ -342,6 +342,7 @@ CREATE PROCEDURE RegistrarVenda
 AS
 	DECLARE @retorno bigint
 	DECLARE @dataV datetime
+	/* Não sei como coverter o Date do java para o datetime do sql server */
 	SET @dataVenda = (select convert(varchar(20), getdate()))
 	INSERT INTO Venda(ID_FUNC, ID_PDV, ID_CLIENTE, DATA_VENDA) VALUES(@idFunc, @idPDV, @idCliente, @dataVenda)
 	SET @retorno = (SELECT MAX(id_venda) FROM Vendas)
