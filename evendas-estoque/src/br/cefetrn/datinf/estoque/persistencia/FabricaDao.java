@@ -31,4 +31,6 @@ public abstract class FabricaDao {
 	public abstract CupomDeTrocaDao getCupomDeTrocaDao();
 	
 	public abstract PagamentoDao getPagamentoDAO();
+	
+	public abstract ParcelaDao getParcelaDao();
 }

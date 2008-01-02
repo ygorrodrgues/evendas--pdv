@@ -9,7 +9,7 @@ import java.util.Date;
 public class Venda implements Serializable {
 
 	
-	private int id;
+	private long id;
 	private Date data;
 	private Collection<ItemVenda> itens;
 	private Collection<Pagamento> pagamentos;
@@ -47,11 +47,11 @@ public class Venda implements Serializable {
 		this.itens.remove(umItem);
 	}
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setId(long idVenda) {
+		this.id = idVenda;
 	}
 	public Date getData() {
 		return data;

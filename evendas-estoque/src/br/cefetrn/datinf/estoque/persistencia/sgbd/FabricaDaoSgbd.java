@@ -4,6 +4,7 @@ import br.cefetrn.datinf.estoque.persistencia.CupomDeTrocaDao;
 import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
 import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
 import br.cefetrn.datinf.estoque.persistencia.PagamentoDao;
+import br.cefetrn.datinf.estoque.persistencia.ParcelaDao;
 import br.cefetrn.datinf.estoque.persistencia.ProdutoDao;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
 
@@ -14,6 +15,7 @@ public class FabricaDaoSgbd extends FabricaDao {
 	private ProdutoDao produtoDao;
 	private CupomDeTrocaDao cupomDeTrocaDao;
 	private PagamentoDao pagamentoDao;
+	private ParcelaDao parcelaDao;
 	
 	public FabricaDaoSgbd() {	}
 
@@ -47,6 +49,12 @@ public class FabricaDaoSgbd extends FabricaDao {
 	public PagamentoDao getPagamentoDAO() {
 		if(pagamentoDao == null) pagamentoDao = new PagamentoDaoSgbd();
 		return pagamentoDao;
+	}
+
+	@Override
+	public ParcelaDao getParcelaDao() {
+		if(this.parcelaDao == null) this.parcelaDao = new ParcelaDaoSgbd();
+		return this.parcelaDao;
 	}	
 
 }

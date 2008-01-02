@@ -51,9 +51,15 @@ public class ItemVendaDaoSgbd implements ItemVendaDao {
 		return itens;
 	}
 	
-	public boolean registrarItemDeVenda(ItemVenda umItem) {
-		// TODO Auto-generated method stub
-		return false;
+	public void registrarItemDeVenda(ItemVenda umItem) throws SQLException {
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call registrarItemVenda(?, ?, ?, ?)}");
+		callableStatement.setLong(1, umItem.getVenda().getId());
+		callableStatement.setLong(2, umItem.getItemProduto().getId());
+		callableStatement.setString(3, umItem.getEstado().toString());
+		callableStatement.setInt(4, umItem.getQtde());
+		callableStatement.execute();
+		
 	}
 
 }

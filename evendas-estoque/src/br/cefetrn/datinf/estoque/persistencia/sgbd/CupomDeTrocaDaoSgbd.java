@@ -24,7 +24,7 @@ public class CupomDeTrocaDaoSgbd implements CupomDeTrocaDao {
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call spInserirCupom(?,?)}");
 		callableStatement.registerOutParameter(1, Types.INTEGER);
-		callableStatement.setInt(2, cupom.getVenda().getId());
+		callableStatement.setLong(2, cupom.getVenda().getId());
 		//callableStatement.setDate(3, (Date) cupom.getData());
 		callableStatement.setDouble(3, cupom.getValor());
 		callableStatement.execute();
