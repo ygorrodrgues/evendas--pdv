@@ -29,7 +29,7 @@ go
 create table PRODUTO (
 ID_PRODUTO           bigint               not null identity,
 ID_SUBCATEGORIA      bigint               not null,
-DESCRICAO varchar(50)          not null,
+DESCRICAO_PRODUTO    varchar(50)          not null,
 CUSTO                decimal(10,2)        not null,
 constraint PK_PRODUTO primary key  (ID_PRODUTO),
 constraint FK_PRODUTO_RELATIONS_SUBCATEG foreign key (ID_SUBCATEGORIA)
@@ -122,7 +122,7 @@ go
 create table CARTAO (
 ID_CARTAO            int                  not null identity,
 ID_CLIENTE           bigint               not null,
-LIMITE				decimal(10,2)			not null;
+LIMITE				decimal(10,2)			not null,
 constraint PK_CARTAO primary key  (ID_CARTAO),
 constraint FK_CARTAO_RELATIONS_CLIENTE foreign key (ID_CLIENTE)
       references CLIENTE (ID_CLIENTE)
@@ -341,7 +341,7 @@ CREATE PROCEDURE RegistrarVenda
 @idFunc int,
 @idPDV int,
 @idCliente bigint,
-@dataVenda datetime,
+@dataVenda datetime
 AS
 	DECLARE @retorno bigint
 	DECLARE @dataV datetime
@@ -350,6 +350,7 @@ AS
 	INSERT INTO Venda(ID_FUNC, ID_PDV, ID_CLIENTE, DATA_VENDA) VALUES(@idFunc, @idPDV, @idCliente, @dataVenda)
 	SET @retorno = (SELECT MAX(id_venda) FROM Vendas)
 	RETURN(@retorno)
+go
 
 /*DECLARE @ID BIGINT
 EXEC RegistrarVenda '01', @ID OUTPUT
@@ -370,7 +371,7 @@ DECLARE @idEstadoItemVenda smallInt
 SET @idEstadoItemVenda = (select ID_ESTADO_ITEM_VENDA FROM ESTADO_ITEM_VENDA where(DESCRICAO_ESTADO_ITEM_VENDA = @descricaoEstadoItemVenda))
 INSERT INTO Item_Venda(ID_VENDA, ID_ITEM_PRODUTO, ID_ESTADO_ITEM_VENDA, QTD_ITEM_VENDA) 
 	VALUES(@idVenda, @idItemProduto, @idEstadoItemVenda, @qtde)
-
+go
 
 
 /*==============================================================*/
