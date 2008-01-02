@@ -3,11 +3,12 @@ package dominio;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-public class ItemVenda extends Produto implements Serializable{
-	private int id;
+//extends produtos  ??tem dependencisomente!
+public class ItemVenda /*extends Produto*/ implements Serializable{
+	private long id;
 	private int qtde;
 	private Estado estado;
-        private Produto produto;
+        private ItemProduto itemProduto;
 	
 	public Estado getEstado() {
 		return estado;
@@ -15,10 +16,10 @@ public class ItemVenda extends Produto implements Serializable{
 	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public int getQtde() {
@@ -27,15 +28,15 @@ public class ItemVenda extends Produto implements Serializable{
 	public void setQtde(int qtde) {
 		this.qtde = qtde;
 	}
-	public int getIdProduto() {
-		return super.getId();
-	}
 
-    public Produto getProduto() {
-        return produto;
+    public ItemProduto getItemProduto() {
+        return itemProduto;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setItemProduto(ItemProduto itemProduto) {
+        this.itemProduto = itemProduto;
     }
+	
+
+   
 }
