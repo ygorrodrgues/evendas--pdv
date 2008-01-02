@@ -53,7 +53,8 @@ public class VendaDaoSgbd implements VendaDao {
 	public long registrarVenda(int idFunc, int idPDV, long idCliente, Date data) throws SQLException {
 		long idVenda = 0;
 		Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call RegistrarVenda(?, ?, ?, ?)}");
+		CallableStatement callableStatement = 
+			conexao.obterCallableStatement("{? = call RegistrarVenda(?, ?, ?, ?)}");
 			
 			callableStatement.registerOutParameter(1, Types.INTEGER);
 			callableStatement.setInt(2, idFunc);

@@ -4,9 +4,15 @@ import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
 
+import com.sun.org.apache.bcel.internal.generic.SWITCH;
+
 import br.cefetrn.datinf.estoque.dominio.Categoria;
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
+import br.cefetrn.datinf.estoque.dominio.PagamentoCartao;
+import br.cefetrn.datinf.estoque.dominio.PagamentoCupomDeTroca;
+import br.cefetrn.datinf.estoque.dominio.PagamentoDinheiro;
+import br.cefetrn.datinf.estoque.dominio.Parcela;
 import br.cefetrn.datinf.estoque.dominio.Produto;
 import br.cefetrn.datinf.estoque.dominio.SubCategoria;
 import br.cefetrn.datinf.estoque.dominio.Pagamento;
@@ -15,6 +21,8 @@ import br.cefetrn.datinf.estoque.excecoes.CupomDeTrocaNaoExistenteException;
 import br.cefetrn.datinf.estoque.excecoes.VendaNaoExistenteException;
 import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
 import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
+import br.cefetrn.datinf.estoque.persistencia.PagamentoDao;
+import br.cefetrn.datinf.estoque.persistencia.ParcelaDao;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
 
 public class Estoque{
@@ -49,25 +57,66 @@ public class Estoque{
 		return codCupom;		
 	}
 	
-	public long registrarVenda(Venda umaVenda){
+	public long registrarVenda(Venda umaVenda) throws SQLException{
 		FabricaDao fabrica = FabricaDao.getInstance();
 		long idVenda = 0;
-		try {
-			idVenda = fabrica.getVendaDao().registrarVenda(umaVenda.getFuncionario().getId(), umaVenda.getPdv().getID(), umaVenda.getCliente().getId(), new Date());			
-			this.registrarItens(umaVenda.getItens(), idVenda);
-			this.registrarPagamentos(umaVenda.getPagamentos(), idVenda);
+		VendaDao vendaDao = fabrica.getVendaDao();
+		idVenda = vendaDao.registrarVenda(umaVenda.getFuncionario().getId(), umaVenda.getPdv().getID(), umaVenda.getCliente().getId(), new Date());
+		umaVenda.setId(idVenda);
+		this.registrarItensVenda(umaVenda.getItens());
+		this.registrarPagamentos(umaVenda.getPagamentos());
 			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+				
 		return idVenda;
 	}
 	
-	public void registrarItens(Collection<ItemVenda> itens, long idVenda){
+	public void registrarItensVenda(Collection<ItemVenda> itens) throws SQLException{
+		FabricaDao fabrica = FabricaDao.getInstance();
+		ItemVendaDao dao = fabrica.getItemDeVendaDao();
+		for(ItemVenda iten: itens){
+			dao.registrarItemDeVenda(iten);
+		}
 		
 	}
-	public void registrarPagamentos(Collection<Pagamento> pagamentos, long idVenda){
+	
+	public void registrarPagamentos(Collection<Pagamento> pagamentos) throws SQLException{
+		for(Pagamento pag: pagamentos){
+			switch (pag.getTipo()) {
+			case Cartao:
+				this.registrarPagamentoCartao((PagamentoCartao) pag);
+				break;
+			
+			default:
+				break;
+			}
+			
+		}
+	}
+	
+	public void registrarPagamentoCartao(PagamentoCartao pagamento) throws SQLException{
+		FabricaDao fabrica = FabricaDao.getInstance();
+		PagamentoDao dao = fabrica.getPagamentoDAO();
+		long idPagamento = dao.registrarPagamento(pagamento);
+		pagamento.setId(idPagamento);
+		System.out.println("id do pagamento em estoque: "+idPagamento);
+		this.registrarParcelas(pagamento.getParcelas());
+	}
+	
+	public void registrarParcelas(Collection<Parcela> parcelas) throws SQLException{
+		FabricaDao fabrica = FabricaDao.getInstance();
+		ParcelaDao dao = fabrica.getParcelaDao();
+		int numeroParcela=1;//indica se é a primeira, segunda... parcela
+		for(Parcela parcela: parcelas){
+			dao.registrarParcela(parcela, numeroParcela);
+			++numeroParcela;
+		}
+	}
+	
+	public void registrarPagamentoDinheiro(PagamentoDinheiro pagamento){
+		
+	}
+	
+	public void registrarPagamentoTroca(PagamentoCupomDeTroca pagamento){
 		
 	}
 	

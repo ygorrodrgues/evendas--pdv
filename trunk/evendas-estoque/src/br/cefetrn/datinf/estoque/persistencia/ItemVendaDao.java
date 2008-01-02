@@ -12,6 +12,6 @@ public interface ItemVendaDao {
 	void remover(ItemVenda item) throws SQLException;
 	ItemVenda obterPorCodigo(int codigo);
 	Collection<ItemVenda> obterItensPorVenda(int codigo) throws SQLException;
-	boolean registrarItemDeVenda(ItemVenda umItem);
+	void registrarItemDeVenda(ItemVenda umItem) throws SQLException;
 	
 }

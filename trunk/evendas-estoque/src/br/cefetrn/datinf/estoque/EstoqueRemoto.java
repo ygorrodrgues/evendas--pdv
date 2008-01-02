@@ -36,15 +36,26 @@ public class EstoqueRemoto implements IEstoque {
 	}
 	
 	public long registrarVenda(Venda umaVenda){
-		return estoque.registrarVenda(umaVenda);
+		try {
+			return estoque.registrarVenda(umaVenda);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return 0;
 	}
 	
 	public void registrarItens(Collection<ItemVenda> itens, long idVenda){
-		estoque.registrarItens(itens, idVenda);
+		try {
+			estoque.registrarItensVenda(itens);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-	public void registrarPagamentos(Collection<Pagamento> pagamentos, long idVenda){
-		estoque.registrarPagamentos(pagamentos, idVenda);
-	}
+	/*public void registrarPagamentos(Collection<Pagamento> pagamentos, long idVenda) throws SQLException{
+		estoque.registrarPagamentos(pagamentos);
+	}*/
 	
 	public Collection<Produto> buscarProdutosCategoria(Categoria categoria){
 		return estoque.buscarProdutosCategoria(categoria);

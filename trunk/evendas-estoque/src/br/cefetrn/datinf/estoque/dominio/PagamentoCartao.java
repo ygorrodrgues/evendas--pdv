@@ -1,6 +1,7 @@
 package br.cefetrn.datinf.estoque.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 /**
  * @author Gleison
@@ -10,7 +11,24 @@ public class PagamentoCartao extends Pagamento implements Serializable{
 	
 	private Cartao cartao;
 	private Collection<Parcela> parcelas;
+	private int numeroParcelas;
+	
+	public PagamentoCartao(){
+		this.parcelas = new ArrayList<Parcela>();
+	}
 
+	/**
+	 * @return the numeroParcelas
+	 */
+	public int getNumeroParcelas() {
+		return numeroParcelas;
+	}
+	/**
+	 * @param numeroParcelas the numeroParcelas to set
+	 */
+	public void setNumeroParcelas(int numeroParcelas) {
+		this.numeroParcelas = numeroParcelas;
+	}
 	public Cartao getCartao() {
 		return cartao;
 	}
