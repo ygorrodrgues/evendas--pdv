@@ -1,3 +1,5 @@
+use evendas
+
 /*==============================================================*/
 /* Table: CATEGORIA_PRODUTO                                     */
 /*==============================================================*/
@@ -316,6 +318,7 @@ go
 create table ENDERECO (
 ID_ENDERECO           bigint               not null identity,
 ID_TIPO_PROP         int                  not null,
+ID_PROPRIETARIO      bigint               not null,
 constraint PK_ENDERECO primary key  (ID_ENDERECO),
 constraint FK_ENDERECO_RELATIONS_TIPO_PRO foreign key (ID_TIPO_PROP)
       references TIPO_PROPRIETARIO (ID_TIPO_PROP)
@@ -323,10 +326,10 @@ constraint FK_ENDERECO_RELATIONS_TIPO_PRO foreign key (ID_TIPO_PROP)
 go
 
 
-/*=======================================================================================================================*/
 /*======================================================================================================================*/
 /*======================================================================================================================*/
-/*==============================               PROCEDURES           ============================================================== */
+/*======================================================================================================================*/
+/*==============================               PROCEDURES           ====================================================*/
 /*======================================================================================================================*/
 /*======================================================================================================================*/
 /*======================================================================================================================*/
@@ -370,6 +373,200 @@ INSERT INTO Item_Venda(ID_VENDA, ID_ITEM_PRODUTO, ID_ESTADO_ITEM_VENDA, QTD_ITEM
 
 
 
+/*==============================================================*/
+/* Procedure: spSelectTroca                                     */
+/*==============================================================*/
+create procedure [dbo].[spSelectTroca]
+	@codCupom int
+AS
+	declare @id int 
+	select @id = id_troca from Troca where id_troca = @codCupom
+	return @id
+go
 
 
+/*==============================================================*/
+/* Procedure: spRealizarTroca                                   */
+/*==============================================================*/
+create procedure [dbo].[spRealizarTroca]
+	@numCupomTroca int, @codProduto int, @qtd int
+AS
+	Declare @codVenda int
+	select @codVenda = id_Venda from CupomDeTroca where id_troca = @numCupomTroca
+	insert into Item_Venda (id_Venda, id_Item_Produto, qtd_item_venda) values (@codVenda, @codProduto, @qtd)
+go
+
+
+/*==============================================================*/
+/* Procedure: spObterItensDeVendaPorVenda                       */
+/*==============================================================*/
+CREATE procedure [dbo].[spObterItensDeVendaPorVenda]
+	@codVenda int
+as
+	select ip.id_item_produto, p.descricao_produto, iv.qtd_item_venda, ip.preco_item_produto from Item_Venda iv
+	join item_produto ip on ip.id_item_produto = iv.id_item_produto
+	join produto p on p.id_produto = ip.id_produto
+	where id_Venda = @codVenda
+go
+
+
+/*==============================================================*/
+/* Procedure: spObterVendaPorCod                                */
+/*==============================================================*/
+CREATE procedure [dbo].[spObterVendaPorCod]
+	@codVenda int
+AS
+	SELECT v.id_venda, v.data_venda, dbo.precoItemDeVenda(iv.qtd_item_venda, ip.preco_item_produto) AS preco FROM venda v
+	JOIN item_venda iv ON iv.id_venda = v.id_venda
+	JOIN item_produto ip on ip.id_item_produto = iv.id_item_produto
+	WHERE v.id_venda = @codVenda 
+go
+
+
+/*==============================================================*/
+/* Procedure: spInserirCupom                                    */
+/*==============================================================*/
+CREATE procedure [dbo].[spInserirCupom]
+	@idVenda int, @valor decimal(12,2)
+AS
+	declare @id int
+	declare @data datetime 
+
+	set @data = getdate()
+
+	INSERT INTO Troca (valor_troca,data_troca,id_venda) VALUES (@valor,@data, @idVenda)
+
+	select @id = id_troca from Troca where data_troca = @data
+	return @id
+go
+
+
+/*==============================================================*/
+/* Procedure: spSelectCategoria                                 */
+/*==============================================================*/
+create procedure [dbo].[spSelectCategoria]
+	@codCategoria int
+AS
+	select * from Categoria_produto where id_categoria = @codCategoria
+go
+
+
+/*==============================================================*/
+/* Procedure: spSelectSubCategoria                              */
+/*==============================================================*/
+create procedure [dbo].[spSelectSubCategoria]
+	@codSubCategoria int
+AS
+	select * from SubCategoria_produto where id_subcategoria = @codSubCategoria
+go
+
+
+/*==============================================================*/
+/* Procedure: spSelectProdutosBySubCategoria                    */
+/*==============================================================*/
+CREATE procedure [dbo].[spSelectProdutosBySubCategoria]
+	@codsubcategoria int
+AS
+	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto from v_produto_Categoria 
+		where id_subcategoria = @codsubcategoria
+go
+
+
+/*==============================================================*/
+/* Procedure: spSelectProdutosById                              */
+/*==============================================================*/
+CREATE procedure [dbo].[spSelectProdutosById]
+	@id int
+AS
+	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto, id_subcategoria from v_produto_Categoria 
+		where id_produto = @id
+go
+
+
+/*==============================================================*/
+/* Procedure: spSelectProdutosByCategoria                       */
+/*==============================================================*/
+CREATE procedure [dbo].[spSelectProdutosByCategoria]
+	@codCategoria int
+AS
+	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto, id_subcategoria from v_produto_Categoria 
+		where id_categoria = @codcategoria
+go
+
+
+
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+/*================================               VIEW           ========================================================*/
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+
+/*==============================================================*/
+/* View: v_produto_Categoria                                    */
+/*==============================================================*/
+create view [dbo].[v_produto_Categoria]
+as
+	SELECT p.id_produto, p.descricao_produto, ip.qtd_item_Produto, ip.preco_item_produto, p.id_subcategoria, 
+		c.id_categoria from produto p
+	join item_produto ip on ip.id_produto = p.id_produto
+	join subcategoria_produto s on s.id_subcategoria = p.id_subcategoria
+	join categoria_produto c on c.id_categoria = s.id_categoria
+go
+
+
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+/*==============================               FUNCTION           ======================================================*/
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+
+/*==============================================================*/
+/* Function: precoItemDeVenda                                   */
+/*==============================================================*/
+create function [dbo].[precoItemDeVenda](@qtd int, @preco decimal(12,2))
+returns decimal
+as
+begin
+	return @qtd*@preco
+end
+go
+
+
+/*==============================================================*/
+/* Function: precoVenda                                         */
+/*==============================================================*/
+CREATE function [dbo].[precoVenda] (@codVenda int)
+returns decimal
+as
+begin
+
+	DECLARE @qtd int
+	DECLARE @preco decimal(12,2)
+	DECLARE @precoVenda decimal(12,2)
+	
+	set @precoVenda = 0
+	
+	DECLARE valorItem CURSOR
+		LOCAL
+		STATIC
+		FOR select iv.qtd_item_venda, ip.preco_item_produto from item_venda iv 
+			JOIN item_produto ip on ip.id_item_produto = iv.id_item_produto
+			where iv.id_venda = @codVenda
+	OPEN valorItem
+	FETCH FIRST FROM valorItem INTO @qtd,@preco
+	WHILE (@@FETCH_STATUS=0)
+	begin
+		set @precoVenda = @precoVenda + dbo.precoItemDeVenda(@qtd, @preco)
+		FETCH NEXT FROM valorItem INTO @qtd,@preco
+	end
+	CLOSE valorItem
+	DEALLOCATE valorItem
+
+	return @precoVenda
+end
+go
 
