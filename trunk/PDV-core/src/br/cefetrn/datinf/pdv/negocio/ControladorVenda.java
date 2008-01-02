@@ -1,40 +1,56 @@
 package br.cefetrn.datinf.pdv.negocio;
 
 
+import br.cefetrn.datinf.credito.remoto.ICredito;
 import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+
 import br.cefetrn.datinf.estoque.remoto.IEstoque;
-import br.cefetrn.datinf.pdv.dominio.Item;
-import br.cefetrn.datinf.pdv.dominio.Produto;
-import br.cefetrn.datinf.pdv.dominio.Venda;
-import br.cefetrn.datinf.pdv.negocio.interfac.IControladorVenda;
 
-public class ControladorVenda implements IControladorVenda{
+
+import dominio.ItemProduto;
+import dominio.ItemVenda;
+import dominio.Produto;
+import java.util.HashMap;
+
+public class ControladorVenda{
 	
-	private IEstoque iEstoque = null;	
-	private static IControladorVenda controladorVenda = null;
-	private Venda venda = null;//= new Venda();
+	private IEstoque iEstoque = null;
+        private ICredito iCredito = null;
+	private static ControladorVenda controladorVenda = null;
+	//private Venda venda = null;//= new Venda();
 	private double subTotal;
-
-	public Item inserirItem(long id, int qtd) {
-		Produto produto = remotoEstoque().buscarProduto(id);
-		Item item = new Item();
-		item.setProduto(produto);
-		item.setQtd(qtd);
-		//precisa??
-		item.setVenda(venda);
-		venda.adicionarItem(item);
-		this.subTotal(qtd,produto.getPreco());		
-		return item;
+        /***
+         * 
+         * @param venda
+         * @param id do produto
+         * @param qtd de itens
+         * @return item criado 
+         */
+	public ItemProduto recuperarItem(long codigoProduto) {
+                //ItemProduto itemProduto = remotoEstoque().buscarItemProduto(id);
+                //Gambiarra antes do RMI tah pronto
+				Produto produto = new Produto();
+                produto.setId(codigoProduto);
+                produto.setNome("uebba");
+                produto.setPreco(0);
+                
+                ItemProduto itemProduto = new ItemProduto();
+                itemProduto.setId(1);
+                itemProduto.setPreco(5.00);
+                itemProduto.setProduto(produto);
+                //fim da gabiarra
+                //Criando um novo item       
+		//ItemVenda itemVenda = new ItemVenda();
+                //este produto deve sero retornado pelo remoto
+		//itemVenda.setItemProduto(itemProduto);
+                //itemVenda.setQtde(qtde);
+				
+		return itemProduto;
 	}
-	
-	public void subTotal(int qtd, double preco){
-		double valor =  qtd*preco;
-		subTotal+=subTotal+valor;
-		venda.setValorTotal(subTotal);
-	}
+		
 	
 	public IEstoque	remotoEstoque() {
 		Object o;
@@ -55,10 +71,30 @@ public class ControladorVenda implements IControladorVenda{
 		}
 		return iEstoque;
 	}
+        
+        public ICredito	remotoCredito() {
+		Object o;
+		try {
+			if(iCredito!=null){
+				o = Naming.lookup("rmi://localhost//credito");
+				iCredito = (ICredito)o;
+			}
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return iCredito;
+	}
 	
 	private ControladorVenda(){}
 	
-	public static IControladorVenda getInstance() {
+	public static ControladorVenda getInstance() {
 		//controladorVenda = (controladorVenda == null ? new ControladorVenda() : controladorVenda);
 		if(controladorVenda==null){
 			controladorVenda = new ControladorVenda();
@@ -66,23 +102,32 @@ public class ControladorVenda implements IControladorVenda{
 		return controladorVenda;
 	}
 
-	public Venda iniciarVenda() {
+	/*public Venda iniciarVenda() {
 		//data? fucionario? 
 		//func - no login ... sessao!!
 		venda = new Venda();		
 		//venda.setFuncionario(funcionario);	
 		
 		return venda;
-	}
+	}*/
 
-	public Venda getVenda() {
+	/*public Venda getVenda() {
 		return venda;
-	}
+	}*/
 
-	public Produto buscarProduto(long id) {
-		// TODO Auto-generated method stub
-		
-		
+	public ItemProduto buscarItemProduto(long id) {
+		// TODO Auto-generated method stub		
 		return null;
 	}
+        
+        public HashMap<Integer,String> tiposPagamento(){
+            return iEstoque.tiposPagamento();
+        }
+        public String solicitarAprovacaoDeCompra(String numeroCartao,double valorCompra,
+    		int qtdParcelas,String identPDV){
+        	
+    	String mensagem = iCredito.solicitarAprovacaoDeCompra(numeroCartao, valorCompra, qtdParcelas, identPDV);
+    	
+    	return mensagem;
+    }
 }
