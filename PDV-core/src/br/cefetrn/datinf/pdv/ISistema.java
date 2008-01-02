@@ -2,22 +2,21 @@ package br.cefetrn.datinf.pdv;
 
 
 import java.util.ArrayList;
-import java.util.Date;
 
-import br.cefetrn.datinf.pdv.dominio.Funcionario;
-import br.cefetrn.datinf.pdv.dominio.Item;
-import br.cefetrn.datinf.pdv.dominio.Pagamento;
-import br.cefetrn.datinf.pdv.dominio.Produto;
-import br.cefetrn.datinf.pdv.dominio.Venda;
+import dominio.ItemVenda;
+import dominio.Pagamento;
+import dominio.Venda;
+import java.util.HashMap;
 
 public interface ISistema {
 
 	//quais os parametros  VENDA
 	public Venda iniciarVenda();	
 	//
-	public Item entrarItem(long itemId, int qtd);
-	public Venda finalizarVenda();
+	public ItemVenda entrarItem(Venda venda, long codigoProduto, int qtd);
+	public Venda finalizarVenda(Venda venda);
 	public void fazerPagamento(double quantia);
-	public ArrayList<Pagamento> tiposPagamento();
+	public HashMap<Integer,String> tiposPagamento();
+        public String solicitarAprovacaoDeCompra(String numeroCartao,double valorCompra,int qtdParcelas,String identPDV);
 	
 }

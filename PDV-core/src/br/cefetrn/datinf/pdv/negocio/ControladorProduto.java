@@ -1,8 +1,9 @@
 package br.cefetrn.datinf.pdv.negocio;
 
-import br.cefetrn.datinf.pdv.dominio.Produto;
+
 
 //essa classe eh soh pra ver a sequencia...
+import dominio.Produto;
 // foi implementada sem padraaaaaaaaaaaaaaaaaaaao!!!
 //se liguem ;) *)
 
