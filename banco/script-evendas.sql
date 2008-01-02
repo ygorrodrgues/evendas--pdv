@@ -332,7 +332,7 @@ go
 /*======================================================================================================================*/
 
 /*==============================================================*/
-/*                      PROCEDURE REGISTRAR VENDA                                          */
+/*                      PROCEDURE RegistrarVenda                                         */
 /*==============================================================*/
 CREATE PROCEDURE RegistrarVenda
 @idFunc int,
@@ -353,4 +353,23 @@ EXEC RegistrarVenda '01', @ID OUTPUT
 PRINT @id
 
 SELECT * FROM Vendas*/
+
+/*==============================================================*/
+/*                      PROCEDURE registrarItemVenda                                      */
+/*==============================================================*/
+CREATE PROCEDURE registrarItemVenda
+@idVenda bigint,
+@idItemProduto bigint,
+@descricaoEstadoItemVenda varchar,
+@qtde int
+AS
+DECLARE @idEstadoItemVenda smallInt
+SET @idEstadoItemVenda = (select ID_ESTADO_ITEM_VENDA FROM ESTADO_ITEM_VENDA where(DESCRICAO_ESTADO_ITEM_VENDA = @descricaoEstadoItemVenda))
+INSERT INTO Item_Venda(ID_VENDA, ID_ITEM_PRODUTO, ID_ESTADO_ITEM_VENDA, QTD_ITEM_VENDA) 
+	VALUES(@idVenda, @idItemProduto, @idEstadoItemVenda, @qtde)
+
+
+
+
+
 
