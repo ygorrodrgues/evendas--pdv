@@ -26,6 +26,34 @@ constraint FK_SUBCATEG_RELATIONS_CATEGORI foreign key (ID_CATEGORIA)
 )
 go
 
+
+/*==============================================================*/
+/* Table: MEDIDA                                              */
+/*==============================================================*/
+CREATE TABLE [MEDIDA] (
+	[ID_MEDIDA] [int] NOT NULL identity ,
+	[DESCRICAO_MEDIDA] [varchar] (50) COLLATE Latin1_General_CI_AS NOT NULL ,
+constraint PK_medida primary key  (ID_MEDIDA)
+) ON [PRIMARY]
+GO
+
+/*==============================================================*/
+/* Table: RELACAO_MEDIDA                                        */
+/*==============================================================*/
+CREATE TABLE [RELACAO_MEDIDA] (
+	[ID_MEDIDA_DE] [int] NOT NULL ,
+	[ID_MEDIDA_P] [int] NOT NULL ,
+	[FATOR_RELACAO] [float] NOT NULL,
+constraint UK_RELACAO_MEDIDA UNIQUE (ID_MEDIDA_DE, ID_MEDIDA_P),
+
+constraint FK_RELACAO_MEDIDA_RELATIONS_medida1 foreign key (ID_MEDIDA_DE)
+      references MEDIDA (ID_MEDIDA),
+constraint FK_RELACAO_MEDIDA_RELATIONS_medida2 foreign key (ID_MEDIDA_DE)
+      references MEDIDA (ID_MEDIDA)
+
+) ON [PRIMARY]
+GO
+
 /*==============================================================*/
 /* Table: PRODUTO                                               */
 /*==============================================================*/
@@ -376,35 +404,6 @@ constraint FK_ENDERECO_RELATIONS_MUNICIPIO foreign key (ID_MUNICIPIO)
       references MUNICIPIO (ID_MUNICIPIO)
 )
 go
-/*==============================================================*/
-/* Table: MEDIDA                                              */
-/*==============================================================*/
-CREATE TABLE [MEDIDA] (
-	[ID_MEDIDA] [int] NOT NULL identity ,
-	[DESCRICAO_MEDIDA] [varchar] (50) COLLATE Latin1_General_CI_AS NOT NULL ,
-constraint PK_medida primary key  (ID_MEDIDA)
-) ON [PRIMARY]
-GO
-
-/*==============================================================*/
-/* Table: RELACAO_MEDIDA                                              */
-/*==============================================================*/
-CREATE TABLE [RELACAO_MEDIDA] (
-	[ID_MEDIDA_DE] [int] NOT NULL ,
-	[ID_MEDIDA_P] [int] NOT NULL ,
-	[FATOR_RELACAO] [float] NOT NULL,
-constraint UK_RELACAO_MEDIDA UNIQUE (ID_MEDIDA_DE, ID_MEDIDA_P),
-
-constraint FK_RELACAO_MEDIDA_RELATIONS_medida1 foreign key (ID_MEDIDA_DE)
-      references MEDIDA (ID_MEDIDA),
-constraint FK_RELACAO_MEDIDA_RELATIONS_medida2 foreign key (ID_MEDIDA_DE)
-      references MEDIDA (ID_MEDIDA)
-
-) ON [PRIMARY]
-GO
-
-
-
 
 
 
@@ -419,7 +418,7 @@ GO
 /*======================================================================================================================*/
 
 /*==============================================================*/
-/*                      PROCEDURE RegistrarVenda                                         */
+/*                      PROCEDURE spRegistrarVenda                                         */
 /*==============================================================*/
 CREATE PROCEDURE RegistrarVenda
 @idFunc int,
@@ -436,27 +435,63 @@ AS
 	RETURN(@retorno)
 go
 
-/*DECLARE @ID BIGINT
-EXEC RegistrarVenda '01', @ID OUTPUT
-PRINT @id
-
-SELECT * FROM Vendas*/
-
 /*==============================================================*/
-/*                      PROCEDURE registrarItemVenda                                      */
+/*                      PROCEDURE spRegistrarItemVenda                                      */
 /*==============================================================*/
 CREATE PROCEDURE registrarItemVenda
 @idVenda bigint,
 @idItemProduto bigint,
-@descricaoEstadoItemVenda varchar,
+@descricaoEstadoItemVenda varchar(10),
 @qtde int
 AS
 DECLARE @idEstadoItemVenda smallInt
-SET @idEstadoItemVenda = (select ID_ESTADO_ITEM_VENDA FROM ESTADO_ITEM_VENDA where(DESCRICAO_ESTADO_ITEM_VENDA = @descricaoEstadoItemVenda))
+SET @idEstadoItemVenda = (select ID_ESTADO_ITEM_VENDA 
+	FROM ESTADO_ITEM_VENDA where(DESCRICAO_ESTADO_ITEM_VENDA = @descricaoEstadoItemVenda))
 INSERT INTO Item_Venda(ID_VENDA, ID_ITEM_PRODUTO, ID_ESTADO_ITEM_VENDA, QTD_ITEM_VENDA) 
 	VALUES(@idVenda, @idItemProduto, @idEstadoItemVenda, @qtde)
 go
 
+/*==============================================================*/
+/*                      PROCEDURE spRegistrarParcela                                      */
+/*==============================================================*/
+CREATE PROCEDURE registrarParcela
+@idPagamento bigint,
+@idCartao bigint,
+@dataVenc datetime,
+@valorVenc decimal(10,2),
+@numeroParcela int
+AS
+SET @dataVenc = getDate()+30*@numeroParcela;
+insert into parcelas(ID_PAGAMENTO, ID_CARTAO, DATA_VENC, VALOR_VENC) 
+	VALUES(@idPagamento, @idCartao, @dataVenc, @valorVenc)
+go
+	
+/*==============================================================*/
+/*                      PROCEDURE spLigarTrocaAoPagamento                                    */
+/*==============================================================*/
+CREATE PROCEDURE spLigarTrocaAoPagamento
+@idTroca bigint,
+@idPagamento bigint
+AS
+UPDATE TROCA SET ID_PAGAMENTO = @idPagamento WHERE(ID_TROCA = @idTroca)
+go
+
+/*==============================================================*/
+/*                      PROCEDURE spRegistrarPagamento                                      */
+/*==============================================================*/
+CREATE PROCEDURE RegistrarPagamento
+@descricaoTipo varchar(15),
+@idVenda bigint,
+@valorPagamento decimal(10,2)
+AS
+	DECLARE @retorno bigint	
+	DECLARE @idTipo smallInt
+	SET @idTipo = (select ID_TIPO_PAGAMENTO 
+		FROM TIPO_PAGAMENTO  where(DESCRICAO_TIPO_PAGAMENTO = @descricaoTipo))
+	INSERT INTO Pagamento(ID_TIPO_PAGAMENTO, ID_VENDA, VALOR_PAGAMENTO) VALUES(@idTipo, @idVenda, @valorPagamento)
+	SET @retorno = (SELECT MAX(id_pagamento) FROM pagamento)
+	RETURN(@retorno)
+go
 
 /*==============================================================*/
 /* Procedure: spSelectTroca                                     */
@@ -477,8 +512,10 @@ create procedure [dbo].[spRealizarTroca]
 	@numCupomTroca int, @codProduto int, @qtd int
 AS
 	Declare @codVenda int
-	select @codVenda = id_Venda from CupomDeTroca where id_troca = @numCupomTroca
-	insert into Item_Venda (id_Venda, id_Item_Produto, qtd_item_venda) values (@codVenda, @codProduto, @qtd)
+	set @codVenda = 0
+	select @codVenda = id_Venda from Troca where id_troca = @numCupomTroca
+	if @codVenda <> 0
+		insert into Item_Venda (id_Venda, id_Item_Produto,id_estado_item_venda, qtd_item_venda) values (@codVenda, @codProduto,1, @qtd)
 go
 
 
@@ -488,23 +525,19 @@ go
 CREATE procedure [dbo].[spObterItensDeVendaPorVenda]
 	@codVenda int
 as
-	select ip.id_item_produto, p.descricao_produto, iv.qtd_item_venda, ip.preco_item_produto from Item_Venda iv
-	join item_produto ip on ip.id_item_produto = iv.id_item_produto
-	join produto p on p.id_produto = ip.id_produto
-	where id_Venda = @codVenda
+	print @codVenda
+	select codigo, descricao, quantidade, valor from V_Item_Venda where id_Venda =  @codVenda
 go
 
 
 /*==============================================================*/
 /* Procedure: spObterVendaPorCod                                */
 /*==============================================================*/
-CREATE procedure [dbo].[spObterVendaPorCod]
+create procedure [dbo].[spObterVendaPorCod]
 	@codVenda int
 AS
-	SELECT v.id_venda, v.data_venda, dbo.precoItemDeVenda(iv.qtd_item_venda, ip.preco_item_produto) AS preco FROM venda v
-	JOIN item_venda iv ON iv.id_venda = v.id_venda
-	JOIN item_produto ip on ip.id_item_produto = iv.id_item_produto
-	WHERE v.id_venda = @codVenda 
+SELECT v.id_venda as codigo, v.data_venda as data , dbo.precoVenda(v.id_venda) AS valor 
+FROM venda v WHERE v.id_venda = @codVenda 
 go
 
 
@@ -532,7 +565,7 @@ go
 create procedure [dbo].[spSelectCategoria]
 	@codCategoria int
 AS
-	select * from Categoria_produto where id_categoria = @codCategoria
+	select id_categoria, descricao_categoria from Categoria_produto where id_categoria = @codCategoria
 go
 
 
@@ -542,7 +575,7 @@ go
 create procedure [dbo].[spSelectSubCategoria]
 	@codSubCategoria int
 AS
-	select * from SubCategoria_produto where id_subcategoria = @codSubCategoria
+	select id_categoria, descricao_subcategoria from SubCategoria_produto where id_subcategoria = @codSubCategoria
 go
 
 
@@ -552,8 +585,8 @@ go
 CREATE procedure [dbo].[spSelectProdutosBySubCategoria]
 	@codsubcategoria int
 AS
-	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto from v_produto_Categoria 
-		where id_subcategoria = @codsubcategoria
+	select codigo, nome, descricao, quantidade, preco from v_produto_Categoria 
+		where cod_subcategoria = @codsubcategoria
 go
 
 
@@ -563,8 +596,8 @@ go
 CREATE procedure [dbo].[spSelectProdutosById]
 	@id int
 AS
-	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto, id_subcategoria from v_produto_Categoria 
-		where id_produto = @id
+	select codigo, nome, descricao, quantidade, preco, cod_subcategoria from v_produto_Categoria 
+		where codigo = @id
 go
 
 
@@ -574,8 +607,8 @@ go
 CREATE procedure [dbo].[spSelectProdutosByCategoria]
 	@codCategoria int
 AS
-	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto, id_subcategoria from v_produto_Categoria 
-		where id_categoria = @codcategoria
+	select codigo, nome, descricao, quantidade, preco, cod_subcategoria from v_produto_Categoria 
+		where cod_categoria = @codcategoria
 go
 
 
@@ -707,11 +740,25 @@ go
 /*==============================================================*/
 create view [dbo].[v_produto_Categoria]
 as
-	SELECT p.id_produto, p.descricao_produto, ip.qtd_item_Produto, ip.preco_item_produto, p.id_subcategoria, 
-		c.id_categoria from produto p
+SELECT p.id_produto as codigo, p.nome_produto as nome,p.descricao_produto as descricao, 
+	ip.qtd_item_Produto as quantidade, ip.preco_item_produto as preco, 
+	p.id_subcategoria as cod_subcategoria,c.id_categoria as cod_categoria
+from produto p
 	join item_produto ip on ip.id_produto = p.id_produto
 	join subcategoria_produto s on s.id_subcategoria = p.id_subcategoria
 	join categoria_produto c on c.id_categoria = s.id_categoria
+go
+
+/*==============================================================*/
+/* View: V_Item_Venda                                           */
+/*==============================================================*/
+create view V_Item_Venda
+as
+select ip.id_item_produto as codigo, p.descricao_produto as descricao, iv.qtd_item_venda as quantidade, 
+	ip.preco_item_produto as valor, iv.id_Venda
+from Item_Venda iv
+	join item_produto ip on ip.id_item_produto = iv.id_item_produto
+	join produto p on p.id_produto = ip.id_produto
 go
 
 
