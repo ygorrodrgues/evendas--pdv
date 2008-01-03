@@ -27,9 +27,9 @@ public class EstoqueRemoto implements IEstoque, Serializable {
 		estoque = new Estoque();
 	}
 
-	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException, RemoteException  {
+	/*public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException, RemoteException  {
 		estoque.realizarTroca(numCupomTroca, itens);		
-	}
+	}*/
 
 	public Venda recuperarVenda(int numVenda) throws VendaNaoExistenteException, SQLException, RemoteException {
 		return estoque.recuperarVenda(numVenda);

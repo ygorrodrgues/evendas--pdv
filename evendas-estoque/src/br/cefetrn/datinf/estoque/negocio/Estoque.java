@@ -29,7 +29,7 @@ import br.cefetrn.datinf.estoque.persistencia.VendaDao;
 
 public class Estoque implements Serializable{
 
-	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException {
+	/*public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException {
 		FabricaDao fabrica = FabricaDao.getInstance();
 		boolean cupomOK = fabrica.getCupomDeTrocaDao().existe(numCupomTroca);
 		if(!cupomOK){
@@ -37,7 +37,7 @@ public class Estoque implements Serializable{
 		}
 		VendaDao vendaDAO = fabrica.getVendaDao();
 		vendaDAO.realizarTroca(numCupomTroca, itens);
-	}
+	}*/
 
 	public Venda recuperarVenda(int numVenda) throws VendaNaoExistenteException, SQLException {
 		FabricaDao fabrica = FabricaDao.getInstance();
@@ -168,7 +168,6 @@ public class Estoque implements Serializable{
 		try {
 			produto = fabrica.getProdutoDao().recuperarProduto(id);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return produto;
