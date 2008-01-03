@@ -29,13 +29,13 @@ public class ItemVenda /*extends Produto*/ implements Serializable{
 		this.qtde = qtde;
 	}
 
-    public ItemProduto getItemProduto() {
-        return itemProduto;
-    }
+        public ItemProduto getItemProduto() {
+            return itemProduto;
+        }
 
-    public void setItemProduto(ItemProduto itemProduto) {
-        this.itemProduto = itemProduto;
-    }
+        public void setItemProduto(ItemProduto itemProduto) {
+            this.itemProduto = itemProduto;
+        }
 	
 
    
