@@ -19,6 +19,7 @@ import br.cefetrn.datinf.estoque.dominio.Pagamento;
 import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.estoque.excecoes.CupomDeTrocaNaoExistenteException;
 import br.cefetrn.datinf.estoque.excecoes.VendaNaoExistenteException;
+import br.cefetrn.datinf.estoque.persistencia.CupomDeTrocaDao;
 import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
 import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
 import br.cefetrn.datinf.estoque.persistencia.PagamentoDao;
@@ -130,6 +131,13 @@ public class Estoque{
 		long idPagamento = dao.registrarPagamento(pagamento);
 		pagamento.setId(idPagamento);
 		System.out.println("id do pagamento em estoque: "+idPagamento);
+		this.ligarTrocaAoPagamento(pagamento.getCupom());
+	}
+	
+	public void ligarTrocaAoPagamento(CupomDeTroca cupomDeTroca) throws SQLException{
+		FabricaDao fabrica = FabricaDao.getInstance();
+		CupomDeTrocaDao dao = fabrica.getCupomDeTrocaDao();
+		dao.ligarTrocaAoPagamento(cupomDeTroca);
 	}
 	
 	public Collection<Produto> buscarProdutosCategoria(Categoria categoria){

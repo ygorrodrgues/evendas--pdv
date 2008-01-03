@@ -6,6 +6,7 @@ import java.util.Date;
 
 import br.cefetrn.datinf.estoque.dominio.Cartao;
 import br.cefetrn.datinf.estoque.dominio.Cliente;
+import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
 import br.cefetrn.datinf.estoque.dominio.EstadoItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Funcionario;
 import br.cefetrn.datinf.estoque.dominio.ItemProduto;
@@ -14,6 +15,7 @@ import br.cefetrn.datinf.estoque.dominio.Loja;
 import br.cefetrn.datinf.estoque.dominio.Pagamento;
 import br.cefetrn.datinf.estoque.dominio.PDV;
 import br.cefetrn.datinf.estoque.dominio.PagamentoCartao;
+import br.cefetrn.datinf.estoque.dominio.PagamentoCupomDeTroca;
 import br.cefetrn.datinf.estoque.dominio.PagamentoDinheiro;
 import br.cefetrn.datinf.estoque.dominio.Parcela;
 import br.cefetrn.datinf.estoque.dominio.TipoPagamento;
@@ -64,7 +66,8 @@ public class Teste {
 		itemVenda2.setEstado(EstadoItemVenda.ENTREGUE);
 		itemVenda2.setItemProduto(itemProduto);		
 		itemVenda2.setQtde(10);
-		
+		//TESTAR PAGAMENTO CARTAO
+		/*
 		Cartao cartao = new Cartao();
 		cartao.setId(1);
 		
@@ -72,10 +75,30 @@ public class Teste {
 		pag.setTipo(TipoPagamento.Cartao);
 		pag.setValor(80);
 		((PagamentoCartao)pag).setCartao(cartao);
+		*/
 		
-		int nParc = 4;
+		//TESTAR PAGAMENTO TROCA
+		/*CupomDeTroca cupomDeTroca = new CupomDeTroca();
+		cupomDeTroca.setId(1);
+		
+		Pagamento pag =  new PagamentoCupomDeTroca();
+		pag.setTipo(TipoPagamento.Troca);
+		pag.setValor(80);
+		((PagamentoCupomDeTroca)pag).setCupom(cupomDeTroca);
+		cupomDeTroca.setPagamento(pag);*/
+		
+		//TESTAR PAGAMENTO DINEHIRO
+		Pagamento pag =  new PagamentoDinheiro();
+		pag.setTipo(TipoPagamento.Dinheiro);
+		pag.setValor(80);
+		
+		
+		
+		//PARCELAS DO PAGAMENTO CARTAO
+		/*int nParc = 4;
 		int dias = 30;
 		Date data = new Date();
+		
 		for(int i=0; i<nParc; ++i){
 			Parcela parcela = new Parcela();
 			parcela.setCartao(cartao);
@@ -86,7 +109,7 @@ public class Teste {
 			((PagamentoCartao)pag).addParcela(parcela);
 			parcela.setPagamento(pag);
 			dias+=30;
-		}
+		}*/
 		
 		novaVenda.setCliente(cliente);
 		novaVenda.setFuncionario(funcionario);

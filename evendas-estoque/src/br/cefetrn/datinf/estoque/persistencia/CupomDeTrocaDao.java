@@ -10,6 +10,6 @@ public interface CupomDeTrocaDao {
 
 	public int inserir(CupomDeTroca cupom) throws SQLException;
 	
-	public void ligarTrocaAoPagamento(CupomDeTroca cupomDeTroca);
+	public void ligarTrocaAoPagamento(CupomDeTroca cupomDeTroca) throws SQLException;
 
 }
