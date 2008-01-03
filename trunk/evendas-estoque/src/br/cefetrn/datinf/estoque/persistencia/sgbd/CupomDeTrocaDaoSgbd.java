@@ -31,4 +31,9 @@ public class CupomDeTrocaDaoSgbd implements CupomDeTrocaDao {
 		int codigo = callableStatement.getInt(1);
 		return codigo;
 	}
+	
+	public void ligarTrocaAoPagamento(CupomDeTroca cupomDeTroca){
+		
+	}
+	
 }

@@ -9,5 +9,7 @@ public interface CupomDeTrocaDao {
 	public boolean existe(int numCupom) throws SQLException;
 
 	public int inserir(CupomDeTroca cupom) throws SQLException;
+	
+	public void ligarTrocaAoPagamento(CupomDeTroca cupomDeTroca);
 
 }

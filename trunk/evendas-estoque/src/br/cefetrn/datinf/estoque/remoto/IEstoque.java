@@ -27,7 +27,7 @@ public interface IEstoque extends Remote {
 	
 	public long registrarVenda(Venda umaVenda);
 	
-	public void registrarItens(Collection<ItemVenda> itens, long idVenda);
+	//public void registrarItens(Collection<ItemVenda> itens, long idVenda);
 	//public void registrarPagamentos(Collection<Pagamento> pagamentos, long idVenda) throws SQLException;
 	public Collection<Produto> buscarProdutosCategoria(Categoria categoria);
 	public Collection<Produto> buscarProdutosSubCategoria(SubCategoria subCategoria);
