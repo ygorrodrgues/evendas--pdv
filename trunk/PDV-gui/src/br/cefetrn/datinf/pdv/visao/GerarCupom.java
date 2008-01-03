@@ -6,8 +6,10 @@
 package br.cefetrn.datinf.pdv.visao;
 
 import java.awt.Dimension;
+import java.awt.event.MouseEvent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,13 +25,17 @@ public class GerarCupom extends JDialog{
     }
     
     public void setVisibleDialog( boolean b ){
-		setVisible(b);
-		parent.setEnabled(!b);
+	parent.setEnabled(!b);
+        setVisible(b);
+       
     }
     
     private int close(){
+        return javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
+    }
+    
+    private void jButtonCancelarMouseClicked(MouseEvent evt) {
         setVisibleDialog(false);
-        return javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
     }
 
     private void initComponents() {
@@ -48,6 +54,13 @@ public class GerarCupom extends JDialog{
         jLabel3 = new javax.swing.JLabel();
         jButtonGerarCupomtroca = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
+        
+        jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt){
+                    jButtonCancelarMouseClicked(evt);
+                }
+            }
+        );
 
         setDefaultCloseOperation(close());
         
