@@ -7,10 +7,7 @@ import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 
 public interface ItemVendaDao {
 	
-	void inserir(ItemVenda item);
-	void atualizar(ItemVenda item);
-	void remover(ItemVenda item) throws SQLException;
-	ItemVenda obterPorCodigo(int codigo);
+	void trocar(ItemVenda item) throws SQLException;
 	Collection<ItemVenda> obterItensPorVenda(int codigo) throws SQLException;
 	void registrarItemDeVenda(ItemVenda umItem) throws SQLException;
 	

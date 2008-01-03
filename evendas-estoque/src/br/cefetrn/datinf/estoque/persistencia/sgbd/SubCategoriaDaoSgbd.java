@@ -18,8 +18,8 @@ public class SubCategoriaDaoSgbd implements SubCategoriaDao {
 		if(resultado.next()){
 			subCategoria = new SubCategoria();
 			subCategoria.setId(id);
-			subCategoria.setDescricao(resultado.getString("descricao"));
-			subCategoria.setCategoria(new CategoriaDaoSgbd().obterPorId(resultado.getInt("idCategoria")));
+			subCategoria.setDescricao(resultado.getString("descricao_subcategoria"));
+			subCategoria.setCategoria(new CategoriaDaoSgbd().obterPorId(resultado.getInt("id_Categoria")));
 		}
 		return subCategoria;
 	}

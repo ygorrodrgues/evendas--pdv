@@ -11,24 +11,9 @@ import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
 
 public class ItemVendaDaoSgbd implements ItemVendaDao {
 
-	public void atualizar(ItemVenda item) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void inserir(ItemVenda item) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public ItemVenda obterPorCodigo(int codigo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void remover(ItemVenda item) throws SQLException {
+	public void trocar(ItemVenda item) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{call spRemoverItemDeVenda(?)}");
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spTrocarItemDeVenda(?)}");
 		callableStatement.setInt(1, item.getId());
 		callableStatement.execute();
 	}

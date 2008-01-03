@@ -1,11 +1,11 @@
 package br.cefetrn.datinf.estoque.persistencia.sgbd;
 
 import java.sql.CallableStatement;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Types;
 
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
+import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.persistencia.CupomDeTrocaDao;
 
 public class CupomDeTrocaDaoSgbd implements CupomDeTrocaDao {
@@ -25,13 +25,23 @@ public class CupomDeTrocaDaoSgbd implements CupomDeTrocaDao {
 		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call spInserirCupom(?,?)}");
 		callableStatement.registerOutParameter(1, Types.INTEGER);
 		callableStatement.setLong(2, cupom.getVenda().getId());
-		//callableStatement.setDate(3, (Date) cupom.getData());
 		callableStatement.setDouble(3, cupom.getValor());
 		callableStatement.execute();
 		int codigo = callableStatement.getInt(1);
+		for (ItemVenda item : cupom.getItens()) {
+			registraItemTrocado(item, cupom.getId());
+		}
 		return codigo;
 	}
 	
+	private void registraItemTrocado(ItemVenda item, int codTroca) throws SQLException {
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call sp_RegistrarItemTrocado(?,?)}");
+		callableStatement.setLong(1, item.getId());
+		callableStatement.setLong(2, codTroca);
+		callableStatement.execute();
+	}
+
 	public void ligarTrocaAoPagamento(CupomDeTroca cupomDeTroca) throws SQLException{
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = conexao.obterCallableStatement("{call spLigarTrocaAoPagamento(?,?)}");		

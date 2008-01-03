@@ -54,7 +54,7 @@ public class Estoque implements Serializable{
 		int codCupom = fabrica.getCupomDeTrocaDao().inserir(cupom);
 		ItemVendaDao itemDAO = fabrica.getItemDeVendaDao();
 		for (ItemVenda item : cupom.getItens()) {
-			itemDAO.remover(item);
+			itemDAO.trocar(item);
 		}
 		return codCupom;		
 	}
@@ -68,7 +68,6 @@ public class Estoque implements Serializable{
 		this.registrarItensVenda(umaVenda.getItens());
 		this.registrarPagamentos(umaVenda.getPagamentos());
 			
-				
 		return idVenda;
 	}
 	
@@ -145,7 +144,7 @@ public class Estoque implements Serializable{
 		FabricaDao fabrica = FabricaDao.getInstance();
 		Collection<Produto> produtos = null;
 		try {
-			produtos = fabrica.getProdutoDao().recuperarProdutos(categoria);
+			produtos = fabrica.getProdutoDao().recuperarProdutosCategoria(categoria.getId());
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,7 +155,7 @@ public class Estoque implements Serializable{
 		FabricaDao fabrica = FabricaDao.getInstance();
 		Collection<Produto> produtos = null;
 		try {
-			produtos = fabrica.getProdutoDao().recuperarProdutos(subCategoria);
+			produtos = fabrica.getProdutoDao().recuperarProdutosSubCategoria(subCategoria);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

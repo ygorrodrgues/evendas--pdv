@@ -9,9 +9,9 @@ import br.cefetrn.datinf.estoque.dominio.SubCategoria;
 
 public interface ProdutoDao {
 
-	Collection<Produto> recuperarProdutos(Categoria categoria) throws SQLException;
+	Collection<Produto> recuperarProdutosCategoria(int codCategoria) throws SQLException;
 
-	Collection<Produto> recuperarProdutos(SubCategoria subCategoria) throws SQLException;
+	Collection<Produto> recuperarProdutosSubCategoria(SubCategoria subCategoria) throws SQLException;
 
 	Produto recuperarProduto(int id) throws SQLException;
 

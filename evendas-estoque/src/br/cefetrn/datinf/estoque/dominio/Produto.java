@@ -5,7 +5,8 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Produto implements Serializable {
 	private int id;
-	private String descrico;
+	private String nome;
+	private String descricao;
 	private int qtde;
 	private double preco;
 	private SubCategoria subCategoria;  
@@ -23,10 +24,10 @@ public class Produto implements Serializable {
 		this.id = id;
 	}
 	public String getDescricao() {
-		return descrico;
+		return descricao;
 	}
 	public void setDescricao(String descricao) {
-		this.descrico = descricao;
+		this.descricao = descricao;
 	}
 	public int getQtde() {
 		return qtde;
@@ -40,4 +41,11 @@ public class Produto implements Serializable {
 	public void setSubCategoria(SubCategoria subCategoria) {
 		this.subCategoria = subCategoria;
 	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	
 }

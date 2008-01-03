@@ -18,27 +18,28 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 	}
 
 	@Override
-	public Collection<Produto> recuperarProdutos(Categoria categoria) throws SQLException {
+	public Collection<Produto> recuperarProdutosCategoria(int codCategoria) throws SQLException {
 		Collection<Produto> produtos = new ArrayList<Produto>();
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = conexao.obterCallableStatement("{call spSelectProdutosByCategoria(?)}");
-		callableStatement.setInt(1, categoria.getId());
+		callableStatement.setInt(1, codCategoria);
 		ResultSet resultado = callableStatement.executeQuery();
 		Produto produto = null;
 		while(resultado.next()){
 			produto = new Produto();
-			produto.setId(resultado.getInt("ID_PRODUTO"));
-			produto.setDescricao(resultado.getString("DESCRICAO"));
-			produto.setQtde(resultado.getInt("qtd"));
+			produto.setId(resultado.getInt("codigo"));
+			produto.setNome(resultado.getString("nome"));
+			produto.setDescricao(resultado.getString("descricao"));
+			produto.setQtde(resultado.getInt("quantidade"));
 			produto.setPreco(resultado.getDouble("preco"));
-			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("idsubcategoria")));
+			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("cod_subcategoria")));
 			produtos.add(produto);
 		}
 		return produtos;
 	}
 
 	@Override
-	public Collection<Produto> recuperarProdutos(SubCategoria subCategoria) throws SQLException {
+	public Collection<Produto> recuperarProdutosSubCategoria(SubCategoria subCategoria) throws SQLException {
 		Collection<Produto> produtos = new ArrayList<Produto>();
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = conexao.obterCallableStatement("{call spSelectProdutosBySubCategoria(?)}");
@@ -47,9 +48,10 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		Produto produto = null;
 		while(resultado.next()){
 			produto = new Produto();
-			produto.setId(resultado.getInt("id"));
-			produto.setDescricao(resultado.getString("nome"));
-			produto.setQtde(resultado.getInt("qtd"));
+			produto.setId(resultado.getInt("codigo"));
+			produto.setNome(resultado.getString("nome"));
+			produto.setDescricao(resultado.getString("descricao"));
+			produto.setQtde(resultado.getInt("quantidade"));
 			produto.setPreco(resultado.getDouble("preco"));
 			produto.setSubCategoria(subCategoria);
 			produtos.add(produto);
@@ -66,11 +68,12 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		Produto produto = null;
 		if(resultado.next()){
 			produto = new Produto();
-			produto.setId(resultado.getInt("id"));
-			produto.setDescricao(resultado.getString("nome"));
-			produto.setQtde(resultado.getInt("qtd"));
+			produto.setId(resultado.getInt("codigo"));
+			produto.setNome(resultado.getString("nome"));
+			produto.setDescricao(resultado.getString("descricao"));
+			produto.setQtde(resultado.getInt("quantidade"));
 			produto.setPreco(resultado.getDouble("preco"));
-			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("idsubcategoria")));
+			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("cod_subcategoria")));
 		}
 		return produto;
 	}
