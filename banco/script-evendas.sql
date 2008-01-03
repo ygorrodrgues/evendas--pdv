@@ -1,5 +1,3 @@
-use evendas
-
 /*==============================================================*/
 /* Table: CATEGORIA_PRODUTO                                     */
 /*==============================================================*/
@@ -28,7 +26,8 @@ go
 /*==============================================================*/
 CREATE TABLE [dbo].[MEDIDA] (
 	[ID_MEDIDA] [int] NOT NULL identity(1,1),
-	[DESCRICAO_MEDIDA] [varchar] (50) COLLATE Latin1_General_CI_AS NOT NULL 
+	[DESCRICAO_MEDIDA] [varchar] (50) COLLATE Latin1_General_CI_AS NOT NULL,
+	constraint PK_MEDIDA primary key (ID_MEDIDA)
 ) ON [PRIMARY]
 GO
 
@@ -76,6 +75,7 @@ constraint FK_ITEM_PRO_RELATIONS_LOJA foreign key (ID_LOJA)
       references LOJA (ID_LOJA)
 )ON [PRIMARY]
 go
+
 
 /*==============================================================*/
 /* Table: ESTADO_ITEM_VENDA                                     */
@@ -235,6 +235,7 @@ constraint FK_TROCA_RELATIONS_PAG foreign key (ID_PAGAMENTO)
 ) ON [PRIMARY]
 go
 
+
 /*==============================================================*/
 /* Table: ITEM_TROCA                                            */
 /*==============================================================*/
@@ -362,16 +363,34 @@ CREATE TABLE [dbo].[ENDERECO] (
 GO
 
 /*==============================================================*/
-/* Table: RELACAO_MEDIDA                                            */
+/* Table: RELACAO_MEDIDA                                        */
 /*==============================================================*/
 CREATE TABLE [dbo].[RELACAO_MEDIDA] (
-	[ID_MEDIDA_DE] [int] NOT NULL ,
-	[ID_MEDIDA_P] [int] NOT NULL ,
+	[ID_MEDIDA_DE] [int] NOT NULL ,/* Quem é medida de?*/
+	[ID_MEDIDA_P] [int] NOT NULL ,/* Quem é medida p?*/
 	[FATOR_RELACAO] [float] NOT NULL 
 ) ON [PRIMARY]
 GO
 
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+/*================================               VIEWs        ========================================================*/
+/*======================================================================================================================*/
+/*======================================================================================================================*/
+/*======================================================================================================================*/
 
+/*==============================================================*/
+/* View: v_produto_Categoria                                    */
+/*==============================================================*/
+create view [dbo].[v_produto_Categoria]
+as
+	SELECT p.id_produto, p.descricao_produto, ip.qtd_item_Produto, ip.preco_item_produto, p.id_subcategoria, 
+		c.id_categoria from produto p
+	join item_produto ip on ip.id_produto = p.id_produto
+	join subcategoria_produto s on s.id_subcategoria = p.id_subcategoria
+	join categoria_produto c on c.id_categoria = s.id_categoria
+go
 
 /*======================================================================================================================*/
 /*======================================================================================================================*/
@@ -415,7 +434,45 @@ INSERT INTO Item_Venda(ID_VENDA, ID_ITEM_PRODUTO, ID_ESTADO_ITEM_VENDA, QTD_ITEM
 	VALUES(@idVenda, @idItemProduto, @idEstadoItemVenda, @qtde)
 go
 
+/*==============================================================*/
+/*                      PROCEDURE spRegistrarParcela                                      */
+/*==============================================================*/
+CREATE PROCEDURE registrarParcela
+@idPagamento bigint,
+@idCartao bigint,
+@dataVenc datetime,
+@valorVenc decimal(10,2),
+@numeroParcela int
+AS
+SET @dataVenc = getDate()+30*@numeroParcela;
+insert into parcelas(ID_PAGAMENTO, ID_CARTAO, DATA_VENC, VALOR_VENC) 
+	VALUES(@idPagamento, @idCartao, @dataVenc, @valorVenc)
+	
+/*==============================================================*/
+/*                      PROCEDURE spLigarTrocaAoPagamento                                    */
+/*==============================================================*/
+CREATE PROCEDURE spLigarTrocaAoPagamento
+@idTroca bigint,
+@idPagamento bigint
+AS
+UPDATE TROCA SET ID_PAGAMENTO = @idPagamento WHERE(ID_TROCA = @idTroca)
 
+/*==============================================================*/
+/*                      PROCEDURE spRegistrarPagamento                                      */
+/*==============================================================*/
+CREATE PROCEDURE RegistrarPagamento
+@descricaoTipo varchar(15),
+@idVenda bigint,
+@valorPagamento decimal(10,2)
+AS
+	DECLARE @retorno bigint	
+	DECLARE @idTipo smallInt
+	SET @idTipo = (select ID_TIPO_PAGAMENTO 
+		FROM TIPO_PAGAMENTO  where(DESCRICAO_TIPO_PAGAMENTO = @descricaoTipo))
+	INSERT INTO Pagamento(ID_TIPO_PAGAMENTO, ID_VENDA, VALOR_PAGAMENTO) VALUES(@idTipo, @idVenda, @valorPagamento)
+	SET @retorno = (SELECT MAX(id_pagamento) FROM pagamento)
+	RETURN(@retorno)
+	
 /*==============================================================*/
 /* Procedure: spSelectTroca                                     */
 /*==============================================================*/
@@ -437,6 +494,7 @@ AS
 	select @codVenda = id_Venda from CupomDeTroca where id_troca = @numCupomTroca
 	insert into Item_Venda (id_Venda, id_Item_Produto, qtd_item_venda) values (@codVenda, @codProduto, @qtd)
 go
+
 
 /*==============================================================*/
 /* Procedure: spObterItensDeVendaPorVenda                       */
@@ -489,6 +547,7 @@ AS
 	select * from Categoria_produto where id_categoria = @codCategoria
 go
 
+
 /*==============================================================*/
 /* Procedure: spSelectSubCategoria                              */
 /*==============================================================*/
@@ -497,6 +556,7 @@ create procedure [dbo].[spSelectSubCategoria]
 AS
 	select * from SubCategoria_produto where id_subcategoria = @codSubCategoria
 go
+
 
 /*==============================================================*/
 /* Procedure: spSelectProdutosBySubCategoria                    */
@@ -517,56 +577,17 @@ AS
 	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto from v_produto_Categoria 
 		where id_subcategoria = @codsubcategoria
 
+		
 /*==============================================================*/
 /* Procedure: spSelectProdutosById                  retorno?            */
 /*==============================================================*/
 CREATE procedure [dbo].[spSelectProdutosById]
 	@id int
 AS
-	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto, id_subcategoria from v_produto_Categoria 
-		where id_produto = @id
+	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto, id_subcategoria 
+		from v_produto_Categoria where id_produto = @id
 go
 
-/*==============================================================*/
-/*                      PROCEDURE spRegistrarParcela                                      */
-/*==============================================================*/
-CREATE PROCEDURE registrarParcela
-@idPagamento bigint,
-@idCartao bigint,
-@dataVenc datetime,
-@valorVenc decimal(10,2),
-@numeroParcela int
-AS
-SET @dataVenc = getDate()+30*@numeroParcela;
-insert into parcelas(ID_PAGAMENTO, ID_CARTAO, DATA_VENC, VALOR_VENC) 
-	VALUES(@idPagamento, @idCartao, @dataVenc, @valorVenc)
-
-/*==============================================================*/
-/*                      PROCEDURE spLigarTrocaAoPagamento                                    */
-/*==============================================================*/
-CREATE PROCEDURE spLigarTrocaAoPagamento
-@idTroca bigint,
-@idPagamento bigint
-AS
-UPDATE TROCA SET ID_PAGAMENTO = @idPagamento WHERE(ID_TROCA = @idTroca)
-
-
-/*==============================================================*/
-/*                      PROCEDURE spRegistrarPagamento                                      */
-/*==============================================================*/
-CREATE PROCEDURE RegistrarPagamento
-@descricaoTipo varchar(15),
-@idVenda bigint,
-@valorPagamento decimal(10,2)
-AS
-	DECLARE @retorno bigint	
-	DECLARE @idTipo smallInt
-	SET @idTipo = (select ID_TIPO_PAGAMENTO 
-		FROM TIPO_PAGAMENTO  where(DESCRICAO_TIPO_PAGAMENTO = @descricaoTipo))
-	INSERT INTO Pagamento(ID_TIPO_PAGAMENTO, ID_VENDA, VALOR_PAGAMENTO) VALUES(@idTipo, @idVenda, @valorPagamento)
-	SET @retorno = (SELECT MAX(id_pagamento) FROM pagamento)
-	RETURN(@retorno)
-=======
 /*==============================================================*/
 /* Procedure: spSelectProdutosByCategoria                       */
 /*==============================================================*/
@@ -575,26 +596,6 @@ CREATE procedure [dbo].[spSelectProdutosByCategoria]
 AS
 	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto, id_subcategoria from v_produto_Categoria 
 		where id_categoria = @codcategoria
-go
-
-/*======================================================================================================================*/
-/*======================================================================================================================*/
-/*======================================================================================================================*/
-/*================================               VIEW           ========================================================*/
-/*======================================================================================================================*/
-/*======================================================================================================================*/
-/*======================================================================================================================*/
-
-/*==============================================================*/
-/* View: v_produto_Categoria                                    */
-/*==============================================================*/
-create view [dbo].[v_produto_Categoria]
-as
-	SELECT p.id_produto, p.descricao_produto, ip.qtd_item_Produto, ip.preco_item_produto, p.id_subcategoria, 
-		c.id_categoria from produto p
-	join item_produto ip on ip.id_produto = p.id_produto
-	join subcategoria_produto s on s.id_subcategoria = p.id_subcategoria
-	join categoria_produto c on c.id_categoria = s.id_categoria
 go
 
 /*======================================================================================================================*/
@@ -649,3 +650,4 @@ begin
 	return @precoVenda
 end
 go
+
