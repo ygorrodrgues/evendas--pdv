@@ -13,9 +13,34 @@ public class CupomDeTroca implements Serializable{
 	private Venda venda;
 	private double valor;
 	private Collection<ItemVenda> itens;
+	private Pagamento pagamento;
 	
 	
 	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+	/**
+	 * @return the pagamento
+	 */
+	public Pagamento getPagamento() {
+		return pagamento;
+	}
+	/**
+	 * @param pagamento the pagamento to set
+	 */
+	public void setPagamento(Pagamento pagamento) {
+		this.pagamento = pagamento;
+	}
 	public CupomDeTroca() {
 		itens = new ArrayList<ItemVenda>();
 	}

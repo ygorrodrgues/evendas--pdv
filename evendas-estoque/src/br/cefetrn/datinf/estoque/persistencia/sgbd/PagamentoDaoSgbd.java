@@ -25,5 +25,4 @@ public class PagamentoDaoSgbd implements PagamentoDao {
 		long idPagamento = callableStatement.getLong(1);
 		return idPagamento;
 	}
-
 }

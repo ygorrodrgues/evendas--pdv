@@ -85,9 +85,12 @@ public class Estoque{
 			case Cartao:
 				this.registrarPagamentoCartao((PagamentoCartao) pag);
 				break;
-			
-			default:
+			case Dinheiro:
+				this.registrarPagamentoDinheiro((PagamentoDinheiro) pag);	
 				break;
+			case Troca:
+				this.registrarPagamentoTroca((PagamentoCupomDeTroca) pag);
+				break;			
 			}
 			
 		}
@@ -112,12 +115,21 @@ public class Estoque{
 		}
 	}
 	
-	public void registrarPagamentoDinheiro(PagamentoDinheiro pagamento){
-		
+	public void registrarPagamentoDinheiro(PagamentoDinheiro pagamento) throws SQLException{
+		FabricaDao fabrica = FabricaDao.getInstance();
+		PagamentoDao dao = fabrica.getPagamentoDAO();
+		long idPagamento = dao.registrarPagamento(pagamento);
+		pagamento.setId(idPagamento);
+		System.out.println("id do pagamento em estoque: "+idPagamento);
 	}
 	
-	public void registrarPagamentoTroca(PagamentoCupomDeTroca pagamento){
+	public void registrarPagamentoTroca(PagamentoCupomDeTroca pagamento) throws SQLException{
 		
+		FabricaDao fabrica = FabricaDao.getInstance();
+		PagamentoDao dao = fabrica.getPagamentoDAO();
+		long idPagamento = dao.registrarPagamento(pagamento);
+		pagamento.setId(idPagamento);
+		System.out.println("id do pagamento em estoque: "+idPagamento);
 	}
 	
 	public Collection<Produto> buscarProdutosCategoria(Categoria categoria){
