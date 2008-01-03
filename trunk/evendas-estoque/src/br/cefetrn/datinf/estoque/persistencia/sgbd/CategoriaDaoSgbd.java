@@ -18,7 +18,7 @@ public class CategoriaDaoSgbd implements CategoriaDao {
 		if(resultado.next()){
 			categoria = new Categoria();
 			categoria.setId(id);
-			categoria.setDescricao(resultado.getString("descricao"));
+			categoria.setDescricao(resultado.getString("descricao_categoria"));
 		}
 		return categoria;
 	}

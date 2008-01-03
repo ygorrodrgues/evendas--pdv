@@ -50,12 +50,7 @@ public class CupomDeTroca implements Serializable{
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-	public int getID() {
-		return id;
-	}
-	public void setID(int numero) {
-		this.id = numero;
-	}
+	
 	public Date getData() {
 		return data;
 	}
