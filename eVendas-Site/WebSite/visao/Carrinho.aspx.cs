@@ -23,7 +23,8 @@ public partial class visao_Carrinho : System.Web.UI.Page
         {
             if (Session["itemVenda"] != null)
             {
-                AdicionarItemVenda((ItemVenda)Session["itemVenda"], 1);
+                AdicionarItemVenda((ItemVenda)Session["itemVenda"], 1, false);
+                Session.Remove("itemVenda");
             }
 
             ListarCarrinho();
@@ -41,8 +42,8 @@ public partial class visao_Carrinho : System.Web.UI.Page
             DataTable tabela = new DataTable();
 
             tabela.Columns.Add("Imagem");
-            tabela.Columns.Add("Descricao");
-            tabela.Columns.Add("Preco");
+            tabela.Columns.Add("Nome");
+            tabela.Columns.Add("Custo");
             tabela.Columns.Add("Qtde");
             tabela.Columns.Add("IdProduto");
             tabela.Columns.Add("ValorTotal");
@@ -54,8 +55,8 @@ public partial class visao_Carrinho : System.Web.UI.Page
 
             foreach (ItemVenda itemVenda in carrinho.ListaItemVenda)
             {
-                decimal valorTotal = itemVenda.Qtde * itemVenda.Produto.Preco;
-                tabela.Rows.Add(itemVenda.Produto.UrlImagem, itemVenda.Produto.Descricao, itemVenda.Produto.Preco.ToString("C2"), itemVenda.Qtde, itemVenda.Produto.IdProduto, valorTotal.ToString("C2"));
+                decimal valorTotal = itemVenda.Qtde * itemVenda.Produto.Custo;
+                tabela.Rows.Add(itemVenda.Produto.UrlImagem, itemVenda.Produto.Nome, itemVenda.Produto.Custo.ToString("C2"), itemVenda.Qtde, itemVenda.Produto.IdProduto, valorTotal.ToString("C2"));
             }
 
             carrinhoSource.Tables.Add(tabela);
@@ -65,7 +66,7 @@ public partial class visao_Carrinho : System.Web.UI.Page
 
             divFormCarrinho.Visible = !(labelMensagem.Visible = false);
         }
-        catch 
+        catch (Exception e)
         {
             divFormCarrinho.Visible = !(labelMensagem.Visible = true);
         }
@@ -96,14 +97,14 @@ public partial class visao_Carrinho : System.Web.UI.Page
         ItensVenda itensVenda = carrinho.ListaItemVenda;
         ItemVenda itemVenda = itensVenda.ItemVenda(IdProduto);
 
-        carrinho = AdicionarItemVenda(itemVenda, qtde);
+        carrinho = AdicionarItemVenda(itemVenda, qtde, true);
         
         Session.Add("carrinho", carrinho);
 
         ListarCarrinho();
     }
 
-    private Carrinho AdicionarItemVenda(ItemVenda NovoItemVenda, int qtde)
+    private Carrinho AdicionarItemVenda(ItemVenda NovoItemVenda, int qtde, bool atualizar)
     {
         Carrinho carrinho = (Carrinho)Session["carrinho"];
         ItensVenda itensVenda = carrinho.ListaItemVenda;
@@ -114,13 +115,13 @@ public partial class visao_Carrinho : System.Web.UI.Page
         {
             itensVenda.Add(NovoItemVenda);
         }
-        else if (indice >= 0 && qtde > 0)
+        else if (indice >= 0 && qtde > 0 && atualizar)
         {
             itensVenda.RemoveAt(indice);
             NovoItemVenda.Qtde = qtde;
             itensVenda.Insert(indice, NovoItemVenda);       
         }
-        else
+        else if (indice >= 0 && qtde == 0)
         {
             carrinho = RemoverItemVenda(NovoItemVenda);
         }
@@ -135,8 +136,6 @@ public partial class visao_Carrinho : System.Web.UI.Page
         itensVenda.Remove(itemVenda);
 
         Session.Add("carrinho", carrinho);
-
-        ListarCarrinho();
 
         return carrinho;
     }

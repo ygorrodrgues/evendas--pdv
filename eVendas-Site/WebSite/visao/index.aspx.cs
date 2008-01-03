@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using Dominio;
+using Negocio;
 
 public partial class visao_index : System.Web.UI.Page
 {
@@ -36,11 +37,13 @@ public partial class visao_index : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            //Carrega os dados para o Repeater
-            DataSet catalogoSource = new DataSet();
-            catalogoSource.ReadXml(MapPath("Catalogo.xml"));
-            catalogo.DataSource = catalogoSource;
+            ProdutoNegocio produtoNegocio = new ProdutoNegocio();
+            catalogo.DataSource = produtoNegocio.Select();
             catalogo.DataBind();
+
+            CategoriaProdutoNegocio categoriaProdutoNegocio = new CategoriaProdutoNegocio();
+            menuCategorias.DataSource = categoriaProdutoNegocio.Select();
+            menuCategorias.DataBind();
         }
 
         lblQtdCarrinho.Text = Carrinho.ListaItemVenda.Count.ToString();
@@ -49,18 +52,19 @@ public partial class visao_index : System.Web.UI.Page
     protected void btnAdicionarCarrinho_Command(object sender, CommandEventArgs e)
     {
         DataSet catalogoSource = new DataSet();
-        catalogoSource.ReadXml(MapPath("Catalogo.xml"));
+        ProdutoNegocio negocio = new ProdutoNegocio();
+        catalogoSource = negocio.Select();
 
         ItemVenda itemVendaNovo = new ItemVenda();
         itemVendaNovo.Qtde = 1;
         
         Produto produtoNovo = new Produto();
-        DataRow dr = (DataRow)catalogoSource.Tables[0].Select("ID = " + e.CommandArgument.ToString()).GetValue(0);
-        produtoNovo.IdProduto = int.Parse(dr["id"].ToString());
+        DataRow dr = (DataRow)catalogoSource.Tables[0].Select("ID_PRODUTO = " + e.CommandArgument.ToString()).GetValue(0);
+        produtoNovo.IdProduto = int.Parse(dr["id_produto"].ToString());
         produtoNovo.Descricao = dr["descricao"].ToString();
-        produtoNovo.Preco = decimal.Parse(dr["preco"].ToString());
-        produtoNovo.UrlImagem = dr["urlImagem"].ToString();
-        produtoNovo.Texto = dr["texto"].ToString();
+        produtoNovo.Custo = decimal.Parse(dr["custo"].ToString());
+        produtoNovo.UrlImagem = dr["url_Imagem"].ToString();
+        produtoNovo.Nome = dr["nome_produto"].ToString();
 
         itemVendaNovo.Produto = produtoNovo;
 

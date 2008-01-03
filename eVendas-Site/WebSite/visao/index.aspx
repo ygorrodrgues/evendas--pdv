@@ -6,11 +6,20 @@
             <p id="ptitulo" class="p_titulo"><a href="Carrinho.aspx"><img src="../images/carrinho.gif" alt="Carrinho"/> <asp:Label ID="lblQtdCarrinho" runat="server" Text="0"></asp:Label> produto(s) no seu carrinho</a></p>
         </div>
         <div id="categoria">
-            <div id="titulo_categoria"><p>Categorias de Produtos</p></div>
-            <div id="item_categoria">
-                <ul>
-                    <li>Celulares e Telefonia</li><li>Informática e Acessórios</li><li>Câmera e Foto</li><li>Eletrodomésticos</li><li>Eletrônicos, Áudio e Vídeo</li><li>Games</li><li>Livros, CDs e Revistas</li></ul>
-            </div>
+            <asp:Repeater ID="menuCategorias" runat="server">
+                <HeaderTemplate>
+                    <div id="titulo_categoria"><p>Categorias de Produtos</p></div>
+                    <div id="item_categoria">
+                        <ul>
+                </HeaderTemplate>
+                <ItemTemplate>
+                    <li><%# DataBinder.Eval(Container.DataItem, "descricao_categoria")%></li>
+                </ItemTemplate>
+                <FooterTemplate>
+                        </ul>
+                    </div>
+                </FooterTemplate>
+            </asp:Repeater>
         </div>
         <div id="login">
             <div id="titulo_login" class="div_titulo">
@@ -55,18 +64,18 @@
 
                 <ItemTemplate>
                     <div class="itemDestaque"> 
-                        <div class="itemDestaqueHeader"><%# DataBinder.Eval(Container.DataItem, "descricao")%></div>
+                        <div class="itemDestaqueHeader"><%# DataBinder.Eval(Container.DataItem, "nome_produto")%></div>
                         <div>
-                            <div class="itemDestaqueImagem"><asp:Image ID="imgProduto" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem, "urlImagem")%>' /></div>
+                            <div class="itemDestaqueImagem"><asp:Image ID="imgProduto" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem, "url_Imagem")%>' /></div>
                             <div class="itemDestaqueDescricao">
-                                <div class="itemDestaqueDescricaoTitulo"><%# DataBinder.Eval(Container.DataItem, "titulo")%></div>
-                                <div class="itemDestaqueDescricaoTexto"><%# DataBinder.Eval(Container.DataItem, "texto")%></div>
+                                <div class="itemDestaqueDescricaoTitulo"><%# DataBinder.Eval(Container.DataItem, "nome_produto")%></div>
+                                <div class="itemDestaqueDescricaoTexto"><%# DataBinder.Eval(Container.DataItem, "descricao")%></div>
                             </div>
                         </div>
                         <div class="itemDestaqueFooter">
-                            <div class="itemDestaqueFooterPrice">R$: <%# DataBinder.Eval(Container.DataItem, "preco")%></div>
+                            <div class="itemDestaqueFooterPrice">R$: <%# DataBinder.Eval(Container.DataItem, "custo")%></div>
                             <div class="itemDestaqueFooterDetalhes">
-                                <div class="divBtnAdicionarCarrinho"><asp:ImageButton ID="btnAdicionarCarrinho" ImageUrl="~/images/btn_adicionar_carrinho.png" runat="server" CommandName="id" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "id")%>' OnCommand="btnAdicionarCarrinho_Command" /></div>
+                                <div class="divBtnAdicionarCarrinho"><asp:ImageButton ID="btnAdicionarCarrinho" ImageUrl="~/images/btn_adicionar_carrinho.png" runat="server" CommandName="id" CommandArgument='<%# DataBinder.Eval(Container.DataItem, "id_produto")%>' OnCommand="btnAdicionarCarrinho_Command" /></div>
                                 <div class="divBtnDetalhes"><asp:ImageButton ID="btnDetalhes" ImageUrl="~/images/btn_detalhes.png" runat="server" /></div>
                             </div>
                         </div>
