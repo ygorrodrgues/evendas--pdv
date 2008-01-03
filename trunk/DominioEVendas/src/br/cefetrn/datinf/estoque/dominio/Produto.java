@@ -1,15 +1,15 @@
-package dominio;
+package br.cefetrn.datinf.estoque.dominio;
 
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
 public class Produto implements Serializable {
 	private long id;
-	private int codigo;
-	private String descrico;
+        //id eh a chave en necessario ter um codigo?
+        private int codigo;
+	private String nome;
 	private int qtde;
 	private double preco;
-	private SubCategoria subCategoria;  
 	
 	public double getPreco() {
 		return preco;
@@ -23,11 +23,11 @@ public class Produto implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getDescricao() {
-		return descrico;
+	public String getNome() {
+		return nome;
 	}
-	public void setDescricao(String descricao) {
-		this.descrico = descricao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 	public int getQtde() {
 		return qtde;
@@ -35,10 +35,12 @@ public class Produto implements Serializable {
 	public void setQtde(int qtde) {
 		this.qtde = qtde;
 	}
-	public SubCategoria getSubCategoria() {
-		return subCategoria;
-	}
-	public void setSubCategoria(SubCategoria subCategoria) {
-		this.subCategoria = subCategoria;
-	}
+
+        public int getCodigo() {
+            return codigo;
+        }
+
+        public void setCodigo(int codigo) {
+            this.codigo = codigo;
+        }
 }
