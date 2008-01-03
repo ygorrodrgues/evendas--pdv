@@ -26,11 +26,18 @@
                 <p class="p_titulo"><img src="../images/icn_seta_grd.png" class="img_titulo" alt=""/> Login de Usuário</p>
             </div>
             <div>
+                <div id="divFormularioLogin" runat="server">
                     <div id="divFormLogin">                    
-                            <div id="usuario"><div id="labelUsuario" class="label">Usuário: </div><div id="textboxUsuario"><asp:TextBox CssClass="textbox" ID="txtUsuario" runat="server"></asp:TextBox></div></div>
-                            <div id="senha"><div id="labelSenha" class="label">Senha: </div><div id="textboxSenha"><asp:TextBox CssClass="textbox" ID="txtSenha" runat="server"></asp:TextBox></div></div>
-                            <div id="botaoLogin"><asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Login" /></div>
+                        <div id="usuario"><div id="labelUsuario" class="label">Usuário: </div><div id="textboxUsuario"><asp:TextBox CssClass="textbox" ID="txtUsuario" runat="server"></asp:TextBox></div></div>
+                        <div id="senha"><div id="labelSenha" class="label">Senha: </div><div id="textboxSenha"><asp:TextBox TextMode="Password" CssClass="textbox" ID="txtSenha" runat="server" ></asp:TextBox></div></div>
+                        <div id="botaoLogin"><asp:Button ID="btnLogin" CssClass="button" runat="server" Text="Login" OnClick="btnLogin_Click" /></div>
                     </div>
+                </div>
+                <div id="divAreaAutenticada" runat="server">
+                    <div id="divUsuarioAutenticado">
+                        <div>Olá, <asp:Label ID="lblUsuario" runat="server" Text=""></asp:Label></div>
+                    </div>
+                </div>
             </div>
         </div>
         <div id="promocao">

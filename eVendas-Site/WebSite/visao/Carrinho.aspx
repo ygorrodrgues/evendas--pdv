@@ -45,13 +45,14 @@
                     <FooterStyle CssClass="gridViewFooterTotal" />                
                 </asp:GridView> 
                 <div id="divFinalizarPedido">
-                    <asp:ImageButton ID="imgFinalizarPedido" ImageUrl="~/images/finalizar_pedido.png" runat="server" />
+                    <asp:ImageButton ID="imgFinalizarPedido" ImageUrl="~/images/finalizar_pedido.png" runat="server" OnClick="imgFinalizarPedido_Click" />
                 </div> 
         </div>
         <div id="labelMensagem" runat="server">
             <asp:Label ID="lblMensagem" runat="server" Text="Não há itens no carrinho." CssClass="labelMensagem"></asp:Label>
             <br /><br />
             <asp:ImageButton ID="imgVoltarALoja" runat="server" ImageUrl="~/images/voltar_loja.png" OnClick="imgVoltarALoja_Click"/>
+            <br /><br />
         </div>
     </div>
 </form>

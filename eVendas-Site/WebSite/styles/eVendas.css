@@ -207,6 +207,11 @@ img
 	border-width: 0;
 }
 
+#page
+{	
+	padding: 1px;
+}
+
 #cabecalho 
 {
 	text-align: center;
@@ -312,18 +317,18 @@ img
 	padding: 2px 2px 2px 2px;
 }
 
-#corpo #principal #opcoes #login #divFormLogin #usuario
+#divFormLogin #usuario
 {
 	margin-top: 10px;
 	margin-bottom: 10px;
 }
 
-#corpo #principal #opcoes #login #divFormLogin #senha
+#divFormLogin #senha
 {
 	margin-bottom: 10px;
 }
 
-#corpo #principal #opcoes #login #divFormLogin #botaoLogin
+#divFormLogin #botaoLogin
 {
 	width: 205px;
 	_width: 225px;
@@ -331,18 +336,23 @@ img
 	margin-bottom: 20px;
 }
 
-#corpo #principal #opcoes #login #divFormLogin #labelUsuario
+#divFormLogin #labelUsuario
 {
 	margin-left: 10px;
 	float: left;
 	width: 50px;
 }
 
-#corpo #principal #opcoes #login #divFormLogin #labelSenha
+#divFormLogin #labelSenha
 {
 	margin-left: 10px;
 	float: left;
 	width: 50px;
+}
+
+#divUsuarioAutenticado
+{
+	margin: 10px 0 10px 10px;
 }
 
 #corpo #principal #opcoes #promocao
@@ -461,19 +471,35 @@ img
 	height: 8px;
 }
 
+#ctl00_ContentPlaceHolder1_divMensagem
+{
+	text-align: center;
+}
+
+#ctl00_ContentPlaceHolder1_divFormularioLogin
+{
+	width: 240px;
+}
+
+#divFormLogin
+{
+}
+
+#FormLogin
+{
+	padding: 0 280px 0 280px;
+}
+
 #divCarrinho #ctl00_ContentPlaceHolder1_divFormCarrinho
 {
 	width: 800px;
 	_width: 760px;
 	padding: 20px 20px 20px 20px;
-	_padding: 20px 20px 20px 20px;
 }
 
 #ctl00_ContentPlaceHolder1_labelMensagem
 {
 	text-align: center;
-	padding-top: 20px;
-	padding-bottom: 40px;
 }
 
 #divFinalizarPedido
