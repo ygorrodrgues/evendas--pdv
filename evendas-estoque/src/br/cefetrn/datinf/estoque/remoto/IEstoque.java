@@ -32,4 +32,5 @@ public interface IEstoque extends Remote {
 	public Collection<Produto> buscarProdutosCategoria(Categoria categoria)throws RemoteException;
 	public Collection<Produto> buscarProdutosSubCategoria(SubCategoria subCategoria)throws RemoteException;
 	public Produto buscarProduto(int id)throws RemoteException;
+	
 }

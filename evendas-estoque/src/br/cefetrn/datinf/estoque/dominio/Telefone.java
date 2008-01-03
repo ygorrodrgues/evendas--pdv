@@ -1,5 +1,7 @@
 package br.cefetrn.datinf.estoque.dominio;
 
-public class Telefone {
+import java.io.Serializable;
+
+public class Telefone implements Serializable{
 
 }

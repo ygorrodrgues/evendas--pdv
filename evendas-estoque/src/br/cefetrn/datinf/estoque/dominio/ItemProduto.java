@@ -1,6 +1,8 @@
 package br.cefetrn.datinf.estoque.dominio;
 
-public class ItemProduto {
+import java.io.Serializable;
+
+public class ItemProduto implements Serializable{
 	private long id;
 	private Produto produto;
 	private Loja loja;

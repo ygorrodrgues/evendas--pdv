@@ -1,5 +1,6 @@
 package br.cefetrn.datinf.estoque.negocio;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.Date;
@@ -26,7 +27,7 @@ import br.cefetrn.datinf.estoque.persistencia.PagamentoDao;
 import br.cefetrn.datinf.estoque.persistencia.ParcelaDao;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
 
-public class Estoque{
+public class Estoque implements Serializable{
 
 	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException {
 		FabricaDao fabrica = FabricaDao.getInstance();

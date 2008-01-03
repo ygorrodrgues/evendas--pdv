@@ -1,5 +1,7 @@
 package br.cefetrn.datinf.estoque.dominio;
 
-public class Endereco {
+import java.io.Serializable;
+
+public class Endereco implements Serializable{
 
 }

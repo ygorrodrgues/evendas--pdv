@@ -1,6 +1,8 @@
 package br.cefetrn.datinf.estoque.dominio;
 
-public class Cliente {
+import java.io.Serializable;
+
+public class Cliente implements Serializable{
 	private long id;
 	private String CPF;
 	private String nome;
