@@ -5,11 +5,18 @@
 
 package br.cefetrn.datinf.pdv.visao;
 
+import br.cefetrn.datinf.estoque.dominio.ItemVenda;
+import br.cefetrn.datinf.estoque.dominio.Venda;
+import br.cefetrn.datinf.pdv.ISistema;
+import br.cefetrn.datinf.pdv.Sistema;
 import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,17 +24,27 @@ import javax.swing.JOptionPane;
  */
 public class GerarCupom extends JDialog{
     private JFrame parent;
+    private ISistema sis;
+    private Venda venda;
    
     public GerarCupom(JFrame owner){
         super(owner);
         this.parent = owner;
         initComponents();
+        sis = Sistema.getInstance();
+        
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                setVisibleDialog(false);
+                dispose();
+            }
+        });
     }
     
     public void setVisibleDialog( boolean b ){
 	parent.setEnabled(!b);
         setVisible(b);
-       
     }
     
     private int close(){
@@ -36,6 +53,20 @@ public class GerarCupom extends JDialog{
     
     private void jButtonCancelarMouseClicked(MouseEvent evt) {
         setVisibleDialog(false);
+    }
+    
+    private void jButtonProcurarMouseClicked(MouseEvent evt) {
+         venda = new Venda();
+         try{
+            venda = sis.buscarVenda(Integer.parseInt(jTextFieldIdVenda.getText()));
+         }catch(Exception e){
+             JOptionPane.showMessageDialog(null, "Valor inválido");
+         }
+         
+         for(ItemVenda item : venda.getItens()){
+             Object[] it = {item.getId(),item.getItemProduto().getProduto().getNome(), item.getItemProduto().getPreco(), item.getQtde()};
+             ((DefaultTableModel) jTableProdutos.getModel()).addRow(it);
+         }         
     }
 
     private void initComponents() {
@@ -56,13 +87,19 @@ public class GerarCupom extends JDialog{
         jButtonCancelar = new javax.swing.JButton();
         
         jButtonCancelar.addMouseListener(new java.awt.event.MouseAdapter() {
+                @Override
                 public void mouseClicked(java.awt.event.MouseEvent evt){
                     jButtonCancelarMouseClicked(evt);
                 }
             }
         );
-
-        setDefaultCloseOperation(close());
+        
+        jButtonProcurar.addMouseListener(new java.awt.event.MouseAdapter() {
+                public void mouseClicked(java.awt.event.MouseEvent evt){
+                    jButtonProcurarMouseClicked(evt);
+                }
+            }
+        );
         
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel1.setText("Gerar Boleto de troca");
@@ -88,7 +125,7 @@ public class GerarCupom extends JDialog{
                 {null, null, null, null}
             },
             new String [] {
-                "id", "Nome", "Lote", "Preço"
+                "id", "Nome", "Preço", "Qtd"
             }
         ));
         jScrollPane1.setViewportView(jTableProdutos);
