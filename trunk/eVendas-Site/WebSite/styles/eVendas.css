@@ -475,3 +475,10 @@ img
 	padding-top: 20px;
 	padding-bottom: 40px;
 }
+
+#divFinalizarPedido
+{
+	margin-top: 10px;
+	text-align:right;
+	width: 760px;
+}

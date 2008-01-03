@@ -9,7 +9,7 @@
                             <ControlStyle Height="50px" Width="50px" />
                             <ItemStyle HorizontalAlign="Center" />
                         </asp:ImageField>
-                        <asp:BoundField DataField="Descricao" HeaderText="Descri&#231;&#227;o" >
+                        <asp:BoundField DataField="Nome" HeaderText="Nome" >
                             <HeaderStyle HorizontalAlign="Left" />
                         </asp:BoundField>
                         <asp:TemplateField HeaderText="Quantidade">
@@ -26,7 +26,7 @@
                             <ItemStyle HorizontalAlign="Center" />
                             <HeaderStyle HorizontalAlign="Center" />
                         </asp:TemplateField>
-                        <asp:BoundField DataField="Preco" HeaderText="Valor Unit&#225;rio" >
+                        <asp:BoundField DataField="custo" HeaderText="Valor Unit&#225;rio" >
                             <ItemStyle HorizontalAlign="Right" />
                             <HeaderStyle HorizontalAlign="Right" />
                         </asp:BoundField>
@@ -43,7 +43,10 @@
                     <PagerStyle CssClass="gridViewItem" />
                     <HeaderStyle CssClass="gridViewHeader" />
                     <FooterStyle CssClass="gridViewFooterTotal" />                
-                </asp:GridView>  
+                </asp:GridView> 
+                <div id="divFinalizarPedido">
+                    <asp:ImageButton ID="imgFinalizarPedido" ImageUrl="~/images/finalizar_pedido.png" runat="server" />
+                </div> 
         </div>
         <div id="labelMensagem" runat="server">
             <asp:Label ID="lblMensagem" runat="server" Text="Não há itens no carrinho." CssClass="labelMensagem"></asp:Label>

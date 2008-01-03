@@ -26,20 +26,20 @@ namespace Dominio
             set { descricao = value; }
         }
 
-        private string texto;
+        private string nome;
 
-        public string Texto
+        public string Nome
         {
-            get { return texto; }
-            set { texto = value; }
+            get { return nome; }
+            set { nome = value; }
         }
         
-        private decimal preco;
+        private decimal custo;
 
-        public decimal Preco
+        public decimal Custo
         {
-            get { return preco; }
-            set { preco = value; }
+            get { return custo; }
+            set { custo = value; }
         }
 
         private string urlImagem;
