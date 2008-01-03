@@ -6,7 +6,7 @@
 package teste;
 
 import br.cefetrn.datinf.pdv.ISistema;
-import br.cefetrn.datinf.pdv.negocio.Sistema;
+import br.cefetrn.datinf.pdv.Sistema;
 import dominio.ItemVenda;
 import dominio.Venda;
 import java.util.HashMap;
