@@ -53,7 +53,7 @@ public class ItemVendaDaoSgbd implements ItemVendaDao {
 	
 	public void registrarItemDeVenda(ItemVenda umItem) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{call registrarItemVenda(?, ?, ?, ?)}");
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spRegistrarItemVenda(?, ?, ?, ?)}");
 		callableStatement.setLong(1, umItem.getVenda().getId());
 		callableStatement.setLong(2, umItem.getItemProduto().getId());
 		callableStatement.setString(3, umItem.getEstado().toString());

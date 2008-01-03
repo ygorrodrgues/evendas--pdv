@@ -19,17 +19,17 @@ import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
 
 public interface IEstoque extends Remote {
-	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException ;
+	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException, RemoteException ;
 
-	public Venda recuperarVenda(int numVenda) throws VendaNaoExistenteException, SQLException ;
+	public Venda recuperarVenda(int numVenda) throws VendaNaoExistenteException, SQLException, RemoteException ;
 
-	public int registrarCupomDeTroca(CupomDeTroca cupom) throws SQLException ;
+	public int registrarCupomDeTroca(CupomDeTroca cupom) throws SQLException, RemoteException ;
 	
-	public long registrarVenda(Venda umaVenda);
+	public long registrarVenda(Venda umaVenda) throws RemoteException;
 	
 	//public void registrarItens(Collection<ItemVenda> itens, long idVenda);
 	//public void registrarPagamentos(Collection<Pagamento> pagamentos, long idVenda) throws SQLException;
-	public Collection<Produto> buscarProdutosCategoria(Categoria categoria);
-	public Collection<Produto> buscarProdutosSubCategoria(SubCategoria subCategoria);
-	public Produto buscarProduto(int id);
+	public Collection<Produto> buscarProdutosCategoria(Categoria categoria)throws RemoteException;
+	public Collection<Produto> buscarProdutosSubCategoria(SubCategoria subCategoria)throws RemoteException;
+	public Produto buscarProduto(int id)throws RemoteException;
 }

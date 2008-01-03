@@ -54,7 +54,7 @@ public class VendaDaoSgbd implements VendaDao {
 		long idVenda = 0;
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = 
-			conexao.obterCallableStatement("{? = call RegistrarVenda(?, ?, ?, ?)}");
+			conexao.obterCallableStatement("{? = call spRegistrarVenda(?, ?, ?, ?)}");
 			
 			callableStatement.registerOutParameter(1, Types.INTEGER);
 			callableStatement.setInt(2, idFunc);

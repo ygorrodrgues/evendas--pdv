@@ -67,30 +67,30 @@ public class Teste {
 		itemVenda2.setItemProduto(itemProduto);		
 		itemVenda2.setQtde(10);
 		//TESTAR PAGAMENTO CARTAO
-		/*
-		Cartao cartao = new Cartao();
+		
+		/*Cartao cartao = new Cartao();
 		cartao.setId(1);
 		
 		Pagamento pag =  new PagamentoCartao();
 		pag.setTipo(TipoPagamento.Cartao);
 		pag.setValor(80);
-		((PagamentoCartao)pag).setCartao(cartao);
-		*/
+		((PagamentoCartao)pag).setCartao(cartao);*/
+		
 		
 		//TESTAR PAGAMENTO TROCA
-		/*CupomDeTroca cupomDeTroca = new CupomDeTroca();
-		cupomDeTroca.setId(1);
+		CupomDeTroca cupomDeTroca = new CupomDeTroca();
+		cupomDeTroca.setId(5);
 		
 		Pagamento pag =  new PagamentoCupomDeTroca();
 		pag.setTipo(TipoPagamento.Troca);
 		pag.setValor(80);
 		((PagamentoCupomDeTroca)pag).setCupom(cupomDeTroca);
-		cupomDeTroca.setPagamento(pag);*/
+		cupomDeTroca.setPagamento(pag);
 		
 		//TESTAR PAGAMENTO DINEHIRO
-		Pagamento pag =  new PagamentoDinheiro();
+		/*Pagamento pag =  new PagamentoDinheiro();
 		pag.setTipo(TipoPagamento.Dinheiro);
-		pag.setValor(80);
+		pag.setValor(80);*/
 		
 		
 		

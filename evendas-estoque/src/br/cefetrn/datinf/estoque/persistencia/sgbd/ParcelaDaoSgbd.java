@@ -13,7 +13,7 @@ public class ParcelaDaoSgbd implements ParcelaDao {
 	public void registrarParcela(Parcela parcela, int numeroParcela) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
 		//(ID_PAGAMENTO, ID_CARTAO, DATA_VENC, VALOR_VENC) 
-		CallableStatement callableStatement = conexao.obterCallableStatement("{call RegistrarParcela(?, ?, ?, ?, ?)}");
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spRegistrarParcela(?, ?, ?, ?, ?)}");
 		callableStatement.setLong(1, parcela.getPagamento().getId());
 		System.out.println("Id pagamento: "+parcela.getPagamento().getId());
 		callableStatement.setLong(2, parcela.getCartao().getId());
