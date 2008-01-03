@@ -48,7 +48,7 @@ public class Teste {
 		funcionario.setId(1);
 		
 		Cliente cliente = new Cliente();
-		cliente.setId(2);
+		cliente.setId(1);
 		
 		Loja loja = new Loja();
 		loja.setId(1);
