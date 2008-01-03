@@ -420,7 +420,7 @@ go
 /*==============================================================*/
 /*                      PROCEDURE spRegistrarVenda                                         */
 /*==============================================================*/
-CREATE PROCEDURE RegistrarVenda
+CREATE PROCEDURE spRegistrarVenda
 @idFunc int,
 @idPDV int,
 @idCliente bigint,
@@ -431,14 +431,14 @@ AS
 	/* Não sei como coverter o Date do java para o datetime do sql server */
 	SET @dataVenda = (select convert(varchar(20), getdate()))
 	INSERT INTO Venda(ID_FUNC, ID_PDV, ID_CLIENTE, DATA_VENDA) VALUES(@idFunc, @idPDV, @idCliente, @dataVenda)
-	SET @retorno = (SELECT MAX(id_venda) FROM Vendas)
+	SET @retorno = (SELECT MAX(id_venda) FROM Venda)
 	RETURN(@retorno)
 go
 
 /*==============================================================*/
 /*                      PROCEDURE spRegistrarItemVenda                                      */
 /*==============================================================*/
-CREATE PROCEDURE registrarItemVenda
+CREATE PROCEDURE spRegistrarItemVenda
 @idVenda bigint,
 @idItemProduto bigint,
 @descricaoEstadoItemVenda varchar(10),
@@ -454,7 +454,7 @@ go
 /*==============================================================*/
 /*                      PROCEDURE spRegistrarParcela                                      */
 /*==============================================================*/
-CREATE PROCEDURE registrarParcela
+CREATE PROCEDURE spRegistrarParcela
 @idPagamento bigint,
 @idCartao bigint,
 @dataVenc datetime,
@@ -475,11 +475,10 @@ CREATE PROCEDURE spLigarTrocaAoPagamento
 AS
 UPDATE TROCA SET ID_PAGAMENTO = @idPagamento WHERE(ID_TROCA = @idTroca)
 go
-
 /*==============================================================*/
 /*                      PROCEDURE spRegistrarPagamento                                      */
 /*==============================================================*/
-CREATE PROCEDURE RegistrarPagamento
+CREATE PROCEDURE spRegistrarPagamento
 @descricaoTipo varchar(15),
 @idVenda bigint,
 @valorPagamento decimal(10,2)
@@ -956,9 +955,9 @@ go
 /*======================================================================================================================*/
 /*======================================================================================================================*/
 
-INSERT INTO ESTADO_ITEM_VENDA (DESCRICAO_ESTADO_ITEM_VENDA) VALUES ('NORMAL')
+INSERT INTO ESTADO_ITEM_VENDA (DESCRICAO_ESTADO_ITEM_VENDA) VALUES ('DEVOLVIDO')
+INSERT INTO ESTADO_ITEM_VENDA (DESCRICAO_ESTADO_ITEM_VENDA) VALUES ('ENTREGUE')
 INSERT INTO ESTADO_ITEM_VENDA (DESCRICAO_ESTADO_ITEM_VENDA) VALUES ('TROCADO')
-INSERT INTO ESTADO_ITEM_VENDA (DESCRICAO_ESTADO_ITEM_VENDA) VALUES ('NORMAL')
-INSERT INTO ESTADO_ITEM_VENDA (DESCRICAO_ESTADO_ITEM_VENDA) VALUES ('QUEBRADO')
+
 
 
