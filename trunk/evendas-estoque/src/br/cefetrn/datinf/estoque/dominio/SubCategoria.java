@@ -1,6 +1,8 @@
 package br.cefetrn.datinf.estoque.dominio;
 
-public class SubCategoria {
+import java.io.Serializable;
+
+public class SubCategoria implements Serializable{
 	
 	private int id;
 	private String descricao;

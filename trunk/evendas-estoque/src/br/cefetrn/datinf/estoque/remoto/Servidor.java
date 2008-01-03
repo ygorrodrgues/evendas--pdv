@@ -23,8 +23,7 @@ public class Servidor {
 				System.setSecurityManager(new RMISecurityManager());
 			}
 			Naming.rebind("estoque", new EstoqueRemoto());
-			System.out.println("Servidor do estoque pronto");
-			
+			System.out.println("Servidor do estoque pronto 26");			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
