@@ -1,20 +1,53 @@
 package dominio;
 
-public class PagamentoCartao extends Pagamento {
-
-	private double valor;
-	private int nParcelas;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+/**
+ * @author Gleison
+ *
+ */
+public class PagamentoCartao extends Pagamento implements Serializable{
 	
-	public void setValor(double valor){
-		this.valor= valor;
+	private Cartao cartao;
+	private Collection<Parcela> parcelas;
+	private int numeroParcelas;
+	
+	public PagamentoCartao(){
+		this.parcelas = new ArrayList<Parcela>();
 	}
-	public double getValor(){
-		return this.valor;
+
+	/**
+	 * @return the numeroParcelas
+	 */
+	public int getNumeroParcelas() {
+		return numeroParcelas;
 	}
-	public void setNParcelas(int nParcelas){
-		this.nParcelas = nParcelas;
+	/**
+	 * @param numeroParcelas the numeroParcelas to set
+	 */
+	public void setNumeroParcelas(int numeroParcelas) {
+		this.numeroParcelas = numeroParcelas;
 	}
-	public int getNParcelas(){
-		return this.nParcelas;
+	public Cartao getCartao() {
+		return cartao;
 	}
+	public void setCartao(Cartao cartao) {
+		this.cartao = cartao;
+	}
+	/**
+	 * @return the parcelas
+	 */
+	public Collection<Parcela> getParcelas() {
+		return parcelas;
+	}
+	
+	public void addParcela(Parcela parcela){
+		this.parcelas.add(parcela);
+	}
+	
+	public void removerParcela(Parcela parcela){
+		this.parcelas.remove(parcela);
+	}
+	
 }

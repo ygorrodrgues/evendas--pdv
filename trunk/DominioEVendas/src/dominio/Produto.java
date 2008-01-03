@@ -5,11 +5,11 @@ import java.io.Serializable;
 @SuppressWarnings("serial")
 public class Produto implements Serializable {
 	private long id;
-        //id eh a chave en necessario ter um codigo?
-        private int codigo;
-	private String nome;
+	private int codigo;
+	private String descrico;
 	private int qtde;
 	private double preco;
+	private SubCategoria subCategoria;  
 	
 	public double getPreco() {
 		return preco;
@@ -23,11 +23,11 @@ public class Produto implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-	public String getNome() {
-		return nome;
+	public String getDescricao() {
+		return descrico;
 	}
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setDescricao(String descricao) {
+		this.descrico = descricao;
 	}
 	public int getQtde() {
 		return qtde;
@@ -35,12 +35,10 @@ public class Produto implements Serializable {
 	public void setQtde(int qtde) {
 		this.qtde = qtde;
 	}
-
-        public int getCodigo() {
-            return codigo;
-        }
-
-        public void setCodigo(int codigo) {
-            this.codigo = codigo;
-        }
+	public SubCategoria getSubCategoria() {
+		return subCategoria;
+	}
+	public void setSubCategoria(SubCategoria subCategoria) {
+		this.subCategoria = subCategoria;
+	}
 }

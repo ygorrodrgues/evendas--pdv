@@ -3,23 +3,76 @@ package dominio;
 import java.io.Serializable;
 
 @SuppressWarnings("serial")
-//extends produtos  ??tem dependencisomente!
-public class ItemVenda /*extends Produto*/ implements Serializable{
-	private long id;
-	private int qtde;
-	private Estado estado;
-        private ItemProduto itemProduto;
+public class ItemVenda implements Serializable{
 	
-	public Estado getEstado() {
+	private int id;
+	private int qtde;
+	private EstadoItemVenda estado;
+	private ItemProduto itemProduto;
+	private double preco;
+	private String nome;
+	private Venda venda;
+	
+	/**
+	 * @return the venda
+	 */
+	public Venda getVenda() {
+		return venda;
+	}
+	/**
+	 * @param venda the venda to set
+	 */
+	public void setVenda(Venda venda) {
+		this.venda = venda;
+	}
+	/**
+	 * @return the nome
+	 */
+	public String getNome() {
+		return nome;
+	}
+	/**
+	 * @param nome the nome to set
+	 */
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	/**
+	 * @return the preco
+	 */
+	public double getPreco() {
+		return preco;
+	}
+	/**
+	 * @param preco the preco to set
+	 */
+	public void setPreco(double preco) {
+		this.preco = preco;
+	}
+	/**
+	 * @return the itemProduto
+	 */
+	public ItemProduto getItemProduto() {
+		return itemProduto;
+	}
+	/**
+	 * @param itemProduto the itemProduto to set
+	 */
+	public void setItemProduto(ItemProduto itemProduto) {
+		this.itemProduto = itemProduto;
+	}
+	public EstadoItemVenda getEstado() {
 		return estado;
 	}
-	public void setEstado(Estado estado) {
+	public void setEstado(EstadoItemVenda estado) {
 		this.estado = estado;
 	}
-	public long getId() {
+
+	public int getId() {
 		return id;
 	}
-	public void setId(long id) {
+	
+	public void setId(int id) {
 		this.id = id;
 	}
 	public int getQtde() {
@@ -28,15 +81,7 @@ public class ItemVenda /*extends Produto*/ implements Serializable{
 	public void setQtde(int qtde) {
 		this.qtde = qtde;
 	}
-
-    public ItemProduto getItemProduto() {
-        return itemProduto;
-    }
-
-    public void setItemProduto(ItemProduto itemProduto) {
-        this.itemProduto = itemProduto;
-    }
-	
-
-   
+	public int getIdProduto() {
+		return getId();
+	}
 }
