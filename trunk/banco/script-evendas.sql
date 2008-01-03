@@ -361,6 +361,15 @@ CREATE TABLE [dbo].[ENDERECO] (
 ) ON [PRIMARY]
 GO
 
+/*==============================================================*/
+/* Table: RELACAO_MEDIDA                                            */
+/*==============================================================*/
+CREATE TABLE [dbo].[RELACAO_MEDIDA] (
+	[ID_MEDIDA_DE] [int] NOT NULL ,
+	[ID_MEDIDA_P] [int] NOT NULL ,
+	[FATOR_RELACAO] [float] NOT NULL 
+) ON [PRIMARY]
+GO
 
 
 
@@ -390,12 +399,6 @@ AS
 	RETURN(@retorno)
 go
 
-/*DECLARE @ID BIGINT
-EXEC RegistrarVenda '01', @ID OUTPUT
-PRINT @id
-
-SELECT * FROM Vendas*/
-
 /*==============================================================*/
 /*                      PROCEDURE spRegistrarItemVenda                                      */
 /*==============================================================*/
@@ -424,7 +427,6 @@ AS
 	return @id
 go
 
-
 /*==============================================================*/
 /* Procedure: spRealizarTroca                                   */
 /*==============================================================*/
@@ -435,7 +437,6 @@ AS
 	select @codVenda = id_Venda from CupomDeTroca where id_troca = @numCupomTroca
 	insert into Item_Venda (id_Venda, id_Item_Produto, qtd_item_venda) values (@codVenda, @codProduto, @qtd)
 go
-
 
 /*==============================================================*/
 /* Procedure: spObterItensDeVendaPorVenda                       */
@@ -449,9 +450,8 @@ as
 	where id_Venda = @codVenda
 go
 
-
 /*==============================================================*/
-/* Procedure: spObterVendaPorCod                                */
+/* Procedure: spObterVendaPorCod      e o retorno? isso não deveria ser uma funcao?                             */
 /*==============================================================*/
 CREATE procedure [dbo].[spObterVendaPorCod]
 	@codVenda int
@@ -462,7 +462,6 @@ AS
 	WHERE v.id_venda = @codVenda 
 go
 
-
 /*==============================================================*/
 /* Procedure: spInserirCupom                                    */
 /*==============================================================*/
@@ -470,6 +469,7 @@ CREATE procedure [dbo].[spInserirCupom]
 	@idVenda int, @valor decimal(12,2)
 AS
 	declare @id int
+	/*palavra chave como variável */
 	declare @data datetime 
 
 	set @data = getdate()
@@ -480,16 +480,14 @@ AS
 	return @id
 go
 
-
 /*==============================================================*/
-/* Procedure: spSelectCategoria                                 */
+/* Procedure: spSelectCategoria              retorno?                   */
 /*==============================================================*/
 create procedure [dbo].[spSelectCategoria]
 	@codCategoria int
 AS
 	select * from Categoria_produto where id_categoria = @codCategoria
 go
-
 
 /*==============================================================*/
 /* Procedure: spSelectSubCategoria                              */
@@ -499,7 +497,6 @@ create procedure [dbo].[spSelectSubCategoria]
 AS
 	select * from SubCategoria_produto where id_subcategoria = @codSubCategoria
 go
-
 
 /*==============================================================*/
 /* Procedure: spSelectProdutosBySubCategoria                    */
@@ -511,9 +508,17 @@ AS
 		where id_subcategoria = @codsubcategoria
 go
 
+/*==============================================================*/
+/* Procedure: spSelectProdutosBySubCategoria                   retorno? */
+/*==============================================================*/
+CREATE procedure [dbo].[spSelectProdutosBySubCategoria]
+	@codsubcategoria int
+AS
+	select id_produto, descricao_produto, qtd_item_produto, preco_item_produto from v_produto_Categoria 
+		where id_subcategoria = @codsubcategoria
 
 /*==============================================================*/
-/* Procedure: spSelectProdutosById                              */
+/* Procedure: spSelectProdutosById                  retorno?            */
 /*==============================================================*/
 CREATE procedure [dbo].[spSelectProdutosById]
 	@id int
@@ -572,9 +577,6 @@ AS
 		where id_categoria = @codcategoria
 go
 
-
-
->>>>>>> .r64
 /*======================================================================================================================*/
 /*======================================================================================================================*/
 /*======================================================================================================================*/
@@ -595,7 +597,6 @@ as
 	join categoria_produto c on c.id_categoria = s.id_categoria
 go
 
-
 /*======================================================================================================================*/
 /*======================================================================================================================*/
 /*======================================================================================================================*/
@@ -605,7 +606,7 @@ go
 /*======================================================================================================================*/
 
 /*==============================================================*/
-/* Function: precoItemDeVenda                                   */
+/* Function: precoItemDeVenda                      ???             */
 /*==============================================================*/
 create function [dbo].[precoItemDeVenda](@qtd int, @preco decimal(12,2))
 returns decimal
@@ -614,7 +615,6 @@ begin
 	return @qtd*@preco
 end
 go
-
 
 /*==============================================================*/
 /* Function: precoVenda                                         */
@@ -649,4 +649,3 @@ begin
 	return @precoVenda
 end
 go
-
