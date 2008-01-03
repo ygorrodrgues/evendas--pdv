@@ -16,7 +16,7 @@ import br.cefetrn.datinf.estoque.excecoes.VendaNaoExistenteException;
 
 public interface IEstoque extends Remote {
 
-	public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException, RemoteException ;
+	//public void realizarTroca(int numCupomTroca, Collection<ItemVenda> itens) throws CupomDeTrocaNaoExistenteException, SQLException, RemoteException ;
 
 
 	public Venda recuperarVenda(int numVenda) throws VendaNaoExistenteException, SQLException, RemoteException ;
