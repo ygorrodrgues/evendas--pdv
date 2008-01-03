@@ -1,4 +1,4 @@
-package dominio;
+package br.cefetrn.datinf.estoque.dominio;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,14 +9,13 @@ import java.util.Date;
 public class Venda implements Serializable {
 
 	
-	private long id;
+	private int id;
 	private Date data;
 	private Collection<ItemVenda> itens;
 	private Collection<Pagamento> pagamentos;
-	private PDV pdv;
-	private Funcionario funcionario;
-	private Cliente cliente;
 	private double valor;
+        private Cliente cliente;
+        private Pdv pdv;
 	
 	public double getValor() {
 		return valor;
@@ -47,11 +46,11 @@ public class Venda implements Serializable {
 		this.itens.remove(umItem);
 	}
 	
-	public long getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(long idVenda) {
-		this.id = idVenda;
+	public void setId(int id) {
+		this.id = id;
 	}
 	public Date getData() {
 		return data;
@@ -74,41 +73,21 @@ public class Venda implements Serializable {
 		this.pagamentos = pagamentos;
 	}
 
-	public PDV getPdv() {
-		return pdv;
-	}
+    public Cliente getCliente() {
+        return cliente;
+    }
 
-	public void setPdv(PDV pdv) {
-		this.pdv = pdv;
-	}
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
-	/**
-	 * @return the funcionario
-	 */
-	public Funcionario getFuncionario() {
-		return funcionario;
-	}
+    public Pdv getPdv() {
+        return pdv;
+    }
 
-	/**
-	 * @param funcionario the funcionario to set
-	 */
-	public void setFuncionario(Funcionario funcionario) {
-		this.funcionario = funcionario;
-	}
-
-	/**
-	 * @return the cliente
-	 */
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	/**
-	 * @param cliente the cliente to set
-	 */
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
+    public void setPdv(Pdv pdv) {
+        this.pdv = pdv;
+    }
 	
 	
 }
