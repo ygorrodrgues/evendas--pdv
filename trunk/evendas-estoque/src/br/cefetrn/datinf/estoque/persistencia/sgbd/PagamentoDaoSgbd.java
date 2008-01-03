@@ -16,7 +16,7 @@ public class PagamentoDaoSgbd implements PagamentoDao {
 	public long registrarPagamento(Pagamento umPagamento) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = 
-			conexao.obterCallableStatement("{? = call RegistrarPagamento(?, ?, ?)}");
+			conexao.obterCallableStatement("{? = call spRegistrarPagamento(?, ?, ?)}");
 		callableStatement.registerOutParameter(1, Types.BIGINT);
 		callableStatement.setString(2, umPagamento.getTipo().toString());
 		callableStatement.setLong(3, umPagamento.getVenda().getId());
