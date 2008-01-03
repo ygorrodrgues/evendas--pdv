@@ -32,7 +32,12 @@ public class CupomDeTrocaDaoSgbd implements CupomDeTrocaDao {
 		return codigo;
 	}
 	
-	public void ligarTrocaAoPagamento(CupomDeTroca cupomDeTroca){
+	public void ligarTrocaAoPagamento(CupomDeTroca cupomDeTroca) throws SQLException{
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spLigarTrocaAoPagamento(?,?)}");		
+		callableStatement.setLong(1, cupomDeTroca.getId());		
+		callableStatement.setLong(2, cupomDeTroca.getPagamento().getId());
+		callableStatement.execute();
 		
 	}
 	
