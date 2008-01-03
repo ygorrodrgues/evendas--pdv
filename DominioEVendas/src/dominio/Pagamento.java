@@ -1,19 +1,34 @@
 package dominio;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 @SuppressWarnings("serial")
-public class Pagamento implements Serializable{
-	private int id;
+public abstract class Pagamento implements Serializable{
+	private long id;
 	private Venda venda;
-	private double valor;
 	private TipoPagamento tipo;
+	private double valor;
 	
-	public int getId() {
+	/**
+	 * @return the valor
+	 */
+	public double getValor() {
+		return valor;
+	}
+
+	/**
+	 * @param valor the valor to set
+	 */
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+
+	public long getId() {
 		return id;
 	}
 	
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	
@@ -23,14 +38,6 @@ public class Pagamento implements Serializable{
 	
 	public void setVenda(Venda venda) {
 		this.venda = venda;
-	}
-	
-	public double getValor() {
-		return valor;
-	}
-	
-	public void setValor(double valor) {
-		this.valor = valor;
 	}
 	
 	public TipoPagamento getTipo() {

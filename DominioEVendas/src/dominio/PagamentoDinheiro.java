@@ -1,12 +1,7 @@
 package dominio;
 
-public class PagamentoDinheiro extends Pagamento {
+import java.io.Serializable;
 
-	private double valorPago;
-	public double getValorPago() {
-		return valorPago;
-	}
-	public void setValorPago(double valorPago) {
-		this.valorPago = valorPago;
-	}
+public class PagamentoDinheiro extends Pagamento implements Serializable{
+	
 }
