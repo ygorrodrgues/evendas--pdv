@@ -1,6 +1,7 @@
-package br.cefetrn.datinf.pdv.negocio;
+package br.cefetrn.datinf.pdv;
 
 
+import br.cefetrn.datinf.pdv.negocio.*;
 import br.cefetrn.datinf.pdv.*;
 import br.cefetrn.datinf.pdv.negocio.ControladorVenda;
 
