@@ -156,4 +156,9 @@ public partial class visao_Carrinho : System.Web.UI.Page
     {
         Response.Redirect("index.aspx");
     }
+    protected void imgFinalizarPedido_Click(object sender, ImageClickEventArgs e)
+    {
+        if (Session["usuario"] == null)
+            Response.Redirect("Login.aspx");
+    }
 }

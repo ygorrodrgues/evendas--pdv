@@ -44,6 +44,8 @@ public partial class visao_index : System.Web.UI.Page
             CategoriaProdutoNegocio categoriaProdutoNegocio = new CategoriaProdutoNegocio();
             menuCategorias.DataSource = categoriaProdutoNegocio.Select();
             menuCategorias.DataBind();
+
+            IdentificarUsuario();                
         }
 
         lblQtdCarrinho.Text = Carrinho.ListaItemVenda.Count.ToString();
@@ -72,5 +74,37 @@ public partial class visao_index : System.Web.UI.Page
         Session.Add("itemVenda", itemVendaNovo);
 
         Response.Redirect("Carrinho.aspx");
+    }
+    protected void btnLogin_Click(object sender, EventArgs e)
+    {
+        Usuario usuario = new Usuario();
+        usuario.Login = txtUsuario.Text;
+        usuario.Senha = txtSenha.Text;
+
+        UsuarioNegocio usuarioNegocio = new UsuarioNegocio();
+
+        usuario = usuarioNegocio.AutenticarUsuario(usuario);
+        if (usuario != null)
+        {
+            Session.Add("usuario", usuario);
+
+            IdentificarUsuario();
+        }
+        else
+            RegisterClientScriptBlock("falhaAutenticacao", "<script>alert('Login e/ou Senha inválidos!');</script>");
+    }
+
+    private void IdentificarUsuario()
+    {
+        if (Session["usuario"] != null)
+        {
+            divFormularioLogin.Visible = !(divAreaAutenticada.Visible = true);
+
+            Usuario usuario = (Usuario)Session["usuario"];
+
+            lblUsuario.Text = usuario.Login;
+        }
+        else
+            divFormularioLogin.Visible = !(divAreaAutenticada.Visible = false);
     }
 }
