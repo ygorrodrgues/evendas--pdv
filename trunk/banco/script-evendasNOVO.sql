@@ -802,12 +802,34 @@ where p.codigo_Produto = @codproduto and ip.id_loja = @idLoja
 
 
 /*==============================================================*/
-/* Procedure: spSelectSubCategoriasByCategoria               */
+/* Procedure: spSelectSubCategoriasByCategoria                  */
 /*==============================================================*/
 create procedure spSelectSubCategoriasByCategoria
 @codCategoria int
 as
-select id_subcategoria, descricao_subcategoria from subcategoria_produto where id_categoria = @codCategoria
+select id_subcategoria , descricao_subcategoria from subcategoria_produto where id_categoria = @codCategoria
+
+
+/*==============================================================*/
+/* Procedure: sp_Inserir_Medida                                 */
+/*==============================================================*/
+create procedure sp_Inserir_Medida
+@DESCRICAO_MEDIDA varchar(50)
+as
+	insert into MEDIDA ( descricao_medida)values (@DESCRICAO_MEDIDA)
+	declare @id_medida int
+	SET @id_medida = (SELECT MAX(id_medida) FROM MEDIDA)
+	return @id_medida
+
+
+/*==============================================================*/
+/* Procedure: sp_Deletar_Medida                                 */
+/*==============================================================*/
+create procedure sp_Deletar_Medida
+@codigo int
+as
+	delete from Medida where id_medida = @codigo
+
 
 
 /*======================================================================================================================*/
