@@ -8,7 +8,6 @@ import java.sql.Types;
 import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.dominio.Loja;
 import br.cefetrn.datinf.estoque.dominio.Produto;
-import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
 import br.cefetrn.datinf.estoque.persistencia.ItemProdutoDao;
 
 public class ItemProdutoDaoSgbd implements ItemProdutoDao {

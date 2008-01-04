@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import br.cefetrn.datinf.estoque.dominio.Categoria;
@@ -28,8 +29,23 @@ public class SubCategoriaDaoSgbd implements SubCategoriaDao {
 		return subCategoria;
 	}
 	
-	//@Override
-	//public Collection<SubCategoria> 
+	@Override
+	public Collection<SubCategoria> recuperarSubCategoriasPorCategoria(Categoria categoria) throws SQLException{
+		Collection<SubCategoria> subs = new ArrayList<SubCategoria>();
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spSelectSubCategoriasByCategoria(?)}");
+		callableStatement.setInt(1, categoria.getId());
+		ResultSet resultado = callableStatement.executeQuery();
+		SubCategoria sub = null;
+		while(resultado.next()){
+			sub = new SubCategoria();
+			sub.setId(resultado.getInt("id_subcategoria"));
+			sub.setDescricao(resultado.getString("descricao_subcategoria"));
+			sub.setCategoria(categoria);
+			subs.add(sub);			
+		}
+		return subs;
+	}
 	
 	@Override
 	public int inserir(SubCategoria subCategoria) throws SQLException{

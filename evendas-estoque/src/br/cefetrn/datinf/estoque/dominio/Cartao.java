@@ -3,6 +3,7 @@ package br.cefetrn.datinf.estoque.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
+@SuppressWarnings("serial")
 public class Cartao implements Serializable{
 	private long id;
 	private int digito;
@@ -33,5 +34,11 @@ public class Cartao implements Serializable{
 	}
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	public double getLimite() {
+		return limite;
+	}
+	public void setLimite(double limite) {
+		this.limite = limite;
 	}
 }

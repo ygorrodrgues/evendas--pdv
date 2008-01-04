@@ -2,6 +2,7 @@ package br.cefetrn.datinf.estoque.dominio;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class PagamentoCupomDeTroca extends Pagamento implements Serializable{
 	private CupomDeTroca cupom;
 

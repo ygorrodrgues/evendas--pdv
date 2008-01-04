@@ -2,7 +2,6 @@ package br.cefetrn.datinf.estoque.persistencia.sgbd;
 
 import java.sql.CallableStatement;
 import java.sql.SQLException;
-import java.util.Date;
 
 import br.cefetrn.datinf.estoque.dominio.Parcela;
 import br.cefetrn.datinf.estoque.persistencia.ParcelaDao;

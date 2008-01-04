@@ -8,11 +8,9 @@ import java.util.Collection;
 import br.cefetrn.datinf.estoque.dominio.Categoria;
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
 import br.cefetrn.datinf.estoque.dominio.ItemProduto;
-import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Produto;
 import br.cefetrn.datinf.estoque.dominio.SubCategoria;
 import br.cefetrn.datinf.estoque.dominio.Venda;
-import br.cefetrn.datinf.estoque.excecoes.CupomDeTrocaNaoExistenteException;
 import br.cefetrn.datinf.estoque.excecoes.VendaNaoExistenteException;
 
 public interface IEstoque extends Remote {

@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import br.cefetrn.datinf.estoque.dominio.Loja;
-import br.cefetrn.datinf.estoque.dominio.Produto;
 import br.cefetrn.datinf.estoque.persistencia.LojaDao;
 
 public class LojaDaoSgbd implements LojaDao {

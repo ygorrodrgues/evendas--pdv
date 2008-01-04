@@ -12,6 +12,7 @@ import java.io.Serializable;
  * @author Gleison
  *
  */
+@SuppressWarnings("serial")
 public class PDV implements Serializable{
 
     private int id;

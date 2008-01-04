@@ -19,11 +19,11 @@ public class ItemVendaDaoSgbd implements ItemVendaDao {
 	}
 
 	public Collection<ItemVenda> obterItensPorVenda(int codigo) throws SQLException {
+		Collection<ItemVenda> itens = itens = new ArrayList<ItemVenda>();
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = conexao.obterCallableStatement("{call spObterItensDeVendaPorVenda(?)}");
 		callableStatement.setInt(1, codigo);
 		ResultSet resultado = callableStatement.executeQuery();
-		Collection<ItemVenda> itens = itens = new ArrayList<ItemVenda>();
 		ItemVenda item;
 		while(resultado.next ()){
 			item = new ItemVenda();
