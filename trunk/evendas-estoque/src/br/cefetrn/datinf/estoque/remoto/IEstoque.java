@@ -7,6 +7,7 @@ import java.util.Collection;
 
 import br.cefetrn.datinf.estoque.dominio.Categoria;
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
+import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Produto;
 import br.cefetrn.datinf.estoque.dominio.SubCategoria;
@@ -31,6 +32,7 @@ public interface IEstoque extends Remote {
 	public Collection<Produto> buscarProdutosCategoria(Categoria categoria)throws RemoteException;
 	public Collection<Produto> buscarProdutosSubCategoria(SubCategoria subCategoria)throws RemoteException;
 	public Produto buscarProduto(int id)throws RemoteException;
+	public ItemProduto SelectItemProdutoByCodigoProduto(long codProduto , int idLoja) throws RemoteException;
 	
 
 }

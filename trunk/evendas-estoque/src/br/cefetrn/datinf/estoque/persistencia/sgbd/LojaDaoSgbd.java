@@ -2,6 +2,7 @@ package br.cefetrn.datinf.estoque.persistencia.sgbd;
 
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import br.cefetrn.datinf.estoque.dominio.Loja;
 import br.cefetrn.datinf.estoque.dominio.Produto;
@@ -10,21 +11,19 @@ import br.cefetrn.datinf.estoque.persistencia.LojaDao;
 public class LojaDaoSgbd implements LojaDao {
 
 	@Override
-	public Loja buscarLojaById(int id) {
+	public Loja buscarLojaById(int id) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{call spRecuperarProdutoById (?)}");
-		callableStatement.setLong(1, id);
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spBuscarLojaById(?)}");
+		callableStatement.setInt(1, id);
 		ResultSet resultado = callableStatement.executeQuery();
-		Produto produto = null;
+		Loja loja = null;
 		if(resultado.next()){
-			produto = new Produto();
-			produto.setId(resultado.getLong("ID-PRODUTO"));
-			produto.setNome(resultado.getString("NOME_PRODUTO"));
-			produto.setDescricao(resultado.getString("DESCRICAO_PRODUTO "));
-			produto.setPreco(resultado.getDouble("CUSTO"));
-			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("ID_SUBCATEGORIA")));
+			loja = new Loja();
+			loja.setId(resultado.getInt("ID_LOJA"));
+			loja.setNome(resultado.getString("NOME_LOJA"));
+			
 		}
-		return produto;
+		return loja;
 	}
 
 }

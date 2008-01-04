@@ -8,6 +8,7 @@ import java.util.Collection;
 
 import br.cefetrn.datinf.estoque.dominio.Categoria;
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
+import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Pagamento;
 import br.cefetrn.datinf.estoque.dominio.Produto;
@@ -69,5 +70,10 @@ public class EstoqueRemoto implements IEstoque, Serializable {
 	}
 	public Produto buscarProduto(int id)throws RemoteException{
 		return estoque.buscarProduto(id);
+	}
+
+	@Override
+	public ItemProduto SelectItemProdutoByCodigoProduto(long codProduto, int idLoja) throws RemoteException {
+		return estoque.SelectItemProdutoByCodigoProduto(codProduto, idLoja);
 	}
 }

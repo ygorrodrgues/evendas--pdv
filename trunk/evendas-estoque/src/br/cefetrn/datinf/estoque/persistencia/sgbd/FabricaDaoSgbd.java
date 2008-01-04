@@ -2,7 +2,9 @@ package br.cefetrn.datinf.estoque.persistencia.sgbd;
 
 import br.cefetrn.datinf.estoque.persistencia.CupomDeTrocaDao;
 import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
+import br.cefetrn.datinf.estoque.persistencia.ItemProdutoDao;
 import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
+import br.cefetrn.datinf.estoque.persistencia.LojaDao;
 import br.cefetrn.datinf.estoque.persistencia.PagamentoDao;
 import br.cefetrn.datinf.estoque.persistencia.ParcelaDao;
 import br.cefetrn.datinf.estoque.persistencia.ProdutoDao;
@@ -16,6 +18,8 @@ public class FabricaDaoSgbd extends FabricaDao {
 	private CupomDeTrocaDao cupomDeTrocaDao;
 	private PagamentoDao pagamentoDao;
 	private ParcelaDao parcelaDao;
+	private LojaDao lojaDao;
+	private ItemProdutoDao itemProdutoDao;
 	
 	public FabricaDaoSgbd() {	}
 
@@ -55,6 +59,18 @@ public class FabricaDaoSgbd extends FabricaDao {
 	public ParcelaDao getParcelaDao() {
 		if(this.parcelaDao == null) this.parcelaDao = new ParcelaDaoSgbd();
 		return this.parcelaDao;
+	}
+
+	@Override
+	public LojaDao getLojaDao() {
+		if(this.lojaDao == null) this.lojaDao = new LojaDaoSgbd();
+		return this.lojaDao;
+	}
+
+	@Override
+	public ItemProdutoDao getItemProdutoDao() {
+		if(this.itemProdutoDao == null) this.itemProdutoDao = new ItemProdutoDaoSgbd();
+		return this.itemProdutoDao;
 	}	
 
 }

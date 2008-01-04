@@ -1,5 +1,7 @@
 package br.cefetrn.datinf.estoque.persistencia;
 
+import br.cefetrn.datinf.estoque.dominio.Loja;
+
 public abstract class FabricaDao {
 	
 	private static FabricaDao fabrica = null;
@@ -33,4 +35,8 @@ public abstract class FabricaDao {
 	public abstract PagamentoDao getPagamentoDAO();
 	
 	public abstract ParcelaDao getParcelaDao();
+
+	public abstract LojaDao getLojaDao();
+	
+	public abstract ItemProdutoDao getItemProdutoDao();
 }
