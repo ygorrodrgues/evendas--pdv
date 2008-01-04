@@ -175,6 +175,14 @@ public class Estoque implements Serializable{
 	}
 	//TODO
 	public ItemProduto SelectItemProdutoByCodigoProduto(long codProduto , int idLoja){
-		return null;
+		FabricaDao fabrica = FabricaDao.getInstance();
+		ItemProduto itemProduto = null;
+		try {
+			itemProduto = fabrica.getItemProdutoDao().SelectItemProdutoByCodigoProduto(codProduto, idLoja);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return itemProduto;
 	}
 }
