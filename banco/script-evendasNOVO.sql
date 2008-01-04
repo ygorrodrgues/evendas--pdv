@@ -59,6 +59,7 @@ GO
 /*==============================================================*/
 create table PRODUTO (
 ID_PRODUTO           bigint               not null identity,
+CODIGO_PRODUTO		bigint					not null.
 ID_SUBCATEGORIA      bigint               not null,
 ID_MEDIDA			int               not null,
 DESCRICAO_PRODUTO    varchar(250)          not null,
@@ -67,6 +68,7 @@ IMAGEM_CAMINHO    varchar(250)          not null,
 CUSTO                decimal(10,2)        not null,
 constraint PK_PRODUTO primary key  (ID_PRODUTO),
 constraint UK_NOME UNIQUE  (NOME_PRODUTO),
+constraint UK_CODIGO UNIQUE  (CODIGO_PRODUTO),
 constraint UK_DESCRICAO UNIQUE  (DESCRICAO_PRODUTO),
 constraint FK_PRODUTO_RELATIONS_SUBCATEG foreign key (ID_SUBCATEGORIA)
       references SUBCATEGORIA_PRODUTO (ID_SUBCATEGORIA),
