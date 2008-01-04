@@ -19,7 +19,7 @@ public class ControladorVenda{
 	
 	private static ControladorVenda controladorVenda = null;
 	private double subTotal;
-        private IEstoque estoque;
+        private IEstoque estoque = null;
         /***
          * 
          * @param venda
@@ -38,18 +38,22 @@ public class ControladorVenda{
             return null;
         }
         
-	public ItemProduto recuperarItem(long codigoProduto) {
-                //ItemProduto itemProduto = remotoEstoque().buscarItemProduto(id);
+        public void setarEstoqueRemoto(IEstoque estoque){
+            this.estoque = estoque;
+        }
+        
+	public ItemProduto recuperarItem(long codigoProduto) throws RemoteException {
+            ItemProduto itemProduto = this.estoque.SelectItemProdutoByCodigoProduto(codigoProduto, 1);
                 //Gambiarra antes do RMI tah pronto
-				Produto produto = new Produto();
+		/*Produto produto = new Produto();
                 produto.setId(codigoProduto);
                 produto.setNome("uebba");
-                produto.setPreco(0);
+                produto.setPreco(0);*/
                 
-                ItemProduto itemProduto = new ItemProduto();
-                itemProduto.setId(1);
+               
+                /*itemProduto.setId(1);
                 itemProduto.setPreco(5.00);
-                itemProduto.setProduto(produto);
+                itemProduto.setProduto(produto);*/
                 //fim da gabiarra
                 //Criando um novo item       
 		//ItemVenda itemVenda = new ItemVenda();
@@ -61,13 +65,14 @@ public class ControladorVenda{
 	}
 		
 	
-	public IEstoque	remotoEstoque() {
+	/**public IEstoque	remotoEstoque() {
                 Object o;
                 try {
-                if(estoque!=null){
-                        o = Naming.lookup("rmi://localhost//estoque");
+                    if(estoque==null){
+                        System.out.println("aqui 68");
+                        o = Naming.lookup("rmi://localhost/estoque");
                         estoque = (IEstoque)o;
-                }
+                    }
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -79,7 +84,7 @@ public class ControladorVenda{
 			e.printStackTrace();
 		}
 		return estoque;
-	}
+	}*/
         
         /*public ICredito	remotoCredito() {
 		Object o;
@@ -102,7 +107,7 @@ public class ControladorVenda{
 	}*/
 	
 	private ControladorVenda(){
-            estoque = remotoEstoque();
+            //estoque = remotoEstoque();
         }
 	
 	public static ControladorVenda getInstance() {
