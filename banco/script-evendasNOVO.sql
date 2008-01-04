@@ -626,7 +626,7 @@ go
 /*==============================================================*/
 /* Procedure: spBuscarLojaById                             */
 /*==============================================================*/
-CREATE PROCEDURE buscarLojaById
+CREATE PROCEDURE spBuscarLojaById
 @id int
 AS
 SELECT *FROM LOJA WHERE ID_LOJA=@id
