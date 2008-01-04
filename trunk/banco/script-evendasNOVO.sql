@@ -836,7 +836,24 @@ begin
 	return @precoVenda
 end
 go
-
+/*==============================================================*/
+/* Function: fcSelectItemProdutoByCodigoProduto                                         */
+/*==============================================================*/
+CREATE FUNCTION [dbo].fcSelectItemProdutoByCodigoProduto(@codProduto bigint, @idLoja int)
+RETURNS @ItemProduto Table(
+	ID_ITEM_PRODUTO      bigint               not null,
+	ID_PRODUTO           bigint               not null,
+	ID_LOJA              int                  not null,
+	QTD_ITEM_PRODUTO     int                  not null,
+	PRECO_ITEM_PRODUTO   decimal(10,2)        not null
+ )  
+AS
+BEGIN
+	DECLARE @idProduto bigint
+	SET @idProduto = (SELECT ID_PRODUTO FROM PRODUTO WHERE CODIGO_PRODUTO=@codProduto)
+    INSERT @ItemProduto  SELECT *FROM ITEM_PRODUTO WHERE ID_PRODUTO=@idProduto AND ID_LOJA = @idLoja
+	RETURN
+END
 
 /*======================================================================================================================*/
 /*======================================================================================================================*/
