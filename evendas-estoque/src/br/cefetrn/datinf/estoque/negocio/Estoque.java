@@ -9,6 +9,7 @@ import com.sun.org.apache.bcel.internal.generic.SWITCH;
 
 import br.cefetrn.datinf.estoque.dominio.Categoria;
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
+import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.PagamentoCartao;
 import br.cefetrn.datinf.estoque.dominio.PagamentoCupomDeTroca;
@@ -171,5 +172,9 @@ public class Estoque implements Serializable{
 			e.printStackTrace();
 		}
 		return produto;
+	}
+	//TODO
+	public ItemProduto SelectItemProdutoByCodigoProduto(long codProduto , int idLoja){
+		return null;
 	}
 }

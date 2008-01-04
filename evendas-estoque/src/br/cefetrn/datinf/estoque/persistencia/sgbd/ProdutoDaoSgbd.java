@@ -78,4 +78,22 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		return produto;
 	}
 
+	@Override
+	public Produto buscarProduto(long id) throws SQLException {
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spRecuperarProdutoById (?)}");
+		callableStatement.setLong(1, id);
+		ResultSet resultado = callableStatement.executeQuery();
+		Produto produto = null;
+		if(resultado.next()){
+			produto = new Produto();
+			produto.setId(resultado.getLong("ID-PRODUTO"));
+			produto.setNome(resultado.getString("NOME_PRODUTO"));
+			produto.setDescricao(resultado.getString("DESCRICAO_PRODUTO "));
+			produto.setPreco(resultado.getDouble("CUSTO"));
+			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("ID_SUBCATEGORIA")));
+		}
+		return produto;
+	}
+
 }
