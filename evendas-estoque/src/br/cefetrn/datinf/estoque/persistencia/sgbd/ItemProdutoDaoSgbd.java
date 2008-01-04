@@ -3,6 +3,7 @@ package br.cefetrn.datinf.estoque.persistencia.sgbd;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 
 import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.dominio.Loja;
@@ -14,14 +15,36 @@ public class ItemProdutoDaoSgbd implements ItemProdutoDao {
 	/*TODO criar uma triger para evitar que mais de um item produto seja 
 	criado para o mesmo peroduto em uma mesma loja*/
 	
-	private FabricaDao fabrica = FabricaDao.getInstance();
-	@Override
 	
+	@Override
+	public int inserir(ItemProduto item) throws SQLException{
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call sp_Inserir_Item_Produto(?,?,?,?)}");
+		callableStatement.registerOutParameter(1, Types.INTEGER);
+		callableStatement.setLong(2,item.getProduto().getId());
+		callableStatement.setInt(3, item.getLoja().getId());
+		callableStatement.setInt(4, item.getQtd());
+		callableStatement.setDouble(1, item.getPreco());
+		callableStatement.execute();
+		int idItem = callableStatement.getInt(1);
+		return idItem;
+	}
+	
+	@Override
+	public void deletar(ItemProduto item) throws SQLException{
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call sp_Deletar_Item_Produto(?)}");
+		callableStatement.setLong(1, item.getId());
+		callableStatement.execute();
+	}
+	
+	
+	@Override	
 	public ItemProduto SelectItemProdutoByCodigoProduto(long codProduto, int idLoja) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
 		//fcSelectItemProdutoByCodigoProduto(@codProduto bigint, @idLoja int)
 		CallableStatement callableStatement = conexao.obterCallableStatement
-			("{call Select * FROM fcSelectItemProdutoByCodigoProduto(?,?)}");
+			("{call sp_SelectItemProdutoByCodigoProduto(?,?)}");
 		callableStatement.setLong(1, codProduto);
 		callableStatement.setInt(2, idLoja);
 		ResultSet resultado = callableStatement.executeQuery();
@@ -38,13 +61,13 @@ public class ItemProdutoDaoSgbd implements ItemProdutoDao {
 		return itemProduto;
 	}
 	
-	public Produto recuperarProdutoItem(int idProduto) throws SQLException{
-		Produto produto = this.fabrica.getProdutoDao().buscarProduto(idProduto);
+	private Produto recuperarProdutoItem(int idProduto) throws SQLException{
+		Produto produto = new ProdutoDaoSgbd().buscarProduto(idProduto);
 		return produto;
 		
 	}
-	public Loja recuperarLojaItem(int idLoja) throws SQLException{
-		Loja loja = this.fabrica.getLojaDao().buscarLojaById(idLoja);
+	private Loja recuperarLojaItem(int idLoja) throws SQLException{
+		Loja loja = new LojaDaoSgbd().buscarLojaById(idLoja);
 		return loja;
 	}
 	

@@ -3,6 +3,7 @@ package br.cefetrn.datinf.estoque.persistencia.sgbd;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -62,7 +63,7 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 	@Override
 	public Produto recuperarProduto(int id) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{call spSelectProdutosById(?)}");
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spSelectProdutoById(?)}");
 		callableStatement.setInt(1, id);
 		ResultSet resultado = callableStatement.executeQuery();
 		Produto produto = null;
@@ -94,6 +95,29 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("ID_SUBCATEGORIA")));
 		}
 		return produto;
+	}
+
+	@Override
+	public int inserir(Produto produto) throws SQLException {
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call sp_Inserir_Produto(?,?,?,?,?)}");
+		callableStatement.registerOutParameter(1, Types.INTEGER);
+		callableStatement.setInt(2,produto.getCodigo());
+		callableStatement.setInt(3,	produto.getMedida().getId());
+		callableStatement.setString(4, produto.getNome());
+		callableStatement.setString(5, produto.getDescricao());
+		callableStatement.setDouble(6, produto.getPreco());
+		callableStatement.execute();
+		int idProduto = callableStatement.getInt(1);
+		return idProduto;
+	}
+	
+	@Override
+	public void deletar(Produto produto) throws SQLException{
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call sp_Deletar_Produto(?)}");
+		callableStatement.setLong(1, produto.getId());
+		callableStatement.execute();
 	}
 
 }
