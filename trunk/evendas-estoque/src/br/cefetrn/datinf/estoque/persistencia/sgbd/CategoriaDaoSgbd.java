@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Types;
 
 import br.cefetrn.datinf.estoque.dominio.Categoria;
-import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.persistencia.CategoriaDao;
 
 public class CategoriaDaoSgbd implements CategoriaDao {

@@ -1,7 +1,6 @@
 package br.cefetrn.datinf.estoque.dominio;
 
 import java.io.Serializable;
-import java.util.Collection;
 
 @SuppressWarnings("serial")
 public abstract class Pagamento implements Serializable{

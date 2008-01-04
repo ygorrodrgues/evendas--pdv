@@ -7,6 +7,7 @@ import java.util.Collection;
  * @author Gleison
  *
  */
+@SuppressWarnings("serial")
 public class PagamentoCartao extends Pagamento implements Serializable{
 	
 	private Cartao cartao;

@@ -2,6 +2,7 @@ package br.cefetrn.datinf.estoque.dominio;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Cliente implements Serializable{
 	private long id;
 	private String CPF;

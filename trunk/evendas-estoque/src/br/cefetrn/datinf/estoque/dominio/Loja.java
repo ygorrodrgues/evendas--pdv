@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 
+@SuppressWarnings("serial")
 public class Loja implements Serializable {
 	private int id;
 	private String nome;
