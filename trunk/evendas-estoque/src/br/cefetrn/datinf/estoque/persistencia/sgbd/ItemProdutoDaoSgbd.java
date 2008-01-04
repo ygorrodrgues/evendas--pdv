@@ -20,7 +20,7 @@ public class ItemProdutoDaoSgbd implements ItemProdutoDao {
 		Conexao conexao = Conexao.obterInstancia();
 		//fcSelectItemProdutoByCodigoProduto(@codProduto bigint, @idLoja int)
 		CallableStatement callableStatement = conexao.obterCallableStatement
-			("{call fcSelectItemProdutoByCodigoProduto(?, ?)}");
+			("{select *from dbo.fcSelectItemProdutoByCodigoProduto(?, ?)}");
 		callableStatement.setLong(1, codProduto);
 		callableStatement.setInt(2, idLoja);
 		

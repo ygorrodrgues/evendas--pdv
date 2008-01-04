@@ -175,6 +175,7 @@ public class Estoque implements Serializable{
 	}
 	//TODO
 	public ItemProduto SelectItemProdutoByCodigoProduto(long codProduto , int idLoja){
+		System.out.println("Acessou aqui");
 		FabricaDao fabrica = FabricaDao.getInstance();
 		ItemProduto itemProduto = null;
 		try {
