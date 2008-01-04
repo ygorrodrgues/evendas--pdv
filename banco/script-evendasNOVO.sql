@@ -66,10 +66,12 @@ DESCRICAO_PRODUTO    varchar(250)          not null,
 NOME_PRODUTO    varchar(50)          not null,
 IMAGEM_CAMINHO    varchar(250)          not null,
 CUSTO                decimal(10,2)        not null,
+CODIGO_PRODUTO         INT			  not null,
 constraint PK_PRODUTO primary key  (ID_PRODUTO),
 constraint UK_NOME UNIQUE  (NOME_PRODUTO),
 constraint UK_CODIGO UNIQUE  (CODIGO_PRODUTO),
 constraint UK_DESCRICAO UNIQUE  (DESCRICAO_PRODUTO),
+constraint UK_CODIGO UNIQUE  (CODIGO_PRODUTO),
 constraint FK_PRODUTO_RELATIONS_SUBCATEG foreign key (ID_SUBCATEGORIA)
       references SUBCATEGORIA_PRODUTO (ID_SUBCATEGORIA),
 constraint FK_PRODUTO_RELATIONS_MEDIDA foreign key (ID_MEDIDA)
@@ -606,9 +608,9 @@ go
 
 
 /*==============================================================*/
-/* Procedure: spSelectProdutosById                              */
+/* Procedure: spSelectProdutoById                              */
 /*==============================================================*/
-CREATE procedure [dbo].[spSelectProdutosById]
+CREATE procedure [dbo].[spSelectProdutoById]
 	@id int
 AS
 	select codigo, nome, descricao, quantidade, preco, cod_subcategoria from v_produto_Categoria 
@@ -666,10 +668,14 @@ go
 /* Procedure: sp_Inserir_Produto                                */
 /*==============================================================*/
 CREATE procedure [dbo].[sp_Inserir_Produto]
-	@ID_SUBCATEGORIA bigint, @DESCRICAO_PRODUTO varchar(50), @CUSTO decimal(10,2)
+	@ID_SUBCATEGORIA bigint, @ID_MEDIDA int, @NOME_PRODUTO varchar(50), 
+	@DESCRICAO_PRODUTO varchar(250), @CUSTO decimal(10,2)
 AS
-	insert into produto (id_subcategoria, descricao_produto, custo) 
-		values (@ID_SUBCATEGORIA, @DESCRICAO_PRODUTO , @CUSTO)
+	declare @id_produto bigint
+	insert into produto (id_subcategoria,id_medida,nome_produto, descricao_produto, custo) 
+		values (@ID_SUBCATEGORIA,@ID_MEDIDA,@NOME_PRODUTO,@DESCRICAO_PRODUTO,@CUSTO)
+	select @id_produto = id_produto from produto where NOME_PRODUTO = @NOME_PRODUTO
+	return @id_produto
 go
 
 
@@ -681,6 +687,9 @@ CREATE procedure [dbo].[sp_Inserir_Item_Produto]
 AS
 	insert into item_produto (ID_PRODUTO,ID_LOJA,QTD_ITEM_PRODUTO,PRECO_ITEM_PRODUTO) 
 		values (@ID_PRODUTO,@ID_LOJA,@QTD_ITEM_PRODUTO,@PRECO_ITEM_PRODUTO)
+	declare @id_item_produto bigint
+	SET @id_item_produto = (SELECT MAX(id_item_produto) FROM item_produto)
+	return @id_item_produto
 go
 
 
@@ -743,6 +752,9 @@ CREATE procedure [dbo].[sp_Inserir_Categoria]
 AS
 	insert into CATEGORIA_PRODUTO (descricao_categoria) 
 		values (@DESCRICAO_CATEGORIA )
+	declare @id_categoria int
+	SET @id_categoria = (SELECT MAX(id_categoria) FROM CATEGORIA_PRODUTO)
+	return @id_categoria
 go
 
 
@@ -754,6 +766,9 @@ CREATE procedure [dbo].[sp_Inserir_SubCategoria]
 AS
 	insert into SUBCATEGORIA_PRODUTO (id_categoria, descricao_subcategoria) 
 		values (@ID_CATEGORIA, @DESCRICAO_SUBCATEGORIA)
+	declare @id_subCategoria int
+	SET @id_subCategoria = (SELECT MAX(id_subcategoria) FROM SubCATEGORIA_PRODUTO)
+	return @id_subCategoria
 go
 
 /*==============================================================*/
@@ -775,8 +790,17 @@ AS
 	insert into item_troca (id_item_venda, id_troca) values (@ID_ITEM_VENDA, @id_troca)
 go
 
+/*==============================================================*/
+/* Procedure: sp_SelectItemProdutoByCodigoProduto               */
+/*==============================================================*/
+create procedure sp_SelectItemProdutoByCodigoProduto
+@codProduto bigint, @idLoja int
+as
+select ip.* from item_produto ip
+join produto p on p.id_produto = ip.id_produto
+where p.codigo_Produto = @codproduto and ip.id_loja = @idLoja
 
-
+select * from item_produto
 /*======================================================================================================================*/
 /*======================================================================================================================*/
 /*======================================================================================================================*/
@@ -791,7 +815,7 @@ go
 create view [dbo].[v_produto_Categoria]
 as
 SELECT p.id_produto as codigo, p.nome_produto as nome,p.descricao_produto as descricao, 
-	ip.qtd_item_Produto as quantidade, ip.preco_item_produto as preco, 
+	ip.qtd_item_Produto as quantidade, p.custo as preco, 
 	p.id_subcategoria as cod_subcategoria,c.id_categoria as cod_categoria
 from produto p
 	join item_produto ip on ip.id_produto = p.id_produto
