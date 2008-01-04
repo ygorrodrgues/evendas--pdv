@@ -6,6 +6,9 @@
 
 package br.cefetrn.datinf.pdv.visao;
 
+import br.cefetrn.datinf.estoque.dominio.ItemProduto;
+import br.cefetrn.datinf.estoque.dominio.ItemVenda;
+import br.cefetrn.datinf.estoque.dominio.Venda;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -13,6 +16,8 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.UIManager;
+import br.cefetrn.datinf.pdv.ISistema;
+import br.cefetrn.datinf.pdv.Sistema;
 
 /**
  *
@@ -20,14 +25,23 @@ import javax.swing.UIManager;
  */
 public class telaPrincipal extends javax.swing.JFrame{
     
+    private ISistema sistema;
+    private Venda venda = null;
+    private ItemVenda itemVendaEspera = null;
     /** Creates new form Fronteira */
-    public telaPrincipal() {
+    public telaPrincipal(ISistema sistema) {
+        this.sistema = sistema;
         initComponents();
         this.temporizador();
         this.setLookAndFell();
         jTextFieldQuantidade.requestFocusInWindow();
+        
     }
     
+    
+    private void iniciarVenda(){
+        this.venda = sistema.iniciarVenda();
+    }
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -50,6 +64,11 @@ public class telaPrincipal extends javax.swing.JFrame{
         setTitle("eVendas");
 
         jTextFieldNomeProduto.setFont(new java.awt.Font("Tahoma", 0, 48));
+        jTextFieldNomeProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarProduto(evt);
+            }
+        });
 
         jList1.setFont(new java.awt.Font("Tahoma", 0, 24));
         jScrollPane1.setViewportView(jList1);
@@ -138,17 +157,28 @@ public class telaPrincipal extends javax.swing.JFrame{
         }
         
     }//GEN-LAST:event_jTextFieldQuantidadeKeyPressed
+
+    private void buscarProduto(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarProduto
+      exibirItemVenda();
+    }//GEN-LAST:event_buscarProduto
     
+    private void exibirItemVenda(){
+         itemVendaEspera = sistema.criarItemVenda(Integer.parseInt(jTextFieldNomeProduto.getText()));
+         jTextFieldNomeProduto.setFont(new java.awt.Font("Tahoma", 0,15));
+         ItemProduto itemProduto = itemVendaEspera.getItemProduto();
+         jTextFieldNomeProduto.setText("Produto: "+itemProduto.getProduto().getNome()+
+                 " - Preço: R$ "+itemProduto.getPreco());
+    }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    /*public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new telaPrincipal().setVisible(true);
             }
         });
-    }
+    }*/
 
     private void setLookAndFell() {
         try {
@@ -175,7 +205,6 @@ public class telaPrincipal extends javax.swing.JFrame{
         Timer timer = new Timer(1000, action);
         timer.start();
     }
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
