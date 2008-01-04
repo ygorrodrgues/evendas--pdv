@@ -418,6 +418,20 @@ go
 /*======================================================================================================================*/
 /*======================================================================================================================*/
 /*======================================================================================================================*/
+/*==============================================================*/
+/*                      PROCEDURE popularBanco                                         */
+/*==============================================================*/
+CREATE PROCEDURE popularBanco
+AS
+DECLARE @ID_CATEGORIA bigint,
+DECLARE @ID_SUBCATEGORIA bigint,
+DECLARE @ID_LOJA int,
+DECLARE @ID_PDV int,
+DECLARE @ID_USUARIO int,
+DECLARE @ID_FUNCIONARIO int,
+DECLARE @ID_CLIENTE bigint,
+
+
 
 /*==============================================================*/
 /*                      PROCEDURE spRegistrarVenda                                         */
@@ -600,7 +614,22 @@ AS
 	select codigo, nome, descricao, quantidade, preco, cod_subcategoria from v_produto_Categoria 
 		where codigo = @id
 go
+/*==============================================================*/
+/* Procedure: spRecuperarProdutoById                             */
+/*==============================================================*/
+CREATE PROCEDURE spRecuperarProdutoById
+@id bigint
+AS
+	select *from produto where id_produto = @id
+go
 
+/*==============================================================*/
+/* Procedure: spBuscarLojaById                             */
+/*==============================================================*/
+CREATE PROCEDURE buscarLojaById
+@id int
+AS
+SELECT *FROM LOJA WHERE ID_LOJA=@id
 
 /*==============================================================*/
 /* Procedure: spSelectProdutosByCategoria                       */
@@ -854,7 +883,6 @@ BEGIN
     INSERT @ItemProduto  SELECT *FROM ITEM_PRODUTO WHERE ID_PRODUTO=@idProduto AND ID_LOJA = @idLoja
 	RETURN
 END
-
 /*======================================================================================================================*/
 /*======================================================================================================================*/
 /*======================================================================================================================*/
