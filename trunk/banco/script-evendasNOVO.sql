@@ -800,7 +800,16 @@ select ip.* from item_produto ip
 join produto p on p.id_produto = ip.id_produto
 where p.codigo_Produto = @codproduto and ip.id_loja = @idLoja
 
-select * from item_produto
+
+/*==============================================================*/
+/* Procedure: spSelectSubCategoriasByCategoria               */
+/*==============================================================*/
+create procedure spSelectSubCategoriasByCategoria
+@codCategoria int
+as
+select id_subcategoria, descricao_subcategoria from subcategoria_produto where id_categoria = @codCategoria
+
+
 /*======================================================================================================================*/
 /*======================================================================================================================*/
 /*======================================================================================================================*/
