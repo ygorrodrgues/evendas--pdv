@@ -8,6 +8,8 @@ import br.cefetrn.datinf.estoque.dominio.Produto;
 import br.cefetrn.datinf.estoque.dominio.SubCategoria;
 
 public interface ProdutoDao {
+	
+	int inserir(Produto produto) throws SQLException;
 
 	Collection<Produto> recuperarProdutosCategoria(int codCategoria) throws SQLException;
 
@@ -16,5 +18,7 @@ public interface ProdutoDao {
 	Produto recuperarProduto(int id) throws SQLException;
 	
 	Produto buscarProduto(long id) throws SQLException;
+
+	void deletar(Produto produto) throws SQLException;
 
 }

@@ -11,7 +11,14 @@ public class Produto implements Serializable {
 	private int qtde;
 	private double preco;
 	private SubCategoria subCategoria;  
+	private Medida medida;
 	
+	public Medida getMedida() {
+		return medida;
+	}
+	public void setMedida(Medida medida) {
+		this.medida = medida;
+	}
 	public double getPreco() {
 		return preco;
 	}
@@ -47,6 +54,12 @@ public class Produto implements Serializable {
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	public int getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 	
 }
