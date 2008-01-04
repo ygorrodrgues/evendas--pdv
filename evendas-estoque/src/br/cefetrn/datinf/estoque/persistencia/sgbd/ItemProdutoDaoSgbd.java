@@ -16,14 +16,14 @@ public class ItemProdutoDaoSgbd implements ItemProdutoDao {
 	
 	private FabricaDao fabrica = FabricaDao.getInstance();
 	@Override
+	
 	public ItemProduto SelectItemProdutoByCodigoProduto(long codProduto, int idLoja) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
 		//fcSelectItemProdutoByCodigoProduto(@codProduto bigint, @idLoja int)
 		CallableStatement callableStatement = conexao.obterCallableStatement
-			("{select *from dbo.fcSelectItemProdutoByCodigoProduto(?, ?)}");
+			("{call Select * FROM fcSelectItemProdutoByCodigoProduto(?,?)}");
 		callableStatement.setLong(1, codProduto);
 		callableStatement.setInt(2, idLoja);
-		
 		ResultSet resultado = callableStatement.executeQuery();
 		ItemProduto itemProduto = null;
 		if(resultado.next()){
@@ -37,6 +37,7 @@ public class ItemProdutoDaoSgbd implements ItemProdutoDao {
 		}
 		return itemProduto;
 	}
+	
 	public Produto recuperarProdutoItem(int idProduto) throws SQLException{
 		Produto produto = this.fabrica.getProdutoDao().buscarProduto(idProduto);
 		return produto;
