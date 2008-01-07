@@ -179,7 +179,7 @@ public class Estoque implements Serializable{
 		FabricaDao fabrica = FabricaDao.getInstance();
 		ItemProduto itemProduto = null;
 		try {
-			itemProduto = fabrica.getItemProdutoDao().SelectItemProdutoByCodigoProduto(codProduto, idLoja);
+			itemProduto = fabrica.getItemProdutoDao().selectItemProdutoByCodigoProduto(codProduto, idLoja);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
