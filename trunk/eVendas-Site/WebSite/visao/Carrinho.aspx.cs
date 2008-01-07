@@ -23,7 +23,9 @@ public partial class visao_Carrinho : System.Web.UI.Page
         {
             if (Session["itemVenda"] != null)
             {
-                AdicionarItemVenda((ItemVenda)Session["itemVenda"], 1, false);
+                Carrinho carrinho = AdicionarItemVenda((ItemVenda)Session["itemVenda"], 1, false);
+                Session.Add("carrinho", carrinho);
+
                 Session.Remove("itemVenda");
             }
 
@@ -159,6 +161,8 @@ public partial class visao_Carrinho : System.Web.UI.Page
     protected void imgFinalizarPedido_Click(object sender, ImageClickEventArgs e)
     {
         if (Session["usuario"] == null)
-            Response.Redirect("Login.aspx");
+            Response.Redirect("Login.aspx?compra=s");
+        else
+            Response.Redirect("FinalizarVenda.aspx");
     }
 }

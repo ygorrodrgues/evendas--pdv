@@ -80,6 +80,12 @@ a:hover
 	font-weight: bold;
 }
 
+.labelTitulo
+{
+	font-size: 10pt;
+	font-weight: bold;
+}
+
 .button
 {
 	background-color: Silver;
@@ -497,6 +503,19 @@ img
 	padding: 20px 20px 20px 20px;
 }
 
+#divItensCompra
+{	
+	clear: both;	
+}
+
+#divItensCompra #ctl00_ContentPlaceHolder1_divFormItensCompra
+{
+	width: 800px;
+	_width: 760px;
+	padding: 20px 20px 20px 20px;
+	clear: both;
+}
+
 #ctl00_ContentPlaceHolder1_labelMensagem
 {
 	text-align: center;
@@ -507,4 +526,32 @@ img
 	margin-top: 10px;
 	text-align:right;
 	width: 760px;
+}
+
+.divCaixa
+{
+	padding: 10px 10px 10px 10px;
+}
+
+#ItensCompra
+{
+	clear: both;
+}
+
+#divEndereco
+{
+	margin-top: 20px;
+	width: 740px;
+}
+
+#divPagamento
+{
+	float: left;
+}
+
+#divFecharPedido
+{
+	margin-left: 260px;
+	width: 500px;
+	text-align: right;
 }

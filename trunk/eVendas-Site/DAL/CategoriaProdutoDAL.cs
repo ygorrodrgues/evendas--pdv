@@ -16,8 +16,8 @@ namespace DAL
         public DataSet Select()
         {
             SqlConnection con = new SqlConnection(strConexao);
-            SqlCommand cmd = new SqlCommand("SelectCategoriaProduto", con);
-            cmd.CommandType = CommandType.StoredProcedure;
+            string sql = "SELECT * FROM SelectCategoriaProduto";
+            SqlCommand cmd = new SqlCommand(sql, con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataSet ds = new DataSet();
             da.Fill(ds);

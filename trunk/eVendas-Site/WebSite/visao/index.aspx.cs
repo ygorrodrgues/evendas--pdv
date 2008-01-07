@@ -63,9 +63,9 @@ public partial class visao_index : System.Web.UI.Page
         Produto produtoNovo = new Produto();
         DataRow dr = (DataRow)catalogoSource.Tables[0].Select("ID_PRODUTO = " + e.CommandArgument.ToString()).GetValue(0);
         produtoNovo.IdProduto = int.Parse(dr["id_produto"].ToString());
-        produtoNovo.Descricao = dr["descricao"].ToString();
+        produtoNovo.Descricao = dr["descricao_produto"].ToString();
         produtoNovo.Custo = decimal.Parse(dr["custo"].ToString());
-        produtoNovo.UrlImagem = dr["url_Imagem"].ToString();
+        produtoNovo.UrlImagem = dr["Imagem_caminho"].ToString();
         produtoNovo.Nome = dr["nome_produto"].ToString();
 
         itemVendaNovo.Produto = produtoNovo;

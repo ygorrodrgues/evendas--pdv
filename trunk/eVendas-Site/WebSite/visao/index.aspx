@@ -73,10 +73,10 @@
                     <div class="itemDestaque"> 
                         <div class="itemDestaqueHeader"><%# DataBinder.Eval(Container.DataItem, "nome_produto")%></div>
                         <div>
-                            <div class="itemDestaqueImagem"><asp:Image ID="imgProduto" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem, "url_Imagem")%>' /></div>
+                            <div class="itemDestaqueImagem"><asp:Image ID="imgProduto" runat="server" ImageUrl='<%# DataBinder.Eval(Container.DataItem, "Imagem_caminho")%>' /></div>
                             <div class="itemDestaqueDescricao">
                                 <div class="itemDestaqueDescricaoTitulo"><%# DataBinder.Eval(Container.DataItem, "nome_produto")%></div>
-                                <div class="itemDestaqueDescricaoTexto"><%# DataBinder.Eval(Container.DataItem, "descricao")%></div>
+                                <div class="itemDestaqueDescricaoTexto"><%# DataBinder.Eval(Container.DataItem, "descricao_produto")%></div>
                             </div>
                         </div>
                         <div class="itemDestaqueFooter">
@@ -95,6 +95,6 @@
             </asp:Repeater>
         </div>
     </div>
-    <div id="gambiarra"></div>
+    
 </form>
 </asp:Content>
