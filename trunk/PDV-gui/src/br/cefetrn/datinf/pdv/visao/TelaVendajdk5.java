@@ -5,10 +5,15 @@
  */
 
 package br.cefetrn.datinf.pdv.visao;
+import br.cefetrn.datinf.estoque.dominio.Cliente;
+import br.cefetrn.datinf.estoque.dominio.EstadoItemVenda;
+import br.cefetrn.datinf.estoque.dominio.Funcionario;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 
+import br.cefetrn.datinf.estoque.dominio.PDV;
 import br.cefetrn.datinf.estoque.dominio.Pagamento;
 import br.cefetrn.datinf.estoque.dominio.PagamentoDinheiro;
+import br.cefetrn.datinf.estoque.dominio.TipoPagamento;
 import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.pdv.ISistema;
 import br.cefetrn.datinf.pdv.Sistema;
@@ -19,12 +24,13 @@ import java.awt.event.KeyEvent;
  */
 public class TelaVendajdk5 extends javax.swing.JFrame {
     private ISistema sistema = Sistema.getInstance();
-    private ItemVenda itemVenda = new ItemVenda();
-    private Venda venda = new Venda();
+    private ItemVenda itemVenda = null;
+    private Venda venda = null;
     private Double valor = 0.0;
     
     /** Creates new form TelaVendajdk5 */
     public TelaVendajdk5() {
+        
         initComponents();
     }
 
@@ -168,11 +174,20 @@ public class TelaVendajdk5 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-         if(evt.getKeyCode() == KeyEvent.VK_F6) {            
+        /* if(evt.getKeyCode() == KeyEvent.VK_F6) {            
                 venda = new Venda();
+                Cliente cliente = new Cliente();
+                cliente.setId(1);
+                Funcionario f = new Funcionario();
+                f.setId(2);
+                PDV pdv = new PDV();
+                pdv.setID(1);
+                venda.setCliente(cliente);
+                venda.setFuncionario(f);
+                venda.setPdv(pdv);
                 System.out.println("venda iniciada");
                 //mostrar mensagem ma tela!! Inicinando Venda ...
-        }
+        }*/
          /* pagamento em DINHEIRO .. */          
         if(evt.getKeyCode() == KeyEvent.VK_F7) {              
          //   jTextArea1.setVisible(false);
@@ -202,7 +217,16 @@ public class TelaVendajdk5 extends javax.swing.JFrame {
         }
          if(evt.getKeyCode() == KeyEvent.VK_F6) {            
                 venda = new Venda();
-                System.out.println("venda iniciada");
+                Cliente cliente = new Cliente();
+                cliente.setId(1);
+                Funcionario f = new Funcionario();
+                f.setId(2);
+                PDV pdv = new PDV();
+                pdv.setID(1);
+                venda.setCliente(cliente);
+                venda.setFuncionario(f);
+                venda.setPdv(pdv);
+                System.out.println("venda iniciada...");
                 //mostrar mensagem ma tela!! Inicinando Venda ...
         }
          /* pagamento em DINHEIRO .. */          
@@ -232,22 +256,28 @@ public class TelaVendajdk5 extends javax.swing.JFrame {
         if(evt.getKeyCode()==KeyEvent.VK_ENTER){
                 itemVenda.setQtde(Integer.parseInt(jTextField3.getText()));
                 venda.adicionarItem(itemVenda);
+                itemVenda.setVenda(venda);
+                itemVenda.setEstado(EstadoItemVenda.ENTREGUE);
+                venda.setValor(venda.getValor()+itemVenda.getItemProduto().getPreco()*itemVenda.getQtde());
                 addItemCumpom();
+                System.out.print("valor: "+venda.getValor()+"");
 		jTextField4.setText(venda.getValor() + "");
-                System.out.print("Enter");
+                System.out.print("Enter esse");
         }
         //pagamento em money
         if(evt.getKeyCode()==KeyEvent.VK_F8){
             Double valorPago = Double.parseDouble(jTextField3.getText());
-            Double troco = venda.getValor() - valorPago;
+            Double troco = valorPago - venda.getValor();
             jTextField4.setText(troco.toString());
             PagamentoDinheiro pd = new PagamentoDinheiro();        
-            //pd.setValor(venda.getValor());
-            //pd.setValorPago(valorPago);
-            pd.setId(1);  
+            pd.setValor(venda.getValor());
+           // pd.setValorPago(valorPago);
+            //pd.setId(1);  
+            pd.setTipo(TipoPagamento.Dinheiro);
             venda.adicionarPagamento(pd);
+            pd.setVenda(venda);
            // valor = 
-            //finalizarVenda();
+            finalizarVenda();
            // System.out.print("f12");
         }
     }//GEN-LAST:event_jTextField3KeyPressed
