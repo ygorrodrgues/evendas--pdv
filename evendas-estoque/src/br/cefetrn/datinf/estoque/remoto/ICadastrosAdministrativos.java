@@ -1,6 +1,7 @@
 package br.cefetrn.datinf.estoque.remoto;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.Collection;
 
@@ -12,24 +13,24 @@ import br.cefetrn.datinf.estoque.dominio.SubCategoria;
 
 public interface ICadastrosAdministrativos extends Remote {
 
-	int inserirCategoria(Categoria categoria) throws SQLException;
-	void deletarCategoria(Categoria categoria) throws SQLException;
-	Collection<Categoria> recuperarCategorias() throws SQLException;
+	int inserirCategoria(Categoria categoria) throws SQLException, RemoteException;
+	void deletarCategoria(Categoria categoria) throws SQLException, RemoteException;
+	Collection<Categoria> recuperarCategorias() throws SQLException, RemoteException;
 	
-	int inserirSubCategoria(SubCategoria subCategoria) throws SQLException;
-	void deletarSubCategoria(SubCategoria subCategoria) throws SQLException;
-	Collection<SubCategoria> recuperarSubCategorias() throws SQLException;
+	int inserirSubCategoria(SubCategoria subCategoria) throws SQLException, RemoteException;
+	void deletarSubCategoria(SubCategoria subCategoria) throws SQLException, RemoteException;
+	Collection<SubCategoria> recuperarSubCategorias() throws SQLException, RemoteException;
 	
-	int inserirMedida(Medida medida) throws SQLException;
-	void deletarMedida(Medida medida) throws SQLException;
-	Collection<Medida> recuperarMedidas() throws SQLException;
+	int inserirMedida(Medida medida) throws SQLException, RemoteException;
+	void deletarMedida(Medida medida) throws SQLException, RemoteException;
+	Collection<Medida> recuperarMedidas() throws SQLException, RemoteException;
 	
-	long inserirProduto(Produto produto) throws SQLException;
-	void deletarProduto(Produto produto) throws SQLException;
-	Collection<Produto> recuperarProdutos() throws SQLException;
+	long inserirProduto(Produto produto) throws SQLException, RemoteException;
+	void deletarProduto(Produto produto) throws SQLException, RemoteException;
+	Collection<Produto> recuperarProdutos() throws SQLException, RemoteException;
 	
-	long inserirItemProduto(ItemProduto item) throws SQLException;
-	void deletarItemProduto(ItemProduto item) throws SQLException;
-	Collection<ItemProduto> recuperaritem() throws SQLException;
+	long inserirItemProduto(ItemProduto item) throws SQLException, RemoteException;
+	void deletarItemProduto(ItemProduto item) throws SQLException, RemoteException;
+	Collection<ItemProduto> recuperaritem() throws SQLException, RemoteException;
 	
 }
