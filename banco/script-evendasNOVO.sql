@@ -993,9 +993,6 @@ GO
 /*==============================================================*/
 /* View: v_produto_Categoria                                    */
 /*==============================================================*/
-/*==============================================================*/
-/* View: v_produto_Categoria                                    */
-/*==============================================================*/
 create view [dbo].[v_produto_Categoria]
 as
 SELECT p.id_produto as id,p.codigo_produto as codigo, p.nome_produto as nome,p.descricao_produto as descricao, 
@@ -1046,7 +1043,7 @@ GO
 /* Function: precoItemDeVenda                                   */
 /*==============================================================*/
 create function [dbo].[precoItemDeVenda](@qtd int, @preco decimal(12,2))
-returns decimal
+returns decimal(12,2)
 as
 begin
 	return @qtd*@preco
@@ -1058,7 +1055,7 @@ go
 /* Function: precoVenda                                         */
 /*==============================================================*/
 CREATE function [dbo].[precoVenda] (@codVenda int)
-returns decimal
+returns decimal(12,2)
 as
 begin
 
