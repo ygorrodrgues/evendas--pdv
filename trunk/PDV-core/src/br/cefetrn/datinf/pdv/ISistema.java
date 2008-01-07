@@ -12,7 +12,7 @@ public interface ISistema {
 
 	public Venda iniciarVenda();	
 	public ItemVenda entrarItem(Venda venda, long codigoProduto, int qtd);
-	public Venda finalizarVenda(Venda venda);
+	public void finalizarVenda(Venda venda);
 	public void fazerPagamento(double quantia);
 	public HashMap<Integer,String> tiposPagamento();
         public String solicitarAprovacaoDeCompra(String numeroCartao,double valorCompra,int qtdParcelas,String identPDV);

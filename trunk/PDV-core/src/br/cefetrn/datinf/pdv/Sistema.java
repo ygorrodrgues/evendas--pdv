@@ -70,9 +70,14 @@ public class Sistema implements ISistema {
 	}
         
 	//nao precisa implementar aki soh no JFORM
-        public Venda finalizarVenda(Venda venda) {
-		//enviar venda para o PDV??
-		return null;
+        public void finalizarVenda(Venda venda) {
+        try {
+            controladorVenda.finalizarVenda(venda);
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(Sistema.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
 	}
 	
 	public void fazerPagamento(double quantia) {
