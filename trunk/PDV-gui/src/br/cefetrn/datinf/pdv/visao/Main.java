@@ -20,8 +20,10 @@ public class Main {
         Main progrma = new Main();
          ISistema sistema = Sistema.getInstance();
          sistema.setarEstoqueRemoto(progrma.recuperarEstoqueremoto());
-         telaPrincipal tela = new telaPrincipal(sistema);
-         tela.setVisible(true);
+      //   telaPrincipal tela = new telaPrincipal(sistema);
+       //  tela.setVisible(true);
+         TelaVendajdk5 telaVendajdk5 = new TelaVendajdk5();
+         telaVendajdk5.setVisible(true);
          
     }
     
@@ -30,7 +32,6 @@ public class Main {
                 IEstoque estoque = null;;
                 try {
                     
-                        System.out.println("aqui 68");
                         o = Naming.lookup("rmi://localhost/estoque");
                         estoque = (IEstoque)o;
                 }
