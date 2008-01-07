@@ -61,18 +61,25 @@ public class Estoque implements Serializable{
 	}
 	
 	public long registrarVenda(Venda umaVenda) throws SQLException{
+		System.out.println("Acessou registrar venda em estoque");
+		System.out.println(umaVenda.getValor());
 		FabricaDao fabrica = FabricaDao.getInstance();
 		long idVenda = 0;
 		VendaDao vendaDao = fabrica.getVendaDao();
+		System.out.println("um");
+		System.out.println(umaVenda.getFuncionario().getId());
+		System.out.println(umaVenda.getFuncionario().getId()+" , "+ umaVenda.getPdv().getID()+" , "+  umaVenda.getCliente().getId() + "");
 		idVenda = vendaDao.registrarVenda(umaVenda.getFuncionario().getId(), umaVenda.getPdv().getID(), umaVenda.getCliente().getId(), new Date());
-		umaVenda.setId(idVenda);
-		this.registrarItensVenda(umaVenda.getItens());
+		System.out.println("dois");
+		umaVenda.setId(idVenda);		
+		this.registrarItensVenda(umaVenda.getItens());		
 		this.registrarPagamentos(umaVenda.getPagamentos());
 			
 		return idVenda;
 	}
 	
 	public void registrarItensVenda(Collection<ItemVenda> itens) throws SQLException{
+		System.out.println("Acessou registrarItensVenda em estoque");
 		FabricaDao fabrica = FabricaDao.getInstance();
 		ItemVendaDao dao = fabrica.getItemDeVendaDao();
 		for(ItemVenda iten: itens){
@@ -82,6 +89,7 @@ public class Estoque implements Serializable{
 	}
 	
 	public void registrarPagamentos(Collection<Pagamento> pagamentos) throws SQLException{
+		System.out.println("Acessou registrarPagamentos em estoque");
 		for(Pagamento pag: pagamentos){
 			switch (pag.getTipo()) {
 			case Cartao:
@@ -118,6 +126,7 @@ public class Estoque implements Serializable{
 	}
 	
 	public void registrarPagamentoDinheiro(PagamentoDinheiro pagamento) throws SQLException{
+		System.out.println("Acessou registrarPagamentoDinheiro");
 		FabricaDao fabrica = FabricaDao.getInstance();
 		PagamentoDao dao = fabrica.getPagamentoDAO();
 		long idPagamento = dao.registrarPagamento(pagamento);

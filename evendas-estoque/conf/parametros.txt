@@ -1,6 +1,7 @@
 Servidor
--Djava.security.policy==C:\workspace\PDS-Distribuido\evendas-estoque\conf\java.policy
--Djava.rmi.server.codebase=file:/C:\workspace\PDS-Distribuido\evendas-estoque\src/
+-Djava.security.policy==C:\workspace\evendas-estoque\conf\java.policy
+-Djava.rmi.server.codebase=file:/C:\workspace\evendas-estoque\src/
+
 
 Cliente
--Djava.security.policy==C:\workspace\PDS-Distribuido\Cliente Teste\src\conf\java.policy
+-Djava.security.policy==C:\workspace\evendas-estoque\conf\java.policy
