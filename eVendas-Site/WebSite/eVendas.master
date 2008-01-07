@@ -30,6 +30,7 @@
             <div id="principal">
                 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                 </asp:ContentPlaceHolder>
+                <div id="gambiarra"></div>
             </div>
         </div>
         <div id="rodape">

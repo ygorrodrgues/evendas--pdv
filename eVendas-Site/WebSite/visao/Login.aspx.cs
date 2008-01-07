@@ -26,7 +26,14 @@ public partial class visao_Login : System.Web.UI.Page
 
             Usuario usuario = (Usuario)Session["usuario"];
 
-            lblMensagem.Text = "Olá, "+usuario.Login;
+            if (Request["compra"] != null)
+            {
+                Response.Redirect("FinalizarVenda.aspx");
+            }
+            else
+            {
+                lblMensagem.Text = "Olá, " + usuario.Login;
+            }            
         }
         else
         {
