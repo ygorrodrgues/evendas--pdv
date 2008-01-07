@@ -111,9 +111,9 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		Produto produto = null;
 		if(resultado.next()){
 			produto = new Produto();
-			produto.setId(resultado.getLong("ID-PRODUTO"));
+			produto.setId(resultado.getLong("ID_PRODUTO"));
 			produto.setNome(resultado.getString("NOME_PRODUTO"));
-			produto.setDescricao(resultado.getString("DESCRICAO_PRODUTO "));
+			produto.setDescricao(resultado.getString("DESCRICAO_PRODUTO"));
 			produto.setPreco(resultado.getDouble("CUSTO"));
 			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("ID_SUBCATEGORIA")));
 		}
