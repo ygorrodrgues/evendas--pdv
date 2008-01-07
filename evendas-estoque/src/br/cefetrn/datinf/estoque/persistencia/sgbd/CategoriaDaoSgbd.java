@@ -4,6 +4,8 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import br.cefetrn.datinf.estoque.dominio.Categoria;
 import br.cefetrn.datinf.estoque.persistencia.CategoriaDao;
@@ -42,6 +44,23 @@ public class CategoriaDaoSgbd implements CategoriaDao {
 		CallableStatement callableStatement = conexao.obterCallableStatement("{call sp_Deletar_Categoria(?)}");
 		callableStatement.setLong(1, categoria.getId());
 		callableStatement.execute();
+	}
+	
+	@Override
+	public Collection<Categoria> recuperarCategorias() throws SQLException {
+		Collection<Categoria> categorias = new ArrayList<Categoria>();
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spSelectCategoria }");
+		ResultSet resultado = callableStatement.executeQuery();
+		Categoria categoria = null;
+		while(resultado.next()){
+			categoria = new Categoria();
+			categoria.setId(resultado.getInt("id_categoria"));
+			categoria.setDescricao(resultado.getString("descricao_categoria"));
+			categoria.setSubs(new SubCategoriaDaoSgbd().recuperarSubCategoriasPorCategoria(categoria));
+			categorias.add(categoria);
+		}
+		return categorias;
 	}
 
 }

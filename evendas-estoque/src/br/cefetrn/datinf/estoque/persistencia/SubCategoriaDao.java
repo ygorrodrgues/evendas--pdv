@@ -16,5 +16,7 @@ public interface SubCategoriaDao {
 
 	Collection<SubCategoria> recuperarSubCategoriasPorCategoria(
 			Categoria categoria) throws SQLException;
+
+	Collection<SubCategoria> recuperarSubCategorias() throws SQLException;
 	
 }

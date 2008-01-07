@@ -4,10 +4,13 @@ import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.dominio.Loja;
 import br.cefetrn.datinf.estoque.dominio.Produto;
+import br.cefetrn.datinf.estoque.dominio.SubCategoria;
 import br.cefetrn.datinf.estoque.persistencia.ItemProdutoDao;
 
 public class ItemProdutoDaoSgbd implements ItemProdutoDao {
@@ -39,7 +42,7 @@ public class ItemProdutoDaoSgbd implements ItemProdutoDao {
 	
 	
 	@Override	
-	public ItemProduto SelectItemProdutoByCodigoProduto(long codProduto, int idLoja) throws SQLException {
+	public ItemProduto selectItemProdutoByCodigoProduto(long codProduto, int idLoja) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
 		//fcSelectItemProdutoByCodigoProduto(@codProduto bigint, @idLoja int)
 		CallableStatement callableStatement = conexao.obterCallableStatement
@@ -68,6 +71,25 @@ public class ItemProdutoDaoSgbd implements ItemProdutoDao {
 	private Loja recuperarLojaItem(int idLoja) throws SQLException{
 		Loja loja = new LojaDaoSgbd().buscarLojaById(idLoja);
 		return loja;
+	}
+
+	@Override
+	public Collection<ItemProduto> recuperarItensProduto() throws SQLException {
+		Collection<ItemProduto> itens = new ArrayList<ItemProduto>();
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call sp_SelectItensProduto}");
+		ResultSet resultado = callableStatement.executeQuery();
+		ItemProduto item = null;
+		while(resultado.next()){
+			item = new ItemProduto();
+			item.setId(resultado.getInt("id_subcategoria"));
+			item.setLoja(new LojaDaoSgbd().buscarLojaById((resultado.getInt("id_loja"))));
+			item.setPreco(resultado.getDouble("preco_item_produto"));
+			item.setQtd(resultado.getInt("qtd_item_produto"));
+			item.setProduto(new ProdutoDaoSgbd().recuperarProduto(resultado.getInt("id_produto")));
+			itens.add(item);			
+		}
+		return itens;
 	}
 	
 	

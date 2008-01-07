@@ -20,4 +20,6 @@ public interface ProdutoDao {
 
 	void deletar(Produto produto) throws SQLException;
 
+	Collection<Produto> recuperarProdutos() throws SQLException;
+
 }

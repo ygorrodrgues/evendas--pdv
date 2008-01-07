@@ -38,4 +38,10 @@ public abstract class FabricaDao {
 	public abstract LojaDao getLojaDao();
 	
 	public abstract ItemProdutoDao getItemProdutoDao();
+	
+	public abstract CategoriaDao getCategoriaDao();
+	
+	public abstract SubCategoriaDao getSubCategoriaDao();
+	
+	public abstract MedidaDao getMedidaDaoDao();
 }

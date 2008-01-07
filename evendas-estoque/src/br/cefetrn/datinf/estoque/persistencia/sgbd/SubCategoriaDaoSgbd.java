@@ -50,7 +50,7 @@ public class SubCategoriaDaoSgbd implements SubCategoriaDao {
 	@Override
 	public int inserir(SubCategoria subCategoria) throws SQLException{
 		Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call sp_Select_SubCategoria(?,?)}");
+		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call sp_Inserir_SubCategoria(?,?)}");
 		callableStatement.registerOutParameter(1, Types.INTEGER);
 		callableStatement.setInt(2, subCategoria.getCategoria().getId());
 		callableStatement.setString(3, subCategoria.getDescricao());
@@ -65,6 +65,23 @@ public class SubCategoriaDaoSgbd implements SubCategoriaDao {
 		CallableStatement callableStatement = conexao.obterCallableStatement("{call sp_Deletar_SubCategoria(?)}");
 		callableStatement.setLong(1, subCategoria.getId());
 		callableStatement.execute();
+	}
+
+	@Override
+	public Collection<SubCategoria> recuperarSubCategorias() throws SQLException {
+		Collection<SubCategoria> subs = new ArrayList<SubCategoria>();
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spSelectSubCategorias}");
+		ResultSet resultado = callableStatement.executeQuery();
+		SubCategoria sub = null;
+		while(resultado.next()){
+			sub = new SubCategoria();
+			sub.setId(resultado.getInt("id_subcategoria"));
+			sub.setDescricao(resultado.getString("descricao_subcategoria"));
+			sub.setCategoria(new CategoriaDaoSgbd().obterPorId(resultado.getInt("id_categoria")));
+			subs.add(sub);			
+		}
+		return subs;
 	}
 
 }
