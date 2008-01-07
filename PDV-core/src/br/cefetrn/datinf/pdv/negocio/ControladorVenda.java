@@ -133,4 +133,8 @@ public class ControladorVenda{
     	
     	return "Aprovado";
         }
+        public void finalizarVenda(Venda venda) throws RemoteException{
+            this.estoque.registrarVenda(venda);
+            
+        }
 }
