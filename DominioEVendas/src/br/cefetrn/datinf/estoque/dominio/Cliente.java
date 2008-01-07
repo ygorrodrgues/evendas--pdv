@@ -1,15 +1,26 @@
 package br.cefetrn.datinf.estoque.dominio;
 
-public class Cliente {
-	
-	private String id;
+import java.io.Serializable;
+
+@SuppressWarnings("serial")
+public class Cliente implements Serializable{
+	private long id;
+	private String CPF;
 	private String nome;
+	private Endereco endereco;
+	private Telefone telefone;
 	
-	public String getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(long id) {
 		this.id = id;
+	}
+	public String getCPF() {
+		return CPF;
+	}
+	public void setCPF(String cpf) {
+		CPF = cpf;
 	}
 	public String getNome() {
 		return nome;
@@ -17,16 +28,29 @@ public class Cliente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public Cliente(String id, String nome) {
-		super();
-		this.id = id;
-		this.nome = nome;
+	/**
+	 * @return the endereco
+	 */
+	public Endereco getEndereco() {
+		return endereco;
 	}
-	public Cliente() {
-		super();
-		// TODO Auto-generated constructor stub
+	/**
+	 * @param endereco the endereco to set
+	 */
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
+	/**
+	 * @return the telefone
+	 */
+	public Telefone getTelefone() {
+		return telefone;
+	}
+	/**
+	 * @param telefone the telefone to set
+	 */
+	public void setTelefone(Telefone telefone) {
+		this.telefone = telefone;
 	}
 	
-	
-
 }
