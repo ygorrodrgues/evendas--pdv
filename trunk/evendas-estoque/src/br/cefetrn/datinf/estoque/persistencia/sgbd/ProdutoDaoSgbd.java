@@ -27,7 +27,8 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		Produto produto = null;
 		while(resultado.next()){
 			produto = new Produto();
-			produto.setId(resultado.getInt("codigo"));
+			produto.setId(resultado.getInt("id"));
+			produto.setCodigo(resultado.getInt("codigo"));
 			produto.setNome(resultado.getString("nome"));
 			produto.setDescricao(resultado.getString("descricao"));
 			produto.setQtde(resultado.getInt("quantidade"));
@@ -48,12 +49,34 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		Produto produto = null;
 		while(resultado.next()){
 			produto = new Produto();
-			produto.setId(resultado.getInt("codigo"));
+			produto.setId(resultado.getInt("id"));
+			produto.setCodigo(resultado.getInt("codigo"));
 			produto.setNome(resultado.getString("nome"));
 			produto.setDescricao(resultado.getString("descricao"));
 			produto.setQtde(resultado.getInt("quantidade"));
 			produto.setPreco(resultado.getDouble("preco"));
 			produto.setSubCategoria(subCategoria);
+			produtos.add(produto);
+		}
+		return produtos;
+	}
+	
+	@Override
+	public Collection<Produto> recuperarProdutos() throws SQLException {
+		Collection<Produto> produtos = new ArrayList<Produto>();
+		Conexao conexao = Conexao.obterInstancia();
+		CallableStatement callableStatement = conexao.obterCallableStatement("{call spSelectProdutos}");
+		ResultSet resultado = callableStatement.executeQuery();
+		Produto produto = null;
+		while(resultado.next()){
+			produto = new Produto();
+			produto.setId(resultado.getInt("id"));
+			produto.setCodigo(resultado.getInt("codigo"));
+			produto.setNome(resultado.getString("nome"));
+			produto.setDescricao(resultado.getString("descricao"));
+			produto.setQtde(resultado.getInt("quantidade"));
+			produto.setPreco(resultado.getDouble("preco"));
+			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("cod_subcategoria")));
 			produtos.add(produto);
 		}
 		return produtos;
@@ -68,7 +91,8 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 		Produto produto = null;
 		if(resultado.next()){
 			produto = new Produto();
-			produto.setId(resultado.getInt("codigo"));
+			produto.setId(resultado.getInt("id"));
+			produto.setCodigo(resultado.getInt("codigo"));
 			produto.setNome(resultado.getString("nome"));
 			produto.setDescricao(resultado.getString("descricao"));
 			produto.setQtde(resultado.getInt("quantidade"));
@@ -99,13 +123,14 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 	@Override
 	public int inserir(Produto produto) throws SQLException {
 		Conexao conexao = Conexao.obterInstancia();
-		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call sp_Inserir_Produto(?,?,?,?,?)}");
+		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call sp_Inserir_Produto(?,?,?,?,?,?)}");
 		callableStatement.registerOutParameter(1, Types.INTEGER);
 		callableStatement.setInt(2,produto.getCodigo());
-		callableStatement.setInt(3,	produto.getMedida().getId());
-		callableStatement.setString(4, produto.getNome());
-		callableStatement.setString(5, produto.getDescricao());
-		callableStatement.setDouble(6, produto.getPreco());
+		callableStatement.setInt(3, produto.getSubCategoria().getId());
+		callableStatement.setInt(4,	produto.getMedida().getId());
+		callableStatement.setString(5, produto.getNome());
+		callableStatement.setString(6, produto.getDescricao());
+		callableStatement.setDouble(7, produto.getPreco());
 		callableStatement.execute();
 		int idProduto = callableStatement.getInt(1);
 		return idProduto;

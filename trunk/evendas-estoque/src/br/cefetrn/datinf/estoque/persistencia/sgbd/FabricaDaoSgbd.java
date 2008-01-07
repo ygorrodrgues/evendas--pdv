@@ -1,13 +1,16 @@
 package br.cefetrn.datinf.estoque.persistencia.sgbd;
 
+import br.cefetrn.datinf.estoque.persistencia.CategoriaDao;
 import br.cefetrn.datinf.estoque.persistencia.CupomDeTrocaDao;
 import br.cefetrn.datinf.estoque.persistencia.FabricaDao;
 import br.cefetrn.datinf.estoque.persistencia.ItemProdutoDao;
 import br.cefetrn.datinf.estoque.persistencia.ItemVendaDao;
 import br.cefetrn.datinf.estoque.persistencia.LojaDao;
+import br.cefetrn.datinf.estoque.persistencia.MedidaDao;
 import br.cefetrn.datinf.estoque.persistencia.PagamentoDao;
 import br.cefetrn.datinf.estoque.persistencia.ParcelaDao;
 import br.cefetrn.datinf.estoque.persistencia.ProdutoDao;
+import br.cefetrn.datinf.estoque.persistencia.SubCategoriaDao;
 import br.cefetrn.datinf.estoque.persistencia.VendaDao;
 
 public class FabricaDaoSgbd extends FabricaDao {
@@ -20,6 +23,9 @@ public class FabricaDaoSgbd extends FabricaDao {
 	private ParcelaDao parcelaDao;
 	private LojaDao lojaDao;
 	private ItemProdutoDao itemProdutoDao;
+	private CategoriaDao categoriaDao;
+	private SubCategoriaDao subCategoriaDao;
+	private MedidaDao medidaDao;
 	
 	public FabricaDaoSgbd() {	}
 
@@ -71,6 +77,24 @@ public class FabricaDaoSgbd extends FabricaDao {
 	public ItemProdutoDao getItemProdutoDao() {
 		if(this.itemProdutoDao == null) this.itemProdutoDao = new ItemProdutoDaoSgbd();
 		return this.itemProdutoDao;
+	}
+
+	@Override
+	public CategoriaDao getCategoriaDao() {
+		if(this.categoriaDao == null) this.categoriaDao = new CategoriaDaoSgbd();
+		return this.categoriaDao;
+	}
+
+	@Override
+	public MedidaDao getMedidaDaoDao() {
+		if(this.medidaDao == null) this.medidaDao = new MedidaDaoSgbd();
+		return this.medidaDao;
+	}
+
+	@Override
+	public SubCategoriaDao getSubCategoriaDao() {
+		if(this.subCategoriaDao == null) this.subCategoriaDao = new SubCategoriaDaoSgbd();
+		return this.subCategoriaDao;
 	}	
 
 }
