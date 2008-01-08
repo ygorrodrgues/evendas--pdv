@@ -1,9 +1,12 @@
 package br.cefetrn.datinf.estoque.persistencia.sgbd;
 
+import java.rmi.RemoteException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
+import br.cefetrn.datinf.estoque.dominio.Produto;
+import br.cefetrn.datinf.estoque.negocio.CadastrosAdministrativos;
 
 
 public class Main {
@@ -11,8 +14,12 @@ public class Main {
 	public static void main(String[] args) {
 		
 		try {
-			ArrayList<ItemVenda> itens = (ArrayList<ItemVenda>) new VendaDaoSgbd().obterPorCodigo(3).getItens();
-			new VendaDaoSgbd().realizarTroca(1, itens);
+			try {
+				new CadastrosAdministrativos().inserirProduto(new Produto());
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

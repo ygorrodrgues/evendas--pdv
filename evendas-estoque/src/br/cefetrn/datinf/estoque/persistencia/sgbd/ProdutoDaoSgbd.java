@@ -123,12 +123,13 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 
 	@Override
 	public int inserir(Produto produto) throws SQLException {
+		System.out.println("PORRA É???");
 		Conexao conexao = Conexao.obterInstancia();
 		CallableStatement callableStatement = conexao.obterCallableStatement("{? = call sp_Inserir_Produto(?,?,?,?,?,?)}");
 		callableStatement.registerOutParameter(1, Types.INTEGER);
 		callableStatement.setInt(2,produto.getCodigo());
-		callableStatement.setInt(3, produto.getSubCategoria().getId());
-		callableStatement.setInt(4,	produto.getMedida().getId());
+		callableStatement.setInt(3, 1);//produto.getSubCategoria().getId());
+		callableStatement.setInt(4,	1);//produto.getMedida().getId());
 		callableStatement.setString(5, produto.getNome());
 		callableStatement.setString(6, produto.getDescricao());
 		callableStatement.setDouble(7, produto.getPreco());
