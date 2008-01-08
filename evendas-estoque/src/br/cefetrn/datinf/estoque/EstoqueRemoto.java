@@ -40,6 +40,7 @@ public class EstoqueRemoto implements IEstoque, Serializable {
 	
 	public long registrarVenda(Venda umaVenda)throws RemoteException{
 		try {
+			System.out.println(umaVenda.getValor());
 			return estoque.registrarVenda(umaVenda);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
