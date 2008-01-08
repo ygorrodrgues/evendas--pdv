@@ -41,13 +41,13 @@ public class Parcela implements Serializable{
 	/**
 	 * @return the pagamento
 	 */
-	public Pagamento getPagamento() {
+	public PagamentoCartao getPagamentoCartao() {
 		return pagamento;
 	}
 	/**
 	 * @param pagamento the pagamento to set
 	 */
-	public void setPagamento(PagamentoCartao pagamento) {
+	public void setPagamentoCartao(PagamentoCartao pagamento) {
 		this.pagamento = pagamento;
 	}
 	/**
