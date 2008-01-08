@@ -22,8 +22,9 @@ public class Servidor {
 				System.setSecurityManager(new RMISecurityManager());
 			}
 			//Naming.rebind("estoque", new EstoqueRemoto());
+			//System.out.println("Servidor do estoque pronto 25");
 			Naming.rebind("cadAdmin", new CadastrosAdministrativos());
-			System.out.println("Servidor do estoque pronto 26");			
+			System.out.println("Servidor do estoque pronto 27");			
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
