@@ -10,7 +10,6 @@ import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.pdv.ISistema;
 import br.cefetrn.datinf.pdv.Sistema;
 import java.awt.Dimension;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JDialog;
@@ -51,22 +50,24 @@ public class GerarCupom extends JDialog{
         return javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
     }
     
-    private void jButtonCancelarMouseClicked(MouseEvent evt) {
+    private void jButtonCancelarMouseClicked(java.awt.event.MouseEvent evt) {
         setVisibleDialog(false);
     }
     
-    private void jButtonProcurarMouseClicked(MouseEvent evt) {
+    private void jButtonProcurarMouseClicked(java.awt.event.MouseEvent evt) {
          venda = new Venda();
+         
          try{
             venda = sis.buscarVenda(Integer.parseInt(jTextFieldIdVenda.getText()));
+            for(ItemVenda item : venda.getItens()){
+             Object[] it = {item.getId(),item.getItemProduto().getProduto().getNome(), item.getItemProduto().getPreco(), item.getQtde()};
+             ((DefaultTableModel) jTableProdutos.getModel()).addRow(it);
+            }  
          }catch(Exception e){
              JOptionPane.showMessageDialog(null, "Valor inválido");
          }
          
-         for(ItemVenda item : venda.getItens()){
-             Object[] it = {item.getId(),item.getItemProduto().getProduto().getNome(), item.getItemProduto().getPreco(), item.getQtde()};
-             ((DefaultTableModel) jTableProdutos.getModel()).addRow(it);
-         }         
+                 
     }
 
     private void initComponents() {
@@ -95,11 +96,11 @@ public class GerarCupom extends JDialog{
         );
         
         jButtonProcurar.addMouseListener(new java.awt.event.MouseAdapter() {
-                public void mouseClicked(java.awt.event.MouseEvent evt){
-                    jButtonProcurarMouseClicked(evt);
-                }
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButtonProcurarMouseClicked(evt);
             }
-        );
+        });
         
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18));
         jLabel1.setText("Gerar Boleto de troca");
