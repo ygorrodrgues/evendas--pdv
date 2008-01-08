@@ -7,7 +7,7 @@ import java.util.Date;
 public class Parcela implements Serializable{
 	private long id;
 	private Cartao cartao;
-	private Pagamento pagamento;
+	private PagamentoCartao pagamento;
 	private Date dataVencimento;
 	private double valorVencmento;
 	private Date dataPgto;
@@ -45,7 +45,7 @@ public class Parcela implements Serializable{
 	/**
 	 * @param pagamento the pagamento to set
 	 */
-	public void setPagamento(Pagamento pagamento) {
+	public void setPagamento(PagamentoCartao pagamento) {
 		this.pagamento = pagamento;
 	}
 	/**
