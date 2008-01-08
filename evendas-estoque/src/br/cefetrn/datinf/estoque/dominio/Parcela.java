@@ -3,8 +3,10 @@ package br.cefetrn.datinf.estoque.dominio;
 import java.io.Serializable;
 import java.util.Date;
 
-@SuppressWarnings("serial")
+
 public class Parcela implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private Cartao cartao;
 	private PagamentoCartao pagamento;
