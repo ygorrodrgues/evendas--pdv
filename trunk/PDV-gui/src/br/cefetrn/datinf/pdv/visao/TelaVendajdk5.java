@@ -18,6 +18,7 @@ import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.pdv.ISistema;
 import br.cefetrn.datinf.pdv.Sistema;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 /**
  *
  * @author  Raquel
@@ -27,6 +28,9 @@ public class TelaVendajdk5 extends javax.swing.JFrame {
     private ItemVenda itemVenda = null;
     private Venda venda = null;
     private Double valor = 0.0;
+    
+    private Double entrada = 0.0;
+    
     
     /** Creates new form TelaVendajdk5 */
     public TelaVendajdk5() {
@@ -288,7 +292,7 @@ public class TelaVendajdk5 extends javax.swing.JFrame {
                 Double valorparcela = venda.getValor()/qtdParcelas;
                 jTextField3.setText(valorparcela.toString());
         }
-         //pagamenteo em CARTAO ..  numero do cartao eh? eqtd de parcelas
+         //pagamento em CARTAO ..  numero do cartao eh? eqtd de parcelas
         if(evt.getKeyCode()==KeyEvent.VK_F10){
             String numCartao = jTextField1.getText();
             Integer qtdParcelas = Integer.parseInt(jTextField2.getText());
@@ -304,7 +308,7 @@ public class TelaVendajdk5 extends javax.swing.JFrame {
             String mensagem = sistema.solicitarAprovacaoDeCompra(numCartao, venda.getValor(), qtdParcelas, identPDV);
             
             //se der erro mostra mensagem
-            //JOptionPane.showMessageDialog(null, mensagem);
+            JOptionPane.showMessageDialog(null, mensagem);
             //senao cotinua o processo
         }
     }//GEN-LAST:event_jTextField2KeyPressed
