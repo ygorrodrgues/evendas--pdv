@@ -13,8 +13,8 @@ public class ParcelaDaoSgbd implements ParcelaDao {
 		Conexao conexao = Conexao.obterInstancia();
 		//(ID_PAGAMENTO, ID_CARTAO, DATA_VENC, VALOR_VENC) 
 		CallableStatement callableStatement = conexao.obterCallableStatement("{call spRegistrarParcela(?, ?, ?, ?, ?)}");
-		callableStatement.setLong(1, parcela.getPagamento().getId());
-		System.out.println("Id pagamento: "+parcela.getPagamento().getId());
+		callableStatement.setLong(1, parcela.getPagamentoCartao().getId());
+		System.out.println("Id pagamento: "+parcela.getPagamentoCartao().getId());
 		callableStatement.setLong(2, parcela.getCartao().getId());
 		//FIXME nao sei como converter o date do java pro date do sql server
 		callableStatement.setDate(3,null);
