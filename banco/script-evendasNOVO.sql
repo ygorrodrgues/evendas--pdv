@@ -169,7 +169,7 @@ go
 /*==============================================================*/
 /* Table: CARTAO                                                */
 /*==============================================================*/
-create table CARTAO (
+/*create table CARTAO (
 ID_CARTAO            int                  not null identity,
 ID_CLIENTE           bigint               not null,
 LIMITE				decimal(10,2)			not null,
@@ -178,7 +178,7 @@ constraint FK_CARTAO_RELATIONS_CLIENTE foreign key (ID_CLIENTE)
       references CLIENTE (ID_CLIENTE)
 )
 go
-
+*/
 /*==============================================================*/
 /* Table: TIPO_PAGAMENTO                                        */
 /*==============================================================*/
@@ -295,7 +295,7 @@ go
 /*==============================================================*/
 /* Table: PARCELAS                                              */
 /*==============================================================*/
-create table PARCELAS (
+/*create table PARCELAS (
 ID_PARCELAS          bigint               not null identity,
 ID_PAGAMENTO         bigint               not null,
 ID_CARTAO            int                  not null,
@@ -310,7 +310,7 @@ constraint FK_PARCELAS_RELATIONS_PAGAMENT foreign key (ID_PAGAMENTO)
       references PAGAMENTO (ID_PAGAMENTO)
 )
 go
-
+*/
 /*==============================================================*/
 /* Table: ACAO_LOG                                              */
 /*==============================================================*/
@@ -627,7 +627,7 @@ join produto p on p.id_produto = ip.id_produto
 where p.codigo_Produto = @codproduto and ip.id_loja = @idLoja
 go
 
---exec sp_SelectItemProdutoByCodigoProduto 12345,1
+--exec sp_SelectItemProdutoByCodigoProduto 2,1
 /*==============================================================*/
 /* Procedure: sp_SelectItensProduto - ItemProdutoDaoSgbd.recuperarItensProduto*/
 /*==============================================================*/
@@ -742,7 +742,7 @@ go
 /*==============================================================*/
 /* PROCEDURE spRegistrarParcela - ParcelaDaoSgbd.registrarParcela */
 /*==============================================================*/
-CREATE PROCEDURE spRegistrarParcela
+/*CREATE PROCEDURE spRegistrarParcela
 @idPagamento bigint,
 @idCartao bigint,
 @dataVenc datetime,
@@ -753,7 +753,7 @@ SET @dataVenc = getDate()+30*@numeroParcela;
 insert into parcelas(ID_PAGAMENTO, ID_CARTAO, DATA_VENC, VALOR_VENC) 
 	VALUES(@idPagamento, @idCartao, @dataVenc, @valorVenc)
 go
-
+*/
 --exec spRegistrarParcela 
 /*==============================================================*/
 /* Procedure: spSelectProdutosBySubCategoria - ProdutoDaoSgbd.recuperarProdutosSubCategoria */
@@ -1242,21 +1242,19 @@ INSERT INTO ESTADO_ITEM_VENDA (DESCRICAO_ESTADO_ITEM_VENDA) VALUES ('DEVOLVIDO')
 INSERT INTO ESTADO_ITEM_VENDA (DESCRICAO_ESTADO_ITEM_VENDA) VALUES ('ENTREGUE')
 INSERT INTO ESTADO_ITEM_VENDA (DESCRICAO_ESTADO_ITEM_VENDA) VALUES ('TROCADO')
 
---INSERT INTO LOJA (NOME_LOJA) VALUES ('Loja 1')
---INSERT INTO LOJA (NOME_LOJA) VALUES ('Loja 2')
---INSERT INTO LOJA (NOME_LOJA) VALUES ('Loja 3')
+INSERT INTO LOJA (NOME_LOJA) VALUES ('Loja 1')
 
---INSERT INTO PDV(ID_LOJA) VALUES (1)
+INSERT INTO PDV(ID_LOJA) VALUES (1)
 
---INSERT INTO USUARIO(LOGIN,SENHA) VALUES ('login','senha')
+INSERT INTO USUARIO(LOGIN,SENHA, EMAIL) VALUES ('rafael',CONVERT(VARBINARY(255), PWDENCRYPT('rafael123')),'r4faelmf@gmail.com')
 
---INSERT INTO ESTADO(NOME_ESTADO) VALUES ('RN')
+INSERT INTO ESTADO(NOME_ESTADO) VALUES ('RN')
 
---INSERT INTO MUNICIPIO (NOME,ID_ESTADO) VALUES ('Natal',1)
+INSERT INTO MUNICIPIO (NOME,ID_ESTADO) VALUES ('Natal',1)
 
---INSERT INTO CLIENTE (NOME_CLIENTE,CPF) VALUES ('Fulano de Tal', '01234567891')
+INSERT INTO CLIENTE (NOME_CLIENTE,CPF) VALUES ('Fulano de Tal', '01234567891')
 
---INSERT INTO FUNCIONARIO(ID_LOJA,ID_USUARIO,MATRICULA_FUNC,NOME_FUNC) VALUES (1,1,'2008','Beltrano')
+INSERT INTO FUNCIONARIO(ID_LOJA,ID_USUARIO,MATRICULA_FUNC,NOME_FUNC) VALUES (1,1,'2008','Beltrano')
 
 INSERT INTO MEDIDA(DESCRICAO_MEDIDA) VALUES ('Kg')
 INSERT INTO MEDIDA(DESCRICAO_MEDIDA) VALUES ('Lata')
@@ -1264,11 +1262,11 @@ INSERT INTO MEDIDA(DESCRICAO_MEDIDA) VALUES ('Litro')
 INSERT INTO MEDIDA(DESCRICAO_MEDIDA) VALUES ('Grade')
 INSERT INTO MEDIDA(DESCRICAO_MEDIDA) VALUES ('Caixa')
 
---INSERT INTO CATEGORIA_PRODUTO(DESCRICAO_CATEGORIA) VALUES ('Alimentos')
+INSERT INTO CATEGORIA_PRODUTO(DESCRICAO_CATEGORIA) VALUES ('Alimentos')
 
---INSERT INTO SUBCATEGORIA_PRODUTO(ID_CATEGORIA,DESCRICAO_SUBCATEGORIA) VALUES (1,'Massas')
+INSERT INTO SUBCATEGORIA_PRODUTO(ID_CATEGORIA,DESCRICAO_SUBCATEGORIA) VALUES (1,'Massas')
 
-/*
+
 INSERT INTO PRODUTO (CODIGO_PRODUTO,ID_SUBCATEGORIA,ID_MEDIDA,DESCRICAO_PRODUTO,NOME_PRODUTO,CUSTO) 
 	VALUES (12345,1,1,'Pão de forma integral X sem fermento','Pão Integral X',0.03)
 INSERT INTO PRODUTO (CODIGO_PRODUTO,ID_SUBCATEGORIA,ID_MEDIDA,DESCRICAO_PRODUTO,NOME_PRODUTO,CUSTO) 
@@ -1277,13 +1275,5 @@ INSERT INTO PRODUTO (CODIGO_PRODUTO,ID_SUBCATEGORIA,ID_MEDIDA,DESCRICAO_PRODUTO,
 INSERT INTO ITEM_PRODUTO(ID_PRODUTO,ID_LOJA,QTD_ITEM_PRODUTO,PRECO_ITEM_PRODUTO) VALUES (1,1,200,0.12)
 INSERT INTO ITEM_PRODUTO(ID_PRODUTO,ID_LOJA,QTD_ITEM_PRODUTO,PRECO_ITEM_PRODUTO) VALUES (2,1,20,5.55)
 	
-INSERT INTO VENDA(ID_FUNC,ID_PDV,ID_CLIENTE,DATA_VENDA) VALUES (1,1,1,getdate())
 
-INSERT INTO ITEM_VENDA(ID_VENDA,ID_ITEM_PRODUTO,QTD_ITEM_VENDA) VALUES (1,1,25)
 
-INSERT INTO ITEM_VENDA(ID_VENDA,ID_ITEM_PRODUTO,QTD_ITEM_VENDA) VALUES (1,2,3)
-
-INSERT INTO Pagamento(ID_TIPO_PAGAMENTO, ID_VENDA, VALOR_PAGAMENTO) VALUES(1, 1, 10.00)
-
-exec spObterVendaPorCod 1
-*/
