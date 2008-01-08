@@ -38,7 +38,7 @@ public class GerarCupom extends JDialog{
             public void windowClosing(WindowEvent e){
                 setVisibleDialog(false);
                 dispose();
-            }
+            }            
         });
     }
     

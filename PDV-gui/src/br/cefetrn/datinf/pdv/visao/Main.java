@@ -18,12 +18,17 @@ public class Main {
 
     public static void main(String[] args) {
         Main progrma = new Main();
-         ISistema sistema = Sistema.getInstance();
-         sistema.setarEstoqueRemoto(progrma.recuperarEstoqueremoto());
-      //   telaPrincipal tela = new telaPrincipal(sistema);
-       //  tela.setVisible(true);
-         TelaVendajdk5 telaVendajdk5 = new TelaVendajdk5();
-         telaVendajdk5.setVisible(true);
+       ISistema sistema = Sistema.getInstance();
+        sistema.setarEstoqueRemoto(progrma.recuperarEstoqueremoto());
+        //telaPrincipal tela = new telaPrincipal(sistema);
+        //tela.setVisible(true);
+        //TelaVendajdk5 telaVendajdk5 = new TelaVendajdk5();
+        //telaVendajdk5.setVisible(true);
+        VendaGui vendaGui = new VendaGui();
+        vendaGui.setVisible(true);
+        
+       
+        
          
     }
     
