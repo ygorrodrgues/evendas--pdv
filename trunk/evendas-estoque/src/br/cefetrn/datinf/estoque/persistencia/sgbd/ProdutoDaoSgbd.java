@@ -116,6 +116,7 @@ public class ProdutoDaoSgbd implements ProdutoDao {
 			produto.setDescricao(resultado.getString("DESCRICAO_PRODUTO"));
 			produto.setPreco(resultado.getDouble("CUSTO"));
 			produto.setSubCategoria(new SubCategoriaDaoSgbd().obterPorId(resultado.getInt("ID_SUBCATEGORIA")));
+			produto.setCodigo(resultado.getInt("CODIGO_PRODUTO"));
 		}
 		return produto;
 	}
