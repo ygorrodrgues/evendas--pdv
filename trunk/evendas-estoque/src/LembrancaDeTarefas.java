@@ -5,7 +5,6 @@ public class LembrancaDeTarefas {
 //TODO implementar registrar Itemvenda
 //TODO implementar registrar Pagamento
 //TODO implementar registrar Parcela
-//TODO implementar registrar Parcela
 //
 	
 /* ACAO
