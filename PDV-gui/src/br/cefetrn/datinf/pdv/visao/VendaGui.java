@@ -18,18 +18,18 @@ import br.cefetrn.datinf.pdv.Sistema;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import javax.swing.JOptionPane;
+import javax.swing.JFrame;
 import javax.swing.Timer;
-import javax.swing.text.AbstractDocument.Content;
 
 /**
  *
  * @author  gleison
  */
-public class VendaGui extends javax.swing.JFrame {
+public class VendaGui extends javax.swing.JDialog {
     
     /** Creates new form Venda */
     private ISistema sistema = Sistema.getInstance();
@@ -37,9 +37,12 @@ public class VendaGui extends javax.swing.JFrame {
     private Venda venda = null;
     private Double valor = 0.0;
     private int nItem = 0;
+    private JFrame parent;
     
     
-    public VendaGui() {
+    public VendaGui(JFrame owner) {
+        super(owner);
+        this.parent = owner;
         initComponents();
         this.temporizador();  
         this.venda = new Venda();
@@ -52,7 +55,14 @@ public class VendaGui extends javax.swing.JFrame {
          venda.setCliente(cliente);
          venda.setFuncionario(f);
          venda.setPdv(pdv);
-         System.out.println("venda iniciada...");
+         
+         this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e){
+                setVisibleDialog(false);
+                dispose();
+            }            
+        });
         
     }
     
@@ -64,6 +74,11 @@ public class VendaGui extends javax.swing.JFrame {
                 );
         itemVenda = new ItemVenda();
         this.limparCampos();
+    }
+    
+    public void setVisibleDialog( boolean b ){
+	parent.setEnabled(!b);
+        setVisible(b);
     }
 
     private void finalizarVenda() {
@@ -98,7 +113,7 @@ public class VendaGui extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabelF2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Ralizar Venda");
 
         jLabelPDV.setFont(new java.awt.Font("Tahoma", 0, 18));
@@ -332,13 +347,6 @@ public class VendaGui extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VendaGui().setVisible(true);
-            }
-        });
-    }
     
       private void temporizador(){
         ActionListener action = new ActionListener() {

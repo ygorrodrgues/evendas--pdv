@@ -24,20 +24,16 @@ public class Main {
         //tela.setVisible(true);
         //TelaVendajdk5 telaVendajdk5 = new TelaVendajdk5();
         //telaVendajdk5.setVisible(true);
-        VendaGui vendaGui = new VendaGui();
-        vendaGui.setVisible(true);
-        
-       
-        
-         
+        TelaGeral telaGeral = new TelaGeral();
+        telaGeral.setVisible(true);     
     }
     
     public IEstoque recuperarEstoqueremoto() {
                 Object o;
-                IEstoque estoque = null;;
+                IEstoque estoque = null;
                 try {
                     
-                        o = Naming.lookup("rmi://localhost/estoque");
+                        o = Naming.lookup("rmi://10.3.120.10/estoque");
                         estoque = (IEstoque)o;
                 }
 		catch (Exception e) {
