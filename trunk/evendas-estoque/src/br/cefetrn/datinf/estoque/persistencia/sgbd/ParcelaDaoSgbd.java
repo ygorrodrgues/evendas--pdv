@@ -16,7 +16,8 @@ public class ParcelaDaoSgbd implements ParcelaDao {
 		callableStatement.setLong(1, parcela.getPagamentoCartao().getId());
 		System.out.println("Id pagamento: "+parcela.getPagamentoCartao().getId());
 		callableStatement.setLong(2, parcela.getCartao().getId());
-		//FIXME nao sei como converter o date do java pro date do sql server
+		//FIXME nao sei como converter o date do java pro date do sql server.
+		//FIXME nem eu!!
 		callableStatement.setDate(3,null);
 		callableStatement.setDouble(4, parcela.getValorVencmento());
 		callableStatement.setInt(5, numeroParcela);

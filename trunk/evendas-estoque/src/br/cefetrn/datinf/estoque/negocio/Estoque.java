@@ -112,7 +112,7 @@ public class Estoque implements Serializable{
 		long idPagamento = dao.registrarPagamento(pagamento);
 		pagamento.setId(idPagamento);
 		System.out.println("id do pagamento em estoque: "+idPagamento);
-		this.registrarParcelas(pagamento.getParcelas());
+		//this.registrarParcelas(pagamento.getParcelas());
 	}
 	
 	public void registrarParcelas(Collection<Parcela> parcelas) throws SQLException{
