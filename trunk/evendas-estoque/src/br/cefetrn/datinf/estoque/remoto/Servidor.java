@@ -17,20 +17,12 @@ public class Servidor {
 	public static void main(String[] args) {
 		
 		try {
-			//EstoqueRemoto estoque = new EstoqueRemoto();
 			if(System.getSecurityManager() == null){
 				System.setSecurityManager(new RMISecurityManager());
 			}
-
 			Naming.rebind("estoque", new EstoqueRemoto());
-			System.out.println("Servidor do estoque pronto 25");
-			//Naming.rebind("cadAdmin", new CadastrosAdministrativos());
-			//System.out.println("Servidor do estoque pronto 27");			
-
-			Naming.rebind("estoque", new EstoqueRemoto());
-			//Naming.rebind("cadAdmin", new CadastrosAdministrativos());
+			Naming.rebind("cadAdmin", new CadastrosAdministrativos());
 			System.out.println("Servidor do estoque pronto 26");			
-
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

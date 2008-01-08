@@ -64,6 +64,8 @@ public class CadastrosAdministrativos implements ICadastrosAdministrativos {
 
 	@Override
 	public long inserirProduto(Produto produto) throws SQLException , RemoteException{
+		System.out.println(produto.getNome());
+		System.out.println("????"+fabrica);
 		return fabrica.getProdutoDao().inserir(produto);
 	}
 
