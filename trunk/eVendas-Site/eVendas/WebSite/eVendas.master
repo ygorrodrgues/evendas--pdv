@@ -1,0 +1,54 @@
+<%@ Master Language="C#" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<script runat="server">
+
+</script>
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>eVendas</title>
+    <link rel="stylesheet" type="text/css" href="styles/eVendas.css" />
+</head>
+<body>
+    <div>
+        <div id="cabecalho">
+            <div id="topo"></div>
+            <div id="menu">
+                <ul id="menu_hor" title="eVendas">
+                    <li><a href="../visao/index.aspx"><asp:Image ID="mn_inicio" runat="server" ImageUrl="~/images/mn_inicio.png" AlternateText="Início" /></a></li>
+                    <li><a href="#"><asp:Image ID="mn_promocoes" runat="server" ImageUrl="~/images/mn_promocoes.png" AlternateText="Promoções" /></a></li>
+                    <li><a href="#"><asp:Image ID="mn_navegar" runat="server" ImageUrl="~/images/mn_navegar.png" AlternateText="Navegar"/></a></li>
+                    <li><a href="#"><asp:Image ID="mn_buscar" runat="server" ImageUrl="~/images/mn_buscar.png" AlternateText="Buscar"/></a></li>
+                    <li><a href="#"><asp:Image ID="mn_contato" runat="server" ImageUrl="~/images/mn_contato.png" AlternateText="Contato"/></a></li>
+                </ul>
+            </div>            
+        </div>
+        <div id="corpo">
+            <div id="topo_corpo"></div>
+            <div id="principal">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+                <div id="gambiarra"></div>
+            </div>
+        </div>
+        <div id="rodape">
+            <div id="corpo_rodape">
+                <p id="copyright">Copyright &copy; 2007 - Projeto de Desenvolvimento de Sistemas Distribuídos - TADS CEFET-RN</p>
+                <div id="desenvolvedores">                
+                    <ul>
+                        <li>Adelson |</li>
+                        <li>Gleison |</li>
+                        <li>Liérbet |</li>
+                        <li>Rafael |</li>
+                        <li>Raquel |</li>
+                        <li>Wilbert</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="base_rodape"></div>
+        </div>
+    </div>
+</body>
+</html>
