@@ -15,6 +15,7 @@ import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.pdv.ISistema;
 import br.cefetrn.datinf.pdv.Sistema;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -194,7 +195,7 @@ public class PagamentoTela2 extends javax.swing.JFrame {
             PagamentoDinheiro pagamentoDinheiro = null;
     
             entrada = Double.parseDouble( jTextField1.getText());
-            valorPago = Double.parseDouble( jTextField2.getText());
+            //valorPago = Double.parseDouble(jTextField2.getText());
             
             pagamentoDinheiro = new PagamentoDinheiro();        
             pagamentoDinheiro.setValor(entrada);           
@@ -213,37 +214,37 @@ public class PagamentoTela2 extends javax.swing.JFrame {
          if(evt.getKeyCode()==KeyEvent.VK_F11){
              PagamentoCartao pagamentoCartao;
            String numCartao = jTextField1.getText();
-           int qtdParcelas = Integer.parseInt(jTextField2.getText());
+           //int qtdParcelas = Integer.parseInt(jTextField2.getText());
            Double valorparcela = 0.0;
            pagamentoCartao = new PagamentoCartao();
-           pagamentoCartao.setNumeroParcelas(qtdParcelas);
+           //pagamentoCartao.setNumeroParcelas(qtdParcelas);
            pagamentoCartao.setTipo(TipoPagamento.Cartao);
            if(entrada==0){
-                 valorparcela = venda.getValor()/qtdParcelas;
+                // valorparcela = venda.getValor()/qtdParcelas;
                  pagamentoCartao.setValor(venda.getValor());                 
                  pagamentoCartao.setVenda(venda);
            }
            else{
-                valorparcela = (venda.getValor()-entrada)/qtdParcelas;
+                //valorparcela = (venda.getValor()-entrada)/qtdParcelas;
                 pagamentoCartao.setValor(venda.getValor()-entrada);
            }                     
            jTextField3.setText(valorparcela.toString());
            
            String identPDV = "PDV";
-           String mensagem =  sistema.solicitarAprovacaoDeCompra(numCartao, venda.getValor(), qtdParcelas, telaVendajdk5.ge);
-           JOptionPane.showMessageDialog(null, mensagem);
+           //String mensagem =  sistema.solicitarAprovacaoDeCompra(numCartao, venda.getValor(), qtdParcelas, telaVendajdk5.ge);
+           //JOptionPane.showMessageDialog(null, mensagem);
             
-           int qtdParcelas = Integer.parseInt(jTextField1.getText());
+           //int qtdParcelas = Integer.parseInt(jTextField1.getText());
         Double parcela = 0.0;
         if(entrada==0){
-          parcela = venda.getValor()/qtdParcelas;
+          //parcela = venda.getValor()/qtdParcelas;
             jTextField3.setText(venda.getValor()- valorPago + "");
         }
         else{
            // parcela = (telaVenda.getVenda().getValor()- entrada)/qtdParcelas;
             jTextField3.setText(valorPago - entrada + "");
         }
-        jTextField2.setText(parcela.toString());
+        //jTextField2.setText(parcela.toString());
         PagamentoCartao pc = new PagamentoCartao();
      //   pc.setNParcelas(qtdParcelas);
         pc.setValor(parcela);

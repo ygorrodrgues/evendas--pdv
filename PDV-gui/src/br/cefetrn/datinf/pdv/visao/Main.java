@@ -18,7 +18,7 @@ public class Main {
 
     public static void main(String[] args) {
         Main progrma = new Main();
-       ISistema sistema = Sistema.getInstance();
+        ISistema sistema = Sistema.getInstance();
         sistema.setarEstoqueRemoto(progrma.recuperarEstoqueremoto());
         //telaPrincipal tela = new telaPrincipal(sistema);
         //tela.setVisible(true);
@@ -32,9 +32,8 @@ public class Main {
                 Object o;
                 IEstoque estoque = null;
                 try {
-                    
-                        o = Naming.lookup("rmi://10.3.120.10/estoque");
-                        estoque = (IEstoque)o;
+                    o = Naming.lookup("rmi://10.3.120.10/estoque");
+                    estoque = (IEstoque)o;
                 }
 		catch (Exception e) {
 			// TODO Auto-generated catch block
