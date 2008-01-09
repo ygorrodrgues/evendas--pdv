@@ -31,7 +31,9 @@ public class ControladorVenda{
         public Venda buscarVenda(int idVenda){
             try {
                 Venda venda = this.estoque.recuperarVenda(idVenda);
+                
                 return venda;
+                
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
