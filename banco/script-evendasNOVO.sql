@@ -536,7 +536,7 @@ CREATE procedure sp_Select_Categoria
 AS
 	select id_categoria, descricao_categoria from categoria_produto
 go
-
+select * from categoria_produto
 --exec sp_Select_Categoria
 /*==============================================================*/
 /* PROCEDURE spLigarTrocaAoPagamento - CupomDeTrocaDaoSgbd.ligarTrocaAoPagamento  */
@@ -832,7 +832,7 @@ AS
 	DELETE FROM PRODUTO WHERE ID_PRODUTO = @ID_PRODUTO
 go
 
---exec sp_Deletar_Produto 4
+--exec sp_Deletar_Produto 3
 /*==============================================================*/
 /* Procedure: spSelectSubCategoria - SubCategoriaDaoSgbd.obterPorId */
 /*==============================================================*/
@@ -1009,12 +1009,13 @@ go
 /*==============================================================*/
 create view V_Item_Venda
 as
-select ip.id_item_produto as codigo, p.descricao_produto as descricao, iv.qtd_item_venda as quantidade, 
+select iv.id_item_venda as codigo, p.descricao_produto as descricao, iv.qtd_item_venda as quantidade, 
 	ip.preco_item_produto as valor, iv.id_Venda
 from Item_Venda iv
 	join item_produto ip on ip.id_item_produto = iv.id_item_produto
 	join produto p on p.id_produto = ip.id_produto
 go
+
 
 /*==============================================================*/  
 /* View: SelectProduto											*/  
