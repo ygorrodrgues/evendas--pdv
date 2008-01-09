@@ -41,12 +41,14 @@ public class Estoque implements Serializable{
 	}*/
 
 	public Venda recuperarVenda(int numVenda) throws VendaNaoExistenteException, SQLException {
+		System.out.println("Acessou recuperarVenda. Id da venda: "+numVenda);
 		FabricaDao fabrica = FabricaDao.getInstance();
 		Venda venda = fabrica.getVendaDao().obterPorCodigo(numVenda);
 		//TODO:Não recupera venda sem item associado(não permitir o cadastro de venda sem item)
 		if(venda == null){
 			throw new VendaNaoExistenteException();
 		}
+		System.out.println("Venda retornada. ID>: "+venda.getId());
 		return venda;
 	}
 
