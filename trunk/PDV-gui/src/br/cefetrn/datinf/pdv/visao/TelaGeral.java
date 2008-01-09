@@ -79,8 +79,8 @@ public class TelaGeral extends javax.swing.JFrame {
     private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
         // TODO add your handling code here:  
         if(evt.getKeyCode() == KeyEvent.VK_F2){
-            gerarCupom = new GerarCupom(this);
-            gerarCupom.setVisibleDialog(true);
+            cupom = new CupomTroca(this);
+            cupom.setVisibleDialog(true);
         }        
         if(evt.getKeyCode() == KeyEvent.VK_F1){
             vendaGui = new VendaGui(this);
@@ -103,6 +103,6 @@ public class TelaGeral extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
-    private GerarCupom gerarCupom;
+    private CupomTroca cupom;
     private VendaGui vendaGui;
 }
