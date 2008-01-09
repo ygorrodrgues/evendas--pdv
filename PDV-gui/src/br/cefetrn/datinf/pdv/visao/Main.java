@@ -8,6 +8,7 @@ package br.cefetrn.datinf.pdv.visao;
 import br.cefetrn.datinf.estoque.remoto.IEstoque;
 import br.cefetrn.datinf.pdv.ISistema;
 import br.cefetrn.datinf.pdv.Sistema;
+import cefetrn.datinf.tads.credito.interfaces.ICredito;
 import java.rmi.Naming;
 
 /**
@@ -20,6 +21,7 @@ public class Main {
         Main progrma = new Main();
         ISistema sistema = Sistema.getInstance();
         sistema.setarEstoqueRemoto(progrma.recuperarEstoqueremoto());
+         sistema.setarCreditoRemoto(progrma.recuperarCreditoremoto());
         //telaPrincipal tela = new telaPrincipal(sistema);
         //tela.setVisible(true);
         //TelaVendajdk5 telaVendajdk5 = new TelaVendajdk5();
@@ -32,7 +34,7 @@ public class Main {
                 Object o;
                 IEstoque estoque = null;
                 try {
-                    o = Naming.lookup("rmi://10.3.120.10/estoque");
+                    o = Naming.lookup("rmi://10.3.120.2/estoque");
                     estoque = (IEstoque)o;
                 }
 		catch (Exception e) {
@@ -40,5 +42,18 @@ public class Main {
 			e.printStackTrace();
                 }
 		return estoque;
+    }
+    public ICredito recuperarCreditoremoto() {
+                Object o;
+                ICredito credito = null;
+                try {
+                    o = Naming.lookup("rmi://localhost/credito");
+                    credito = (ICredito)o;
+                }
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+                }
+		return credito;
     }
 }
