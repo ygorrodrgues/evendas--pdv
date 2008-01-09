@@ -49,6 +49,10 @@ public class Estoque implements Serializable{
 			throw new VendaNaoExistenteException();
 		}
 		System.out.println("Venda retornada. ID>: "+venda.getId());
+		System.out.println("Qtd item: "+venda.getItens().size());
+		for(ItemVenda item: venda.getItens()){
+			
+		}
 		return venda;
 	}
 
