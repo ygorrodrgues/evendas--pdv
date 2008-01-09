@@ -1,6 +1,7 @@
 package br.cefetrn.datinf.pdv;
 
 
+import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
 import java.util.ArrayList;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Pagamento;
@@ -19,4 +20,5 @@ public interface ISistema {
         public Venda buscarVenda(int idVenda);
 	public ItemVenda criarItemVenda(long codigoProduto);
         public void setarEstoqueRemoto(IEstoque estoque);
+        public int registrarCupomDeTroca(CupomDeTroca umCupom);
 }

@@ -1,6 +1,7 @@
 package br.cefetrn.datinf.pdv;
 
 
+import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
 import br.cefetrn.datinf.pdv.negocio.ControladorVenda;
 import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
@@ -27,6 +28,7 @@ public class Sistema implements ISistema {
 		if(pdv == null){
 			pdv = new Sistema();
 		}
+                
 		return pdv;
         }
         
@@ -39,6 +41,11 @@ public class Sistema implements ISistema {
             Venda venda = controladorVenda.buscarVenda(idVenda);
             
             return venda;
+        }
+        
+        public int registrarCupomDeTroca(CupomDeTroca umCupom){
+            int numeroCupomDeTroca = this.controladorVenda.registrarCupomDeTroca(umCupom);
+            return numeroCupomDeTroca;
         }
 	
 	public ItemVenda entrarItem(Venda venda, long codigoProduto, int qtd) {

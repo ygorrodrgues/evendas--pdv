@@ -1,19 +1,11 @@
 package br.cefetrn.datinf.pdv.negocio;
 
-
-import br.cefetrn.datinf.estoque.excecoes.VendaNaoExistenteException;
+import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
 import br.cefetrn.datinf.estoque.remoto.IEstoque;
-import java.net.MalformedURLException;
-import java.rmi.Naming;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import br.cefetrn.datinf.estoque.dominio.ItemProduto;
-import br.cefetrn.datinf.estoque.dominio.Produto;
 import br.cefetrn.datinf.estoque.dominio.Venda;
-import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ControladorVenda{
 	
@@ -38,6 +30,18 @@ public class ControladorVenda{
                 ex.printStackTrace();
             }
             return null;
+        }
+        
+        public int registrarCupomDeTroca(CupomDeTroca umCupom){
+            try {
+                int numeroCupomTroca = this.estoque.registrarCupomDeTroca(umCupom);
+                
+                return numeroCupomTroca;
+                
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            return 0;
         }
         
         public void setarEstoqueRemoto(IEstoque estoque){
