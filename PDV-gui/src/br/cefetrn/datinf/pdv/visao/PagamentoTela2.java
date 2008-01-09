@@ -233,7 +233,21 @@ public class PagamentoTela2 extends javax.swing.JFrame {
            String mensagem =  sistema.solicitarAprovacaoDeCompra(numCartao, venda.getValor(), qtdParcelas, telaVendajdk5.ge);
            JOptionPane.showMessageDialog(null, mensagem);
             
-           
+           int qtdParcelas = Integer.parseInt(jTextField1.getText());
+        Double parcela = 0.0;
+        if(entrada==0){
+          parcela = venda.getValor()/qtdParcelas;
+            jTextField3.setText(venda.getValor()- valorPago + "");
+        }
+        else{
+           // parcela = (telaVenda.getVenda().getValor()- entrada)/qtdParcelas;
+            jTextField3.setText(valorPago - entrada + "");
+        }
+        jTextField2.setText(parcela.toString());
+        PagamentoCartao pc = new PagamentoCartao();
+     //   pc.setNParcelas(qtdParcelas);
+        pc.setValor(parcela);
+//        telaVenda.getVenda().adicionarPagamento(pc);
            
            
            
