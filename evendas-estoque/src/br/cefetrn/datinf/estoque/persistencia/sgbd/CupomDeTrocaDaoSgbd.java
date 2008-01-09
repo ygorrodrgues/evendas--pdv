@@ -27,9 +27,9 @@ public class CupomDeTrocaDaoSgbd implements CupomDeTrocaDao {
 		callableStatement.setLong(2, cupom.getVenda().getId());
 		callableStatement.setDouble(3, cupom.getValor());
 		callableStatement.execute();
-		int codigo = callableStatement.getInt(1);
+		int codigo = callableStatement.getInt(1);		
 		for (ItemVenda item : cupom.getItens()) {
-			registraItemTrocado(item, cupom.getId());
+			registraItemTrocado(item, codigo);
 		}
 		return codigo;
 	}

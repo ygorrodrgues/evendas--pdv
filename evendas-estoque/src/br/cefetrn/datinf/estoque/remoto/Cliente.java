@@ -3,16 +3,16 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.rmi.PortableRemoteObject;
 
-import br.cefetrn.datinf.gerencial.dominio.CaixaEmpresa;
-import br.cefetrn.datinf.gerencial.rmi.ICaixa;
+//import br.cefetrn.datinf.gerencial.dominio.CaixaEmpresa;
+//import br.cefetrn.datinf.gerencial.rmi.ICaixa;
 
 
 public class Cliente {
 	public static void main(String[] args) {
-		Context ic;
+		/*Context ic;
 		Object objref; 
-		ICaixa hi; 
-		CaixaEmpresa c = new CaixaEmpresa();
+		//ICaixa hi; 
+		//CaixaEmpresa c = new CaixaEmpresa();
 		c.setValor_entrada(10.10);
 		try { 
 			ic = new InitialContext(); 
@@ -24,7 +24,7 @@ public class Cliente {
 			e.printStackTrace( ); 
 			return;
 		}
-		//-Djava.naming.factory.initial=com.sun.jndi.cosnaming.CNCtxFactory -Djava.naming.provider.url=iiop://localhost:1050
+		//-Djava.naming.factory.initial=com.sun.jndi.cosnaming.CNCtxFactory -Djava.naming.provider.url=iiop://localhost:1050*/
 	}
 }
 
