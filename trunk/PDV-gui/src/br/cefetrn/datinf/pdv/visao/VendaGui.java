@@ -81,6 +81,11 @@ public class VendaGui extends javax.swing.JDialog {
         setVisible(b);
     }
 
+    private void encerrarVenda() {
+        PagamentoTela2 pagamentoTela2 = new PagamentoTela2(venda);
+        pagamentoTela2.setVisible(true);
+    }
+
     private void finalizarVenda() {
         sistema.finalizarVenda(venda);
     }
@@ -198,7 +203,7 @@ public class VendaGui extends javax.swing.JDialog {
         jLabelVezes.setText("X");
 
         jLabelF2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelF2.setText("F2(Inserir Item)");
+        jLabelF2.setText("F12(Encerar)");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -305,8 +310,10 @@ public class VendaGui extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
     
     private void atalhos(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_atalhos
-        if(evt.getKeyCode() == KeyEvent.VK_F2){
-            System.out.print("F2");
+        if(evt.getKeyCode() == KeyEvent.VK_F12){
+            System.out.print("F12");
+            encerrarVenda();
+            
         }
         else if(evt.getKeyCode() == KeyEvent.VK_F3){
             System.out.print("F3");
