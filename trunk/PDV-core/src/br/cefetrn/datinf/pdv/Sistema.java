@@ -7,6 +7,7 @@ import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Venda;
 import br.cefetrn.datinf.estoque.remoto.IEstoque;
+import cefetrn.datinf.tads.credito.interfaces.ICredito;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -109,6 +110,12 @@ public class Sistema implements ISistema {
           public void setarEstoqueRemoto(IEstoque estoque){
             controladorVenda.setarEstoqueRemoto(estoque);
         }
+
+    public void setarCreditoRemoto(ICredito credito) {
+        controladorVenda.ssetarCreditoRemoto(credito);
+    }
+
+    
    
 	
 }
