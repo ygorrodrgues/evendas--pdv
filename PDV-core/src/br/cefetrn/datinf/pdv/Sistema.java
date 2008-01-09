@@ -37,6 +37,7 @@ public class Sistema implements ISistema {
         
         public Venda buscarVenda(int idVenda){
             Venda venda = controladorVenda.buscarVenda(idVenda);
+            
             return venda;
         }
 	
