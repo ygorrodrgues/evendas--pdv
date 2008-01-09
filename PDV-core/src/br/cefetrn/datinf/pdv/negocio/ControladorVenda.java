@@ -2,6 +2,7 @@ package br.cefetrn.datinf.pdv.negocio;
 
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
 import br.cefetrn.datinf.estoque.remoto.IEstoque;
+import cefetrn.datinf.tads.credito.interfaces.ICredito;
 import java.rmi.RemoteException;
 import br.cefetrn.datinf.estoque.dominio.ItemProduto;
 import br.cefetrn.datinf.estoque.dominio.Venda;
@@ -12,6 +13,7 @@ public class ControladorVenda{
 	private static ControladorVenda controladorVenda = null;
 	private double subTotal;
         private IEstoque estoque = null;
+        private ICredito credito = null;
         /***
          * 
          * @param venda
@@ -128,6 +130,10 @@ public class ControladorVenda{
 		// TODO Auto-generated method stub		
 		return null;
 	}
+
+    public void ssetarCreditoRemoto(ICredito credito) {
+        this.credito = credito;
+    }
         
         public HashMap<Integer,String> tiposPagamento(){
             return null;
@@ -140,6 +146,7 @@ public class ControladorVenda{
     	return "Aprovado";
         }
         public void finalizarVenda(Venda venda) throws RemoteException{
+            System.out.println("Chuck Norris: "+venda.getItens().size());
             this.estoque.registrarVenda(venda);
             
         }

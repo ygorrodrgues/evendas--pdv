@@ -2,6 +2,7 @@ package br.cefetrn.datinf.pdv;
 
 
 import br.cefetrn.datinf.estoque.dominio.CupomDeTroca;
+import cefetrn.datinf.tads.credito.interfaces.ICredito;
 import java.util.ArrayList;
 import br.cefetrn.datinf.estoque.dominio.ItemVenda;
 import br.cefetrn.datinf.estoque.dominio.Pagamento;
@@ -15,6 +16,8 @@ public interface ISistema {
 	public ItemVenda entrarItem(Venda venda, long codigoProduto, int qtd);
 	public void finalizarVenda(Venda venda);
 	public void fazerPagamento(double quantia);
+
+       public void setarCreditoRemoto(ICredito recuperarCreditoremoto);
 	public HashMap<Integer,String> tiposPagamento();
         public String solicitarAprovacaoDeCompra(String numeroCartao,double valorCompra,int qtdParcelas,String identPDV);
         public Venda buscarVenda(int idVenda);
