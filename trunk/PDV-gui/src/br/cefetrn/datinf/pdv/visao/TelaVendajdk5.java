@@ -224,7 +224,7 @@ public class TelaVendajdk5 extends javax.swing.JFrame {
                 Cliente cliente = new Cliente();
                 cliente.setId(1);
                 Funcionario f = new Funcionario();
-                f.setId(2);
+                f.setId(1);
                 PDV pdv = new PDV();
                 pdv.setID(1);
                 venda.setCliente(cliente);

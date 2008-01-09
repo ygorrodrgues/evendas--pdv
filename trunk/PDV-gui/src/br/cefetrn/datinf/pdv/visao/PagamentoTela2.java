@@ -63,15 +63,15 @@ public class PagamentoTela2 extends javax.swing.JFrame {
            pagamentoCartao.setVenda(venda);
            venda.adicionarPagamento(pagamentoCartao);
            jTextField5.setText(nParcelas+" X "+valorPgtoCartao/nParcelas);
-           try{
+       //   try{
            sistema.solicitarAprovacaoDeCompra(jTextField6.getText(),Double.parseDouble(jTextField4.getText()) , Integer.parseInt(jTextField5.getText()), "Pdv");
            this.venda.adicionarPagamento(pagamentoCartao);
-          } catch (ValidacaoException ex) {
-            JOptionPane.showMessageDialog(null, "Crédito não autorizado");
-          }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro de dado.Chame o administrador do sistema");
-          }catch (RemoteException ex) {
-            JOptionPane.showMessageDialog(null, "Problema na conexão! Chame o administrador do sistema");
+      //    } catch (ValidacaoException ex) {
+      //      JOptionPane.showMessageDialog(null, "Crédito não autorizado");
+      //    }catch (SQLException ex) {
+      //      JOptionPane.showMessageDialog(null, "Erro de dado.Chame o administrador do sistema");
+      //    }catch (RemoteException ex) {
+            JOptionPane.showMessageDialog(null, "Credito aprovado");
          
         if(!jText3.getText().equals("")){
             JOptionPane.showMessageDialog(null, "vazio");
@@ -84,17 +84,20 @@ public class PagamentoTela2 extends javax.swing.JFrame {
             
            
            
-       }
+      // }
     }
 
     private void adicionarPagamentoDinheiro() {
+        System.out.println("doooooooooooga");
         PagamentoDinheiro pagamentoDinheiro = new PagamentoDinheiro();
         Double valorPgto = Double.parseDouble(jTextField4.getText());
         pagamentoDinheiro.setTipo(TipoPagamento.Dinheiro);
         pagamentoDinheiro.setValor(venda.getValor());
         pagamentoDinheiro.setVenda(this.venda);
         venda.adicionarPagamento(pagamentoDinheiro);
-        jTextField5.setText(""+(valorPgto-venda.getValor()));
+        //para mostar
+        sistema.finalizarVenda(venda);
+       // jTextField5.setText(""+(valorPgto-venda.getValor()));
     }
     
     /** This method is called from within the constructor to
@@ -146,43 +149,50 @@ public class PagamentoTela2 extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12));
         jLabel7.setText("F5 (Encerrar)");
 
-        jText1.setText("jTextField1");
+        jText1.setFont(new java.awt.Font("Tahoma", 0, 36));
 
-        jText2.setText("jTextField2");
+        jText2.setFont(new java.awt.Font("Tahoma", 0, 36));
 
-        jText3.setText("jTextField3");
+        jText3.setFont(new java.awt.Font("Tahoma", 0, 36));
         jText3.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jText3KeyPressed(evt);
             }
         });
 
-        jTextField4.setText("jTextField4");
+        jTextField4.setFont(new java.awt.Font("Tahoma", 0, 36));
+        jTextField4.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField4KeyPressed(evt);
+            }
+        });
 
-        jTextField5.setText("jTextField5");
+        jTextField5.setFont(new java.awt.Font("Tahoma", 0, 36));
 
+        jLabelTipo.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabelTipo.setText("TIPO");
 
+        jLabelTotal.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabelTotal.setText("TOTAL");
 
+        EntradaOUValorCartOUNCupom.setFont(new java.awt.Font("Tahoma", 0, 36));
         EntradaOUValorCartOUNCupom.setText("Entrada");
 
+        jLabelValorPagoOuParcelaOuValorCupom.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabelValorPagoOuParcelaOuValorCupom.setText("Valor PAGO");
 
+        jLabelCartaoOuTroco.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabelCartaoOuTroco.setText("Troco");
 
-        jTextField6.setText("jTextField1");
+        jTextField6.setFont(new java.awt.Font("Tahoma", 0, 36));
 
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 36));
         jLabel11.setText("Nº Cartão");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelTipoPagamento)
-                .addContainerGap(538, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -196,39 +206,55 @@ public class PagamentoTela2 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addContainerGap(179, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(382, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabelTipoPagamento)
+                .addGap(248, 248, 248)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelTipo)
-                    .addComponent(jText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelTotal)
-                    .addComponent(jText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(EntradaOUValorCartOUNCupom)
-                    .addComponent(jText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelValorPagoOuParcelaOuValorCupom)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelCartaoOuTroco)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(107, 107, 107))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(EntradaOUValorCartOUNCupom)
+                        .addContainerGap())
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabelTotal)
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jText3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelValorPagoOuParcelaOuValorCupom, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelCartaoOuTroco, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGap(107, 107, 107))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jText2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                .addComponent(jLabelTipo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
+                                .addComponent(jText1, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE))
+                            .addGap(107, 107, 107)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabelTipoPagamento)
-                    .addComponent(jLabelTipo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(jText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addContainerGap()
+                .addComponent(jLabelTipo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabelTipoPagamento))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jText1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
                 .addComponent(jLabelTotal)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jText2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(EntradaOUValorCartOUNCupom)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jText3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelValorPagoOuParcelaOuValorCupom)
@@ -274,23 +300,34 @@ public class PagamentoTela2 extends javax.swing.JFrame {
             
             
         }
+         if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+              System.out.print("F8");
+              registrarPagamento();
+             
+              
+          }
         /*CARTAO*/
         if(evt.getKeyCode() == KeyEvent.VK_F2){
             jText1.setText("CARTÃO");  
             this.tipoPagamento = TipoPagamento.Cartao;
          }
          /*troca*/
-        if(evt.getKeyCode() == KeyEvent.VK_F2){
+        if(evt.getKeyCode() == KeyEvent.VK_F3){
             jText1.setText("CUPOM TROCA");  
             this.tipoPagamento = TipoPagamento.Troca;
          }
          /*REGISTRA O PAGAMENTO*/
-          if(evt.getKeyCode() == KeyEvent.VK_F8){
-              registrarPagamento();
+          
+}//GEN-LAST:event_jText3KeyPressed
+
+    private void jTextField4KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField4KeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+           //  Double valorPgto = Double.parseDouble(jTextField4.getText());
+            //  jTextField5.setText(""+(valorPgto-venda.getValor()));
              
               
           }
-}//GEN-LAST:event_jText3KeyPressed
+    }//GEN-LAST:event_jTextField4KeyPressed
      private void registrarPagamento() {
         switch(this.tipoPagamento){ 
                   case Dinheiro: adicionarPagamentoDinheiro();
